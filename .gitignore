@@ -2,7 +2,7 @@
 /app/bootstrap.php.cache
 /app/config/parameters.yml
 app/maintenance.php
-
+app/config/parameters.yml
 
 # bin
 /bin/*
