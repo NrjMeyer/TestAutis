@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0b160010602eafdd2ab62d999eeb596f",
-    "content-hash": "a5700cd094353e689daf21d64e68d9d4",
+    "hash": "2e4add0972d6812c45fae93d2af19917",
+    "content-hash": "fb54073302a9b6a5bc446b83c83ab215",
     "packages": [
         {
             "name": "aferrandini/urlizer",
@@ -107,6 +107,68 @@
                 "driver"
             ],
             "time": "2016-03-02 13:49:15"
+        },
+        {
+            "name": "beberlei/DoctrineExtensions",
+            "version": "v1.0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/DoctrineExtensions.git",
+                "reference": "e6ffd1373cb2b9f658a830a5a4a668c716a75f62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/e6ffd1373cb2b9f658a830a5a4a668c716a75f62",
+                "reference": "e6ffd1373cb2b9f658a830a5a4a668c716a75f62",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/orm": "~2.1",
+                "nesbot/carbon": "*",
+                "phpunit/phpunit": "~4.5",
+                "symfony/yaml": "~2.6",
+                "zf1/zend-date": "~1.12",
+                "zf1/zend-registry": "~1.12"
+            },
+            "suggest": {
+                "nesbot/carbon": "Alternative to DateTime",
+                "zf1/zend-date": "Alternative to DateTime"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DoctrineExtensions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Steve Lacey",
+                    "email": "steve@stevelacey.net"
+                }
+            ],
+            "description": "A set of extensions to Doctrine 2 that add support for additional query functions available in MySQL and Oracle.",
+            "keywords": [
+                "database",
+                "doctrine",
+                "orm"
+            ],
+            "time": "2017-01-11 07:22:12"
         },
         {
             "name": "behat/transliterator",
@@ -449,16 +511,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "v2.7.1",
+            "version": "v2.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "5954c297e9d93ff84554906c2fbbc2a133c43941"
+                "reference": "930297026c8009a567ac051fd545bf6124150347"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/5954c297e9d93ff84554906c2fbbc2a133c43941",
-                "reference": "5954c297e9d93ff84554906c2fbbc2a133c43941",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/930297026c8009a567ac051fd545bf6124150347",
+                "reference": "930297026c8009a567ac051fd545bf6124150347",
                 "shasum": ""
             },
             "require": {
@@ -518,7 +580,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2016-12-03 08:15:01"
+            "time": "2017-01-13 14:02:13"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -579,16 +641,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.5.6",
+            "version": "v2.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "a526d0df58daa8ab6802244bf3227f532e0deb45"
+                "reference": "3a351369582dade60c750e2cef540eb7b568e6b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/a526d0df58daa8ab6802244bf3227f532e0deb45",
-                "reference": "a526d0df58daa8ab6802244bf3227f532e0deb45",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/3a351369582dade60c750e2cef540eb7b568e6b3",
+                "reference": "3a351369582dade60c750e2cef540eb7b568e6b3",
                 "shasum": ""
             },
             "require": {
@@ -646,7 +708,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2016-12-04 05:53:43"
+            "time": "2017-01-14 21:05:28"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -2326,6 +2388,72 @@
             "time": "2013-12-05 14:36:11"
         },
         {
+            "name": "justinrainbow/json-schema",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "cc84765fb7317f6b07bd8ac78364747f95b86341"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/cc84765fb7317f6b07bd8ac78364747f95b86341",
+                "reference": "cc84765fb7317f6b07bd8ac78364747f95b86341",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.29"
+            },
+            "require-dev": {
+                "json-schema/json-schema-test-suite": "1.1.0",
+                "phpdocumentor/phpdocumentor": "~2",
+                "phpunit/phpunit": "~3.7"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.6.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "time": "2016-01-25 15:43:01"
+        },
+        {
             "name": "layershifter/tld-database",
             "version": "1.0.34",
             "source": {
@@ -3816,6 +3944,113 @@
             "time": "2013-06-23 16:53:41"
         },
         {
+            "name": "sulu/comment-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sulu/SuluCommentBundle.git",
+                "reference": "b7736ff6364bcf0f7a3aab283ca814c227b3338b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sulu/SuluCommentBundle/zipball/b7736ff6364bcf0f7a3aab283ca814c227b3338b",
+                "reference": "b7736ff6364bcf0f7a3aab283ca814c227b3338b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "sulu/sulu": "^1.3 || dev-develop"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "1.4.*",
+                "jackalope/jackalope-doctrine-dbal": "^1.2.5",
+                "massive/search-bundle": "@dev",
+                "phpunit/phpunit": ">=4.8",
+                "sulu/document-manager": "@dev",
+                "symfony/monolog-bundle": "2.4.*",
+                "zendframework/zend-stdlib": "2.3.1 as 2.0.0rc5",
+                "zendframework/zendsearch": "2.*@dev"
+            },
+            "type": "sulu-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Sulu\\Bundle\\CommentBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sulu Comment",
+                    "homepage": "https://github.com/sulu/SuluCommentBundle/contributors"
+                }
+            ],
+            "description": "Sulu Bundle for adding comments on entities",
+            "homepage": "https://github.com/sulu/SuluCommentBundle",
+            "time": "2016-10-18 08:39:57"
+        },
+        {
+            "name": "sulu/community-bundle",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sulu/SuluCommunityBundle.git",
+                "reference": "7d98fff4a1c8fa0c4892d2367f7a7f5d31c2cd56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sulu/SuluCommunityBundle/zipball/7d98fff4a1c8fa0c4892d2367f7a7f5d31c2cd56",
+                "reference": "7d98fff4a1c8fa0c4892d2367f7a7f5d31c2cd56",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/doctrineextensions": "^1.0",
+                "php": "^5.5 || ^7.0",
+                "sulu/sulu": "^1.3 || dev-develop"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "1.4.*",
+                "jackalope/jackalope-doctrine-dbal": "^1.2.5",
+                "massive/search-bundle": "@dev",
+                "phpunit/phpunit": ">=4.8",
+                "sulu/document-manager": "@dev",
+                "symfony/monolog-bundle": "2.4.*",
+                "symfony/swiftmailer-bundle": "~2.3",
+                "zendframework/zend-stdlib": "2.3.1 as 2.0.0rc5",
+                "zendframework/zendsearch": "2.*@dev"
+            },
+            "type": "sulu-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Sulu\\Bundle\\CommunityBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sulu Community",
+                    "homepage": "https://github.com/sulu/SuluCommunityBundle/contributors"
+                }
+            ],
+            "description": "Sulu Bundle for building a community",
+            "homepage": "https://github.com/sulu/SuluCommunityBundle",
+            "keywords": [
+                "double opt-in",
+                "login",
+                "password forget",
+                "password reset",
+                "profile",
+                "registration",
+                "single opt-in"
+            ],
+            "time": "2016-10-19 10:15:27"
+        },
+        {
             "name": "sulu/document-manager",
             "version": "0.8.3",
             "source": {
@@ -3863,17 +4098,75 @@
             "time": "2016-12-21 15:58:31"
         },
         {
-            "name": "sulu/sulu",
-            "version": "1.4.4",
+            "name": "sulu/product-bundle",
+            "version": "0.16.3",
+            "target-dir": "Sulu/Bundle/ProductBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sulu/sulu.git",
-                "reference": "bd66148599a5db9fba25882f2a8690067981c6ca"
+                "url": "https://github.com/sulu/SuluProductBundle.git",
+                "reference": "13f540b63e031fb2ddbe27cd57985df3e271bd4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sulu/sulu/zipball/bd66148599a5db9fba25882f2a8690067981c6ca",
-                "reference": "bd66148599a5db9fba25882f2a8690067981c6ca",
+                "url": "https://api.github.com/repos/sulu/SuluProductBundle/zipball/13f540b63e031fb2ddbe27cd57985df3e271bd4d",
+                "reference": "13f540b63e031fb2ddbe27cd57985df3e271bd4d",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "2.5.*",
+                "jackalope/jackalope-doctrine-dbal": "~1.2.0",
+                "jackalope/jackalope-jackrabbit": "~1.2.0",
+                "oro/doctrine-extensions": "1.0.*",
+                "php": ">=5.4",
+                "sulu/sulu": "~1.2",
+                "sulu/validation-bundle": "~0.1",
+                "symfony-cmf/routing-bundle": "1.2.*",
+                "willdurand/hateoas-bundle": "0.3.*"
+            },
+            "require-dev": {
+                "evenement/evenement": "2.0.0 as 1.0.0",
+                "phpunit/phpunit": "~4.0.0",
+                "sensio/framework-extra-bundle": "~3.0",
+                "symfony-cmf/testing": "~1.2",
+                "symfony/monolog-bundle": "2.4.*",
+                "symfony/symfony": "2.8.*",
+                "zendframework/zendsearch": "@dev"
+            },
+            "type": "sulu-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Sulu\\Bundle\\ProductBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sulu Community",
+                    "homepage": "https://github.com/massiveart/SuluProductBundle/contributors"
+                }
+            ],
+            "description": "The Sulu Bundle for managing products",
+            "keywords": [
+                "product",
+                "sulu"
+            ],
+            "time": "2016-11-23 06:46:35"
+        },
+        {
+            "name": "sulu/sulu",
+            "version": "1.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sulu/sulu.git",
+                "reference": "4d63ad33aa201ccf6d94cd8e6286bcdf685652cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sulu/sulu/zipball/4d63ad33aa201ccf6d94cd8e6286bcdf685652cb",
+                "reference": "4d63ad33aa201ccf6d94cd8e6286bcdf685652cb",
                 "shasum": ""
             },
             "require": {
@@ -3929,7 +4222,6 @@
                 "matthiasnoback/symfony-config-test": "^1.0",
                 "matthiasnoback/symfony-dependency-injection-test": "^0.7.3",
                 "phpcr/phpcr-shell": "~1.0.0@alpha",
-                "phpdocumentor/reflection-docblock": "~3.0.3",
                 "phpunit/phpunit": ">=4.8.0",
                 "sensio/framework-extra-bundle": "~3.0",
                 "symfony/monolog-bundle": "2.4.*",
@@ -3970,7 +4262,104 @@
                 "core",
                 "sulu"
             ],
-            "time": "2017-01-12 16:48:52"
+            "time": "2017-01-16 10:52:35"
+        },
+        {
+            "name": "sulu/sulu-form-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sulu/SuluFormBundle.git",
+                "reference": "37b51c6d7680f53137f755f1edf61f7820f6129d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sulu/SuluFormBundle/zipball/37b51c6d7680f53137f755f1edf61f7820f6129d",
+                "reference": "37b51c6d7680f53137f755f1edf61f7820f6129d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "sulu/sulu": "~1.2 || dev-develop"
+            },
+            "type": "sulu-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Sulu\\Bundle\\FormBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sulu Community",
+                    "homepage": "https://github.com/sulu/SuluCommunityBundle/contributors"
+                },
+                {
+                    "name": "Alexander Schranz",
+                    "homepage": "https://alexanderschranz.com"
+                }
+            ],
+            "description": "Bundle for handling Symfony forms in Sulu templates.",
+            "homepage": "https://github.com/alexander-schranz/sulu-form-bundle",
+            "keywords": [
+                "dynamic",
+                "form",
+                "form manager",
+                "sulu"
+            ],
+            "time": "2016-10-24 09:43:40"
+        },
+        {
+            "name": "sulu/validation-bundle",
+            "version": "0.1.0",
+            "target-dir": "Sulu/Bundle/ValidationBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sulu/SuluValidationBundle.git",
+                "reference": "42bdfd7f467fb3b07dd69725237cbf51cec1c1d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sulu/SuluValidationBundle/zipball/42bdfd7f467fb3b07dd69725237cbf51cec1c1d8",
+                "reference": "42bdfd7f467fb3b07dd69725237cbf51cec1c1d8",
+                "shasum": ""
+            },
+            "require": {
+                "justinrainbow/json-schema": "~1.3",
+                "php": ">=5.4",
+                "symfony/event-dispatcher": "~2.8",
+                "symfony/framework-bundle": "~2.8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0.0",
+                "symfony/browser-kit": "~2.8"
+            },
+            "type": "validation-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Sulu\\Bundle\\ValidationBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sulu Community",
+                    "homepage": "https://github.com/massiveart/SuluProductBundle/contributors"
+                }
+            ],
+            "description": "This bundle is for validation of schemas",
+            "keywords": [
+                "schema",
+                "sulu",
+                "validation"
+            ],
+            "time": "2016-11-02 13:38:58"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4843,16 +5232,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.8.15",
+            "version": "v2.8.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "3ec15b9379ebb0758e296d4193926a7b4121a964"
+                "reference": "9fef72a3ab561c4bfa703a70369db028dec387d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/3ec15b9379ebb0758e296d4193926a7b4121a964",
-                "reference": "3ec15b9379ebb0758e296d4193926a7b4121a964",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/9fef72a3ab561c4bfa703a70369db028dec387d2",
+                "reference": "9fef72a3ab561c4bfa703a70369db028dec387d2",
                 "shasum": ""
             },
             "require": {
@@ -4974,7 +5363,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2016-12-13 12:16:34"
+            "time": "2017-01-12 20:27:46"
         },
         {
             "name": "true/punycode",
@@ -5772,6 +6161,9 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "zendframework/zendsearch": 20,
+        "sulu/community-bundle": 20,
+        "sulu/comment-bundle": 20,
+        "sulu/sulu-form-bundle": 20,
         "phpcr/phpcr-shell": 10
     },
     "prefer-stable": false,

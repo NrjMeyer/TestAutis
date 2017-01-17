@@ -144,3 +144,16 @@ dubture_f_fmpeg:
 services:
     jms_serializer.cache_naming_strategy: "@sulu_core.serialize_caching_strategy"
 
+
+sulu_community:
+    webspaces:
+        example:
+            from: "vtom.pro@gmail.com"
+
+framework:
+    esi: { enabled: true }
+
+sulu_form:
+    mail_helper:
+        from: "vtom.pro@gmail.com"
+        to: "vtom.pro@gmail.com"

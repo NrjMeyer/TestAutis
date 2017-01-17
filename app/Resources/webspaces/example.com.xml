@@ -6,6 +6,10 @@
     <name>example.com</name>
     <key>example</key>
 
+    <security>
+        <system>Website</system>
+    </security>
+
     <localizations>
         <localization language="en" default="true"/>
     </localizations>
