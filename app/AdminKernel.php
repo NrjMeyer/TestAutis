@@ -35,7 +35,7 @@ class AdminKernel extends AbstractKernel
     public function registerBundles()
     {
         $bundles = parent::registerBundles();
-        $bundles[] = new Symfony\Bundle\SecurityBundle\SecurityBundle();
+        // $bundles[] = new Symfony\Bundle\SecurityBundle\SecurityBundle();
         $bundles[] = new Sulu\Bundle\AdminBundle\SuluAdminBundle();
         $bundles[] = new Sulu\Bundle\CollaborationBundle\SuluCollaborationBundle();
         $bundles[] = new Sulu\Bundle\PreviewBundle\SuluPreviewBundle();

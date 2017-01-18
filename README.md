@@ -7,6 +7,17 @@ How to install :
 
 Create a database in your favorite sql administrator, and complete the field `database_name` and `database_password` in the `app/config/parameters.yml` file
 
+#### 3) Composer
+
+```bash
+# Run this command to install the project the first time
+composer install
+
+# Run this one when new packages are added to update dependencies
+composer update
+
+```
+
 #### 2) Populate the database
 
 ```bash
@@ -30,3 +41,5 @@ bin/websiteconsole server:start
 ```
 
 Default login and password are admin / admin
+
+When new packages are added, please repeat the whole process to install them

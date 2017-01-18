@@ -75,6 +75,15 @@ abstract class AbstractKernel extends SuluKernel
 
             // tools
             new Massive\Bundle\BuildBundle\MassiveBuildBundle(),
+
+            new Sulu\Bundle\ProductBundle\SuluProductBundle(),
+            new Sulu\Bundle\ValidationBundle\SuluValidationBundle(),
+
+            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new Sulu\Bundle\CommunityBundle\SuluCommunityBundle(),
+            new Sulu\Bundle\CommentBundle\SuluCommentBundle(),
+            new Sulu\Bundle\FormBundle\SuluFormBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

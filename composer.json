@@ -34,7 +34,11 @@
         "doctrine/doctrine-bundle": "^1.0",
         "doctrine/doctrine-cache-bundle": "^1.0",
         "oro/doctrine-extensions": "^1.0",
-        "twig/twig": "1.*"
+        "twig/twig": "1.*",
+        "sulu/product-bundle": "^0.16",
+        "sulu/community-bundle": "dev-develop",
+        "sulu/comment-bundle": "dev-master",
+        "sulu/sulu-form-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
