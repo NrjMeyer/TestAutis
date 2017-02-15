@@ -4,11 +4,16 @@
   border: none;
   cursor: pointer;
 
-  &--choose {
+  &__choose {
     width: 170px;
     margin: auto;
     background: #999999;
     padding: rem(10px) rem(20px);
     display: block;
+  }
+
+  &__add {
+    padding: rem(10px) rem(40px);
+    margin-left: auto;
   }
 }

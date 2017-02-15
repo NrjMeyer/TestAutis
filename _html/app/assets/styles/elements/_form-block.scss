@@ -1,0 +1,61 @@
+.form-block {
+
+  width: 100%;
+  font-size: rem(14px);
+  color: #868686;
+  margin-bottom: rem(20px);
+
+  &__container {
+    @include display(flex);
+    @include align-items(center);
+  }
+
+  &__top {
+    @extend .roboto--medium;
+    text-transform: uppercase;
+    color: $white;
+    background: $dark-grey;
+    padding: rem(10px);
+  }
+
+  &__bottom {
+    background: $white;
+    padding: rem(18px) rem(10px) rem(18px) rem(30px);
+  }
+
+  .input {
+    border: 1px solid #F6F6F6;
+    color: #BBBBBB;
+
+    @include placeholder {
+      color: #BBBBBB;
+      font-family: 'Roboto';
+    }
+
+    &__donation {
+      width: rem(40px);
+      text-align: center;
+      margin: 0 rem(8px);
+      padding: rem(6px);
+    }
+
+    &__family {
+      width: rem(200px);
+      height: rem(30px);
+      padding-left: rem(10px);
+
+      &:first-child {
+        margin-right: rem(20px);
+      }
+    }
+  }
+
+  .input__family {
+
+
+  }
+
+  .custom-radio__donate {
+    margin-left: rem(50px);
+  }
+}

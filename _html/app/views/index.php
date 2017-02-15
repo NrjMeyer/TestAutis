@@ -133,7 +133,7 @@
                   </ul>
                   <div>
                     <input type="radio" id="formule-1" name="formule">
-                    <label class="btn btn--choose" for="formule-1">choisir cette formule</label>
+                    <label class="btn btn__choose" for="formule-1">choisir cette formule</label>
                   </div>
                 </div>
               </div>
@@ -180,7 +180,7 @@
                   </ul>
                   <div>
                     <input type="radio" id="formule-2" name="formule">
-                    <label class="btn btn--choose" for="formule-2">choisir cette formule</label>
+                    <label class="btn btn__choose" for="formule-2">choisir cette formule</label>
                   </div>
                 </div>
               </div>
@@ -234,7 +234,7 @@
                   </ul>
                   <div>
                     <input type="radio" id="formule-3" name="formule">
-                    <label class="btn btn--choose" for="formule-3">choisir cette formule</label>
+                    <label class="btn btn__choose" for="formule-3">choisir cette formule</label>
                   </div>
                 </div>
               </div>
@@ -243,7 +243,53 @@
 
           <section class="options small-section">
             <div class="section-title">2. Options</div>
-            <div class="form-block"></div>
+            <div class="form-block">
+              <div class="form-block__top">Mensualiser mon paiement</div>
+              <div class="form-block__bottom">
+                <div class="form-block__container">
+                  Je veux payer mon adhésion :
+                  <label for="once" class="custom-radio">
+                    <input type="radio" id="once" name="subscribe-rate">
+                    <span>en une seule fois</span>
+                  </label>
+                  <label for="monthly" class="custom-radio">
+                    <input type="radio" id="monthly" name="subscribe-rate">
+                    <span>mensuellement</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-block">
+              <div class="form-block__top">Faire un don complémentaire</div>
+              <div class="form-block__bottom">
+                <div class="form-block__container">
+                  Je veux donner <input class="input input__donation" type="text" id="donation" placeholder="5"> euros.
+                  <div class="custom-radio__donate">
+                    <label for="donate-once" class="custom-radio">
+                      <input type="radio" id="donate-once" name="donate-rate">
+                      <span>don ponctuel</span>
+                    </label>
+                    <label for="donate-monthly" class="custom-radio">
+                      <input type="radio" id="donate-monthly" name="donate-rate">
+                      <span>don mensuel</span>
+                    </label>
+                  </div>
+                  <button class="btn btn__add">Ajouter</button>
+
+
+                </div>
+              </div>
+            </div>
+            <div class="form-block">
+              <div class="form-block__top">Faire adhérer un membre de ma famille (1€/mois seulement)</div>
+              <div class="form-block__bottom">
+                <div class="form-block__container">
+                  <input class="input input__family" type="text" id="family-name" placeholder="Nom / Prénom">
+                  <input class="input input__family" type="mail" id="family-mail" placeholder="Adresse mail">
+                  <button class="btn btn__add">Ajouter</button>
+                </div>
+              </div>
+            </div>
           </section>
 
           <section class="informations small-section">

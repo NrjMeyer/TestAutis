@@ -2,6 +2,7 @@
   font-size: rem(17px);
   color: #868686;
   width: 100%;
+  margin: rem(32px) 0 rem(20px);
   @include display(flex);
   @include align-items(center);
 
