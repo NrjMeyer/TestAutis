@@ -3,7 +3,7 @@ Mixins
 --------------------------------------------------------------*/
 
 @mixin vertical-center-container() {
-    
+
     white-space: nowrap;
 
     &::before {
@@ -19,7 +19,7 @@ Mixins
     display: block;
     vertical-align: middle;
     white-space: normal;
-    @include breakpoint( $breakpoint-md ) {
+    @include desktop {
         display: inline-block;
     }
 }

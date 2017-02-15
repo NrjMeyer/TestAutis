@@ -1,0 +1,6 @@
+<svg width="8" height="8" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg">
+  <title>
+    Shape
+  </title>
+  <path d="M4 0C1.792 0 0 1.792 0 4s1.792 4 4 4 4-1.792 4-4-1.792-4-4-4zm.4 6h-.8V3.6h.8V6zm0-3.2h-.8V2h.8v.8z" fill="#9B9B9B" fill-rule="evenodd"/>
+</svg>

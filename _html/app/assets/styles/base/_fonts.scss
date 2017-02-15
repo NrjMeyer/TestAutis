@@ -1,5 +1,8 @@
 // Fonts
 
+@include font-face($din, "/fonts/dinbold-webfont", $file-formats: woff ttf svg eot);
+@include font-face($lucida, "/fonts/lucida_grande_bold-webfont", $file-formats: woff ttf svg eot);
+
 .roboto--italic {
   font-style: italic;
 }

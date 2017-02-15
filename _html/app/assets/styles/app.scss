@@ -12,9 +12,12 @@
 @import 'base/typography';
 @import 'base/base';
 
-
 // Partials
 @import 'partials/header';
 
 // Modules
 @import 'modules/intro';
+@import 'modules/choice';
+
+// Elements
+@import 'elements/btn';

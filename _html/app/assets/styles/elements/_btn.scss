@@ -1,0 +1,14 @@
+.btn {
+  color: $white;
+  font-size: rem(14px);
+  border: none;
+  cursor: pointer;
+
+  &--choose {
+    width: 170px;
+    margin: auto;
+    background: #999999;
+    padding: rem(10px) rem(20px);
+    display: block;
+  }
+}
