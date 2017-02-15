@@ -99,6 +99,16 @@
       </div>
     </header>
 
+    <main>
+      <div class="container">
+        <section class="intro">
+          <div class="intro__catchline">Adhérer pour donner plus de poids à notre association !</div>
+          <div class="intro__content">Adhérer à <span>Vaincre l'autisme</span>, c'est très simple et vous permet de <span>vous impliquer dans la vie de notre association à votre niveau</span>, en fonction de la formule que vous choisissez ci-dessous.</div>
+        </section>
+      </div>
+
+    </main>
+
     <script src="js/vendors.js"></script>
     <script src="js/app.js"></script>
 

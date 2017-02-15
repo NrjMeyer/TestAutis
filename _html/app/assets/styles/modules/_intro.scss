@@ -1,0 +1,27 @@
+.intro {
+  max-width: rem(385px);
+  margin: rem(40px) auto 0;
+  text-align: center;
+
+  &__catchline {
+    @extend .roboto--medium;
+
+    width: 100%;
+    font-size: rem(22px);
+    background: $dark-grey;
+    color: $white;
+    line-height: rem(30px);
+    padding: rem(17px) rem(36px);
+  }
+
+  &__content {
+    margin-top: rem(14px);
+    font-size: rem(12px);
+    line-height: rem(16px);
+
+    > span {
+      color: #6C6C6C;
+    }
+
+  }
+}

@@ -7,7 +7,7 @@
     @include display(flex);
     @include justify-content(space-between);
     @include align-items(center);
-    padding: 18px 0;
+    padding: rem(18px) 0;
   }
 
 }
@@ -22,7 +22,7 @@
     }
 
     &--highlighted {
-      padding: 10px;
+      padding: rem(10px);
       color: $white;
       background: $pink;
     }
