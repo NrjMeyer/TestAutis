@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
 
-    <title>Starter</title>
+    <title>Vaincre l'autisme - Adhérer</title>
 
     <!-- SEO meta -->
     <meta name="robots" content="index, follow" />
@@ -45,13 +45,59 @@
     <!-- End Twitter meta -->
 
     <!-- build:css -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css">
     <!-- endbuild -->
 
 </head>
 <body>
 
-    <h1>Hi.</h1>
+    <header class="header">
+      <div class="container header__container">
+        <img class="logo" src="img/logo.png" alt="Logo Vaincre l'autisme">
+        <nav>
+          <ul class="menu">
+
+            <li class="menu__item">
+              <a href="#">
+                <svg class="icon-download">
+                  <use xlink:href="img/sprite/sprite.svg#download"></use>
+                </svg>
+                <span>Formulaire papier</span>
+              </a>
+            </li>
+
+            <li class="menu__item">
+              <a href="#">
+                <svg class="icon-link">
+                  <use xlink:href="img/sprite/sprite.svg#link"></use>
+                </svg>
+                <span>Site principal</span>
+              </a>
+            </li>
+
+            <li class="menu__item">
+              <a href="#">
+                <svg class="icon-login">
+                  <use xlink:href="img/sprite/sprite.svg#login"></use>
+                </svg>
+                <span>Se connecter</span>
+              </a>
+            </li>
+
+            <li class="menu__item menu__item--highlighted">
+              <a href="#">
+                <svg class="icon-donate">
+                  <use xlink:href="img/sprite/sprite.svg#donate"></use>
+                </svg>
+                <span>Faire un don</span>
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+      </div>
+    </header>
 
     <script src="js/vendors.js"></script>
     <script src="js/app.js"></script>

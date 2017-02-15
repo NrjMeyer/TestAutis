@@ -136,6 +136,6 @@ module.exports = {
   },
 
   browserSync: {
-    proxy: 'test.dev'
+    proxy: 'adhesion.dev'
   }
 };
