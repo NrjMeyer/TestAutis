@@ -241,8 +241,17 @@
             </div>
           </section>
 
-          <section class="options">
-            <div class="form-block">  </div>
+          <section class="options small-section">
+            <div class="section-title">2. Options</div>
+            <div class="form-block"></div>
+          </section>
+
+          <section class="informations small-section">
+            <div class="section-title">3. Informations</div>
+          </section>
+
+          <section class="payment small-section">
+            <div class="section-title">4. Paiement</div>
           </section>
         </form>
 
