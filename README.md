@@ -1,24 +1,22 @@
-# README
+# Vaincre l'autisme
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Install
 
-Things you may want to cover:
+First of all, be sure to have postgres already configured
 
-* Ruby version
+Then, run these command to setup the application:
 
-* System dependencies
+```bash
+# Install bundles
+bundle install
 
-* Configuration
+# Create database
+rake db:create
 
-* Database creation
+# Execute migrations
+rake db:migrate
 
-* Database initialization
+# Run rails
+rails s 
+```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
