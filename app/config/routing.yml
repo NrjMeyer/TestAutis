@@ -1,4 +1,0 @@
-vaincre_autisme:
-    resource: "@VaincreAutismeBundle/Resources/config/routing.yml"
-    prefix:   /
-
