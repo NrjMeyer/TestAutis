@@ -99,7 +99,20 @@
       </div>
     </header>
 
+    <div class="sidebar">
+      <nav>
+        <ul>
+          <li class="sidebar__item sidebar__item--current">1. Choix</li>
+          <li class="sidebar__item">2. Options</li>
+          <li class="sidebar__item">3. Informations</li>
+          <li class="sidebar__item sidebar__item">4. Paiement</li>
+          <li class="sidebar__item sidebar__item--disabled">5. Validation</li>
+        </ul>
+      </nav>
+    </div>
+
     <main>
+
       <div class="container">
 
         <section class="intro">
@@ -294,10 +307,195 @@
 
           <section class="informations small-section">
             <div class="section-title">3. Informations</div>
+            <div class="form-block">
+              <div class="form-block__top">Mon rôle dans l'association</div>
+              <div class="form-block__bottom">
+                <select name="subscriber-type" id="subscriber-type">
+                  <option value="" disbaled selected class="hidden-option">J'adhère en tant que</option>
+                  <option value="1">Adherent 1</option>
+                  <option value="2">Adherent 2</option>
+                  <option value="3">Adherent 3</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-block">
+              <div class="form-block__top">Informations personnelles</div>
+              <div class="form-block__bottom">
+                <div class="input-row">
+                  <input class="input__classic" name="subscriber-name" type="text" placeholder="Nom">
+                  <input class="input__classic" name="subscriber-firstname" type="text" placeholder="Prénom">
+                </div>
+                <div class="input-row">
+                  <input type="text" class="input__classic" name="subscriber-phone" placeholder="Téléphone">
+                </div>
+                <div class="input-row">
+                  <input class="input__classic" name="subscriber-adress" type="text" placeholder="Adresse">
+                  <input class="input__classic" name="subscriber-adressbis" type="text" placeholder="Adresse complémentaire">
+                </div>
+                <div class="input-row">
+                  <input class="input__classic" name="subscriber-zipcode" type="text" placeholder="Code Postal">
+                  <input class="input__classic" name="subscriber-city" type="text" placeholder="Ville">
+                </div>
+              </div>
+            </div>
+            <div class="form-block">
+              <div class="form-block__top">Espace adhérent</div>
+              <div class="form-block__bottom">
+                <div class="input-row">
+                  <input type="email" class="input__classic" name="subscriber-mail" placeholder="Adresse e-mail">
+                </div>
+                <div class="input-row">
+                  <input class="input__classic" name="subscriber-password" type="password" placeholder="Mot de passe">
+                  <input class="input__classic" name="subscriber-confirmpassword" type="password" placeholder="Répéter mot de passe">
+                </div>
+
+                <label class="custom-radio custom-radio--block">
+                  <input type="checkbox" id="fiscal-mail" name="fiscal-mail">
+                  <span>Recevoir par mail mon reçu fiscal</span>
+                </label>
+                <label class="custom-radio custom-radio--block">
+                  <input type="checkbox" id="newsletter" name="newsletter">
+                  <span>S'inscrire à la newsletter</span>
+                </label>
+              </div>
+            </div>
           </section>
 
           <section class="payment small-section">
             <div class="section-title">4. Paiement</div>
+            <div class="form-block">
+              <div class="form-block__top">Récapitulatif</div>
+              <div class="form-block__bottom price-table">
+                <div class="row__content row__subscription">
+                  <p class="content__listing">Votre adhésion (120)</p>
+                  <p class="content__amount">120€</p>
+                </div>
+                <div class="row__content row__family">
+                  <p class="content__listing">Vos proches (1)</p>
+                  <p class="content__amount">12€</p>
+                </div>
+                <div class="row__content row__donation">
+                  <p class="content__listing">Votre don</p>
+                  <p class="content__amount">-</p>
+                </div>
+                <div class="row__content row__total">
+                  <p class="content__listing">Total à payer</p>
+                  <p class="content__amount">140€</p>
+                </div>
+              </div>
+              <div class="price-table--highlighted">
+                <div class="row__content row__taxes">
+                  <p class="content__listing">Coût après réduction fiscale</p>
+                  <p class="content__amount">1€</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-block">
+              <div class="form-block__top">Mode de paiement</div>
+              <div class="form-block__bottom">
+                <p class="payment__info">Choisissez ci-dessous un mode de paiement pour finaliser votre adhésion à l'association</p>
+              </div>
+              <div class="payment__options">
+                <label for="card" class="payment__option">
+                  Carte bancaire
+                </label>
+                <input type="radio" id="card" name="payment-option">
+                <label for="paypal" class="payment__option">
+                  Paypal
+                </label>
+                <input type="radio" id="paypal" name="payment-option">
+                <label for="debit" class="payment__option">
+                  Prélèvement automatique
+                </label>
+                <input type="radio" id="debit" name="payment-option">
+                <label for="cheque" class="payment__option">
+                  Paiement par chèque
+                </label>
+                <input type="radio" id="cheque" name="payment-option">
+              </div>
+
+              <div class="payment__section payment__card">
+                <div class="cards">
+                  <label class="cards__input cards__input--visa">
+                    VISA
+                    <input type="radio" id="visa" name="card-option">
+                    <span></span>
+                  </label>
+                  <label class="cards__input cards__input--mc">
+                    MasterCard
+                    <input type="radio" id="mastercard" name="card-option">
+                    <span></span>
+                  </label>
+                  <label class="cards__input cards__input--amex">
+                    American Express
+                    <input type="radio" id="amex" name="card-option">
+                    <span></span>
+                  </label>
+                  <label class="cards__input cards__input--cb">
+                    CB
+                    <input type="radio" id="cb" name="card-option">
+                    <span></span>
+                  </label>
+                </div>
+
+                <div class="input-row">
+                  <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte">
+                  <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte">
+                </div>
+                <div class="input-row">
+                  <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (jj/mm/aaaa)">
+                  <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme">
+                </div>
+                <label class="custom-radio custom-radio--block">
+                  <input type="checkbox" id="cgv" name="cgv">
+                  <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
+                </label>
+                <!-- Ici il faut surement un submit au lieu d'un lien mais dunno avec Slimpay -->
+                <div class="btn-container">
+                  <button class="btn btn__payment"><a href="#">Effectuer le paiement</a></button>
+                </div>
+
+              </div>
+
+              <div class="payment__section payment__section--small payment__paypal">
+                <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
+                <!-- Ici il faut surement un submit au lieu d'un lien mais dunno avec Slimpay -->
+                <div class="btn-container">
+                  <button class="btn btn__payment"><a href="https://www.paypal.com" target="_blank">Payer avec PayPal</a></button>
+                </div>
+              </div>
+
+              <div class="payment__section payment__section--small payment__debit">
+                <!-- Ici il faut surement un submit au lieu d'un lien mais dunno avec Slimpay -->
+                <div class="input-row">
+                  <input type="text" class="input__classic input__payment input__payment--big" name="iban" placeholder="Votre IBAN">
+                </div>
+                <div class="input-row">
+                  <input type="phone" class="input__classic input__payment" name="phone" placeholder="Numéro de téléphone mobile">
+                </div>
+                <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
+                <label class="custom-radio custom-radio--block">
+                  <input type="checkbox" id="cgv" name="cgv">
+                  <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
+                </label>
+                <div class="btn-container">
+                  <button class="btn btn__payment"><a href="#">Effectuer le prélèvement</a></button>
+                </div>
+              </div>
+
+              <div class="payment__section payment__cheque">
+                <p class="content">Votre adhésion sera prise en compte dès réception de votre chèque et de votre récapitulatif à l'ordre de <span>VAINCRE L'AUTISME</span> et imprimé à l'adresse :</p>
+                <p class="adress">
+                  <span>Service adhésion - Vaincre l'autisme</span>
+                  <span>51 rue Servan</span>
+                  <span>75011 Paris</span>
+                </p>
+                <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent.</p>
+                <div class="btn-container">
+                  <button class="btn btn__payment"><a href="#">Pré-activer mon compte</a></button>
+                </div>
+              </div>
+            </div>
           </section>
         </form>
 

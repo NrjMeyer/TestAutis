@@ -15,13 +15,21 @@
 // Partials
 @import 'partials/header';
 
-// Modules
-@import 'modules/intro';
-@import 'modules/choice';
-@import 'modules/options';
-
 // Elements
 @import 'elements/btn';
 @import 'elements/section-title';
 @import 'elements/form-block';
 @import 'elements/custom-radio';
+@import 'elements/input';
+
+// Modules
+@import 'modules/intro';
+@import 'modules/choice';
+@import 'modules/options';
+@import 'modules/payment';
+@import 'modules/cards';
+@import 'modules/sidebar';
+@import 'modules/price-table';
+
+// Vendors
+@import 'vendors/dropkick';

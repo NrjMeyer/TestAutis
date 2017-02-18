@@ -11,7 +11,7 @@ gulp.task('server', ['styles', 'views', 'jshint', 'scripts:vendors', 'scripts:ap
   gulp.watch(config.sprite.src, ['sprite', reload]);
   gulp.watch(config.scripts.src, ['jshint', reload]);
   gulp.watch(config.scripts.vendorSrc, ['scripts:vendors', reload]);
-  gulp.watch(config.scripts.src, ['scripts:app', reload]);
+  gulp.watch(config.scripts.watchSrc, ['scripts:app', reload]);
   // -- Begin corpo
   gulp.watch(config.scriptsCorpo.src, ['jshint', reload]);
   gulp.watch(config.scriptsCorpo.src, ['scriptsCorpo:app', reload]);

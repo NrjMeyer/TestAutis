@@ -5,15 +5,34 @@
   cursor: pointer;
 
   &__choose {
-    width: 170px;
+    width: 180px;
     margin: auto;
     background: #999999;
     padding: rem(10px) rem(20px);
+    text-align: center;
     display: block;
+
+    &--selected {
+      background: $pink;
+    }
   }
 
   &__add {
     padding: rem(10px) rem(40px);
     margin-left: auto;
   }
+
+  &__payment {
+    padding: rem(10px) rem(16px);
+    margin-top: rem(20px);
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+.btn-container {
+  text-align: center;
 }

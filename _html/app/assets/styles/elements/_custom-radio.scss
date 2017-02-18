@@ -10,7 +10,7 @@
     margin-right: 0;
   }
 
-  input[type="radio"] {
+  input[type="radio"], input[type="checkbox"] {
     display: none;
   }
 
@@ -34,4 +34,21 @@
     border: 1px solid $pink;
   }
 
+}
+
+.custom-radio--block {
+
+  display: block;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  span {
+    &:before {
+      width: rem(10px);
+      height: rem(10px);
+    }
+  }
 }

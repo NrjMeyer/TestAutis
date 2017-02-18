@@ -21,7 +21,7 @@ module.exports = {
   scripts: {
     src: appSrc + '/assets/scripts/main.js',
     watchSrc: appSrc + '/assets/scripts/**/*.js',
-    vendorSrc: appSrc + '/assets/scripts/vendors/*.js',
+    vendorSrc:  [appSrc + '/assets/scripts/vendors/jquery-2.1.4.min.js', appSrc + '/assets/scripts/vendors/*.js'],
     dest: appDest + '/js/',
     modernizrOpts: {
       cache: true,
