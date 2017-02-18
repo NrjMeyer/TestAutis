@@ -7,5 +7,7 @@ class AddColumnsToUsers < ActiveRecord::Migration[5.0]
     add_column :users, :address_extend, :text
     add_column :users, :post_code, :integer
     add_column :users, :city, :string
+    add_column :users, :tax_receipt, :boolean
+    add_column :users, :sub_newsletter, :boolean
   end
 end

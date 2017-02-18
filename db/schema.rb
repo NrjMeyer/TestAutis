@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20170218150256) do
     t.text     "address_extend"
     t.integer  "post_code"
     t.string   "city"
+    t.boolean  "tax_receipt"
+    t.boolean  "sub_newsletter"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
