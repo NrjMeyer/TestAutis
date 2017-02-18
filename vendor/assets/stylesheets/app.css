@@ -57,13 +57,13 @@ Functions
   font-family: "DIN-Bold";
   font-style: normal;
   font-weight: normal;
-  src: url("/fonts/dinbold-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/dinbold-webfont.woff") format("woff"), url("/fonts/dinbold-webfont.ttf") format("truetype"), url("/fonts/dinbold-webfont.svg#DIN-Bold") format("svg"); }
+  src: url("dinbold-webfont.eot?#iefix") format("embedded-opentype"), url("dinbold-webfont.woff") format("woff"), url("dinbold-webfont.ttf") format("truetype"), url("dinbold-webfont.svg#DIN-Bold") format("svg"); }
 
 @font-face {
   font-family: "LucidaGrande-Bold";
   font-style: normal;
   font-weight: normal;
-  src: url("/fonts/lucida_grande_bold-webfont.eot?#iefix") format("embedded-opentype"), url("/fonts/lucida_grande_bold-webfont.woff") format("woff"), url("/fonts/lucida_grande_bold-webfont.ttf") format("truetype"), url("/fonts/lucida_grande_bold-webfont.svg#LucidaGrande-Bold") format("svg"); }
+  src: url("lucida_grande_bold-webfont.eot?#iefix") format("embedded-opentype"), url("lucida_grande_bold-webfont.woff") format("woff"), url("lucida_grande_bold-webfont.ttf") format("truetype"), url("lucida_grande_bold-webfont.svg#LucidaGrande-Bold") format("svg"); }
 
 .roboto--italic, .payment__debit .phone-tip, .dk-selected {
   font-style: italic; }
