@@ -1,45 +1,22 @@
 # Vaincre l'autisme
-### Powered by sulu
 
-How to install :
+### Install
 
-#### 1) Database
+First of all, be sure to have postgres already configured
 
-Create a database in your favorite sql administrator, and complete the field `database_name` and `database_password` in the `app/config/parameters.yml` file
-
-#### 3) Composer
+Then, run these command to setup the application:
 
 ```bash
-# Run this command to install the project the first time
-composer install
+# Install bundles
+bundle install
 
-# Run this one when new packages are added to update dependencies
-composer update
+# Create database
+rake db:create
 
+# Execute migrations
+rake db:migrate
+
+# Run rails
+rails s 
 ```
 
-#### 2) Populate the database
-
-```bash
-
-# Run this command to populate the database
-bin/adminconsole sulu:build dev
-
-```
-
-#### 3) Run the server
-
-```bash
-# To run the admin on port 8000
-bin/adminconsole server:start
-
-# To run the front server on port 8001
-bin/websiteconsole server:start
-
-# Replace start by stop to stop the server on both command
-
-```
-
-Default login and password are admin / admin
-
-When new packages are added, please repeat the whole process to install them

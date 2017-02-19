@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+		<script src="https://rawgit.com/jonathantneal/svg4everybody/master/dist/svg4everybody.js"></script>
+		<script>svg4everybody();</script>
+		<title>SVG &lt;symbol&gt; sprite preview | svg-sprite</title>
+		<style>@charset "UTF-8";body{padding:0;margin:0;color:#666;background:#fafafa;font-family:Arial,Helvetica,sans-serif;font-size:1em;line-height:1.4}header{display:block;padding:3em 3em 2em 3em;background-color:#fff}header p{margin:2em 0 0 0}section{border-top:1px solid #eee;padding:2em 3em 0 3em}section ul{margin:0;padding:0}section li{display:inline;display:inline-block;background-color:#fff;position:relative;margin:0 2em 2em 0;vertical-align:top;border:1px solid #ccc;padding:1em 1em 3em 1em;cursor:default}.icon-box{margin:0;width:144px;height:144px;position:relative;background:#ccc url("data:image/gif;base64,R0lGODlhDAAMAIAAAMzMzP///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4wLWMwNjEgNjQuMTQwOTQ5LCAyMDEwLzEyLzA3LTEwOjU3OjAxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1LjEgV2luZG93cyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozQjk4OTI0MUY5NTIxMUUyQkJDMEI5NEFEM0Y1QTYwQyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozQjk4OTI0MkY5NTIxMUUyQkJDMEI5NEFEM0Y1QTYwQyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjNCOTg5MjNGRjk1MjExRTJCQkMwQjk0QUQzRjVBNjBDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjNCOTg5MjQwRjk1MjExRTJCQkMwQjk0QUQzRjVBNjBDIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Af/+/fz7+vn49/b19PPy8fDv7u3s6+rp6Ofm5eTj4uHg397d3Nva2djX1tXU09LR0M/OzczLysnIx8bFxMPCwcC/vr28u7q5uLe2tbSzsrGwr66trKuqqainpqWko6KhoJ+enZybmpmYl5aVlJOSkZCPjo2Mi4qJiIeGhYSDgoGAf359fHt6eXh3dnV0c3JxcG9ubWxramloZ2ZlZGNiYWBfXl1cW1pZWFdWVVRTUlFQT05NTEtKSUhHRkVEQ0JBQD8+PTw7Ojk4NzY1NDMyMTAvLi0sKyopKCcmJSQjIiEgHx4dHBsaGRgXFhUUExIREA8ODQwLCgkIBwYFBAMCAQAAIfkEAAAAAAAsAAAAAAwADAAAAhaEH6mHmmzcgzJAUG/NVGrfOZ8YLlABADs=") top left repeat;border:1px solid #ccc;display:table-cell;vertical-align:middle;text-align:center}.icon{display:inline;display:inline-block}h1{margin-top:0}h2{margin:0;padding:0;font-size:1em;font-weight:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:absolute;left:1em;right:1em;bottom:1em}footer{display:block;margin:0;padding:0 3em 3em 3em}footer p{margin:0;font-size:.7em}footer a{color:#0f7595;margin-left:0}</style>
+		
+<!--
+	
+Sprite shape dimensions
+====================================================================================================
+You will need to set the sprite shape dimensions via CSS when you use them as inline SVG, otherwise
+they would become a huge 100% in size. You may use the following dimension classes for doing so.
+They might well be outsourced to an external stylesheet of course.
+
+-->
+
+<style type="text/css">
+	.svg--check-dims { width: 10px; height: 7px; }
+	.svg--donate-dims { width: 14px; height: 10px; }
+	.svg--download-dims { width: 10px; height: 11px; }
+	.svg--infobox-dims { width: 8px; height: 8px; }
+	.svg--link-dims { width: 19px; height: 10px; }
+	.svg--login-dims { width: 13px; height: 10px; }
+</style>
+<!--
+====================================================================================================
+-->
+
+	</head>
+	<body>
+	
+<!--
+	
+Inline <symbol> SVG sprite
+====================================================================================================
+This is an inlined version of the generated SVG sprite. The single images may be <use>d everywhere
+below within this document. Please see
+
+	https://github.com/jkphl/svg-sprite/blob/master/docs/configuration.md#defs--symbol-mode
+
+for further details on how to create this embeddable sprite variant.
+
+-->
+
+<svg width="0" height="0" style="position:absolute">
+		<symbol viewBox="0 0 10 7" id="check"><title>Shape</title><path d="M9.76 1.043L3.684 6.955a.14.14 0 0 1-.194 0L.04 3.598a.131.131 0 0 1 0-.188l.838-.816a.14.14 0 0 1 .194 0L3.587 5.04l5.14-5a.14.14 0 0 1 .195 0l.838.815a.13.13 0 0 1 0 .188z" fill="#50E3C2" fill-rule="evenodd"/></symbol>
+		<symbol viewBox="0 0 14 10" id="donate"><title>Donate</title><path d="M11.91 0H1.726C1.02 0 .46.556.46 1.25l-.005 7.5c0 .694.566 1.25 1.272 1.25H11.91c.705 0 1.272-.556 1.272-1.25v-7.5c0-.694-.567-1.25-1.273-1.25zm0 8.75H1.726V5H11.91v3.75zm0-6.25H1.726V1.25H11.91V2.5z" fill="#FFF" fill-rule="evenodd"/></symbol>
+		<symbol viewBox="0 0 10 11" id="download"><title>Download</title><path d="M9.083 4.25H6.75V.75h-3.5v3.5H.917L5 8.333 9.083 4.25zM.917 9.5v1.167h8.166V9.5H.917z" fill="#9B9B9B" fill-rule="evenodd"/></symbol>
+		<symbol viewBox="0 0 8 8" id="infobox"><title>Shape</title><path d="M4 0C1.792 0 0 1.792 0 4s1.792 4 4 4 4-1.792 4-4-1.792-4-4-4zm.4 6h-.8V3.6h.8V6zm0-3.2h-.8V2h.8v.8z" fill="#9B9B9B" fill-rule="evenodd"/></symbol>
+		<symbol viewBox="0 0 19 10" id="link"><title>Group</title><g fill="none" fill-rule="evenodd"><path d="M4-1h12v12H4"/><path fill="#9B9B9B" d="M9.5 4.5H2.415l1.79-1.795L3.5 2l-3 3 3 3 .705-.705L2.415 5.5H9.5"/><path d="M17.112 0h-10C6.5 0 6 .5 6 1.11v2.22h1.11V1.1h10.002v7.795h-10V6.662H6V8.89c0 .61.5 1.1 1.11 1.1h10.002c.612 0 1.112-.49 1.112-1.1V1.11c0-.616-.5-1.11-1.112-1.11z" fill="#9B9B9B"/></g></symbol>
+		<symbol viewBox="0 0 13 10" id="login"><title>Group</title><path d="M11.112 0h-10C.5 0 0 .5 0 1.11v2.22h1.11V1.1h10.002v7.795h-10V6.662H0V8.89c0 .61.5 1.1 1.11 1.1h10.002c.612 0 1.112-.49 1.112-1.1V1.11c0-.616-.5-1.11-1.112-1.11zM5.556 7.217L7.78 4.995 5.555 2.773V4.44H0v1.11h5.556v1.667z" fill="#9B9B9B" fill-rule="evenodd"/></symbol>
+</svg>
+
+<!--
+====================================================================================================
+-->
+		
+		<header>
+			<h1>SVG <code>&lt;symbol&gt;</code> sprite preview</h1>
+			<p>This preview features two methods of using the generated sprite in conjunction with inline SVG. Please have a look at the HTML source for further details and be aware of the following constraints:</p>
+			<ul>
+				<li>Your browser has to <a href="http://caniuse.com/#feat=svg-html5" target="_blank">support inline SVG</a> for these techniques to work.</li>
+				<li>The embedded sprite (A) slightly differs from the generated external one. Please <a href="https://github.com/jkphl/svg-sprite/blob/master/docs/configuration.md#defs--symbol-mode" target="_blank">see the documentation</a> for details on how to create such an embeddable sprite.</li>
+				<li>Internet Explorer up to version 11 doesn't support external sprites for use with inline SVG. For IE 9-11, you may polyfill this functionality with <a href="https://github.com/jonathantneal/svg4everybody" target="_blank">SVG for Everybody</a>.</li>
+			</ul>
+		</header>
+		<section>
+
+<!--
+	
+A) Inline SVG with embedded sprite
+====================================================================================================
+These SVG images make use of fragment identifiers (IDs) and are extracted out of the inline sprite
+embedded above. They may be styled via CSS.
+
+-->
+
+			<h3>A) Inline SVG with embedded sprite</h3>
+			<ul>
+
+				<li title="check">
+					<div class="icon-box">
+						
+						<!-- check -->
+						<svg class="svg--check-dims">
+							<use xlink:href="#check"></use>
+						</svg>
+						
+					</div>
+					<h2>check</h2>
+				</li>
+				<li title="donate">
+					<div class="icon-box">
+						
+						<!-- donate -->
+						<svg class="svg--donate-dims">
+							<use xlink:href="#donate"></use>
+						</svg>
+						
+					</div>
+					<h2>donate</h2>
+				</li>
+				<li title="download">
+					<div class="icon-box">
+						
+						<!-- download -->
+						<svg class="svg--download-dims">
+							<use xlink:href="#download"></use>
+						</svg>
+						
+					</div>
+					<h2>download</h2>
+				</li>
+				<li title="infobox">
+					<div class="icon-box">
+						
+						<!-- infobox -->
+						<svg class="svg--infobox-dims">
+							<use xlink:href="#infobox"></use>
+						</svg>
+						
+					</div>
+					<h2>infobox</h2>
+				</li>
+				<li title="link">
+					<div class="icon-box">
+						
+						<!-- link -->
+						<svg class="svg--link-dims">
+							<use xlink:href="#link"></use>
+						</svg>
+						
+					</div>
+					<h2>link</h2>
+				</li>
+				<li title="login">
+					<div class="icon-box">
+						
+						<!-- login -->
+						<svg class="svg--login-dims">
+							<use xlink:href="#login"></use>
+						</svg>
+						
+					</div>
+					<h2>login</h2>
+				</li>
+			</ul>
+
+<!--
+====================================================================================================
+-->
+
+		</section>
+		<section>
+
+<!--
+	
+B) Inline SVG with external sprite (IE 9-11 with polyfill only)
+====================================================================================================
+These SVG images make use of an URL + fragment identifiers (IDs) and refer to the regular external
+SVG sprite. They may be styled via CSS. (IE 9-11 with polyfill only)
+
+-->
+
+			<h3>B) Inline SVG with external sprite (IE 9-11 with polyfill only)</h3>
+			<ul>
+				
+				<li title="check">
+					<div class="icon-box">
+						
+						<!-- check -->
+						<svg class="svg--check-dims">
+							<use xlink:href="sprite.svg#check"></use>
+						</svg>
+						
+					</div>
+					<h2>check</h2>
+				</li>
+				<li title="donate">
+					<div class="icon-box">
+						
+						<!-- donate -->
+						<svg class="svg--donate-dims">
+							<use xlink:href="sprite.svg#donate"></use>
+						</svg>
+						
+					</div>
+					<h2>donate</h2>
+				</li>
+				<li title="download">
+					<div class="icon-box">
+						
+						<!-- download -->
+						<svg class="svg--download-dims">
+							<use xlink:href="sprite.svg#download"></use>
+						</svg>
+						
+					</div>
+					<h2>download</h2>
+				</li>
+				<li title="infobox">
+					<div class="icon-box">
+						
+						<!-- infobox -->
+						<svg class="svg--infobox-dims">
+							<use xlink:href="sprite.svg#infobox"></use>
+						</svg>
+						
+					</div>
+					<h2>infobox</h2>
+				</li>
+				<li title="link">
+					<div class="icon-box">
+						
+						<!-- link -->
+						<svg class="svg--link-dims">
+							<use xlink:href="sprite.svg#link"></use>
+						</svg>
+						
+					</div>
+					<h2>link</h2>
+				</li>
+				<li title="login">
+					<div class="icon-box">
+						
+						<!-- login -->
+						<svg class="svg--login-dims">
+							<use xlink:href="sprite.svg#login"></use>
+						</svg>
+						
+					</div>
+					<h2>login</h2>
+				</li>
+			</ul>
+
+<!--
+====================================================================================================
+-->
+
+		</section>
+		<footer>
+			<p>Generated at Thu, 16 Feb 2017 06:02:19 GMT by <a href="https://github.com/jkphl/svg-sprite" target="_blank">svg-sprite</a>.</p>
+		</footer>
+	</body>
+</html>
