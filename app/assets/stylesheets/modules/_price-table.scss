@@ -1,0 +1,31 @@
+.price-table, .price-table--highlighted {
+  @include display(flex);
+  @include flex-direction(column);
+  padding: rem(18px) rem(30px) rem(14px);
+  color: #ABABAB;
+
+  .row__content {
+    @include display(flex);
+    margin-bottom: rem(14px);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .content__amount {
+      margin-left: auto;
+    }
+  }
+
+  .row__total {
+    padding-top: rem(14px);
+    border-top: 1px solid #E7E7E7;
+    color: #7D7D7D;
+  }
+}
+
+.price-table--highlighted {
+  background: $pink;
+  padding: rem(10px) rem(30px);
+  color: $white;
+}

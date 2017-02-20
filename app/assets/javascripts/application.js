@@ -15,3 +15,7 @@
 //= require turbolinks
 //= require_directory ./vendors
 //= require_directory ./app
+
+$(document).on('turbolinks:load', function () {
+  var app = new App();
+});

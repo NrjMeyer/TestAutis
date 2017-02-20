@@ -1,0 +1,112 @@
+.payment {
+
+  margin-bottom: rem(200px);
+
+  &__info {
+    color: #ABABAB;
+    text-align: center;
+    font-size: rem(16px);
+    line-height: rem(24px);
+    padding: rem(40px) rem(110px);
+  }
+
+  &__options {
+    @extend .roboto--medium;
+    @include display(flex);
+    @include flex-flow(row wrap);
+
+    input {
+      display: none;
+    }
+  }
+
+  &__option {
+    @include flex(1 0 25%);
+    text-align: center;
+    background: #EAEAEA;
+    padding: rem(18px) rem(14px);
+    border-right: 1px solid $white;
+    cursor: pointer;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &--selected {
+      background: $pink;
+      color: $white;
+    }
+  }
+
+  &__section {
+    display: none;
+    background: $white;
+    padding: rem(30px) rem(76px);
+
+    &--small {
+      padding: rem(30px) rem(112px);
+    }
+  }
+
+  &__card, &__debit {
+
+    .custom-radio--block {
+      margin-top: rem(20px);
+    }
+    .custom-radio--block span {
+      color: #BBBBBB;
+    }
+
+    .custom-radio--block span a {
+      color: inherit;
+      margin-left: rem(4px);
+    }
+  }
+
+  &__paypal {
+    p {
+      color: #ABABAB;
+      line-height: rem(21px);
+    }
+  }
+
+  &__debit {
+    .phone-tip {
+      @extend .roboto--italic;
+      color: #BBBBBB;
+      font-size: rem(12px);
+      line-height: rem(18px);
+      max-width: rem(250px);
+    }
+  }
+
+  &__cheque {
+
+    color: #ABABAB;
+
+    .content {
+      line-height: rem(21px);
+    }
+
+    .content, .adress {
+      span {
+        @extend .roboto--medium;
+        color: #A9A9A9;
+      }
+    }
+
+    .adress {
+      margin: rem(18px) 0;
+    }
+
+    .adress span {
+      display: block;
+      color: #ABABAB;
+      margin-bottom: rem(8px);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

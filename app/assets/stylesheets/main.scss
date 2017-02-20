@@ -2,5 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-// COMPONENTS
-@import 'components/app';
+// Reset
+@import 'vendors/reset';
+
+// Bourbon
+@import 'bourbon';
+
+// Base
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/fonts';
+@import 'base/formats';
+@import 'base/typography';
+@import 'base/base';
+
+// Partials
+@import 'partials/header';
+
+// Elements
+@import 'elements/btn';
+@import 'elements/section-title';
+@import 'elements/form-block';
+@import 'elements/custom-radio';
+@import 'elements/input';
+
+// Modules
+@import 'modules/intro';
+@import 'modules/choice';
+@import 'modules/options';
+@import 'modules/payment';
+@import 'modules/cards';
+@import 'modules/sidebar';
+@import 'modules/price-table';
+
+// Vendors
+@import 'vendors/dropkick';

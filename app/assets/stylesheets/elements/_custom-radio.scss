@@ -1,0 +1,54 @@
+.custom-radio {
+  display: inline-block;
+  margin-right: rem(18px);
+
+  &:first-child {
+    margin-left: rem(14px);
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    display: none;
+  }
+
+  span {
+    position: relative;
+    @include display(flex);
+    @include align-items(center);
+
+    &:before {
+      content: '';
+      display: block;
+      width: rem(14px);
+      height: rem(14px);
+      border: 1px solid #979797;
+      margin-right: rem(10px);
+    }
+  }
+
+  input:checked + span:before {
+    background: $pink;
+    border: 1px solid $pink;
+  }
+
+}
+
+.custom-radio--block {
+
+  display: block;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  span {
+    &:before {
+      width: rem(10px);
+      height: rem(10px);
+    }
+  }
+}

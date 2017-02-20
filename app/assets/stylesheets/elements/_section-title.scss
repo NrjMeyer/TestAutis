@@ -1,0 +1,16 @@
+.section-title {
+  font-size: rem(17px);
+  color: #868686;
+  width: 100%;
+  margin: rem(32px) 0 rem(20px);
+  @include display(flex);
+  @include align-items(center);
+
+  &:after {
+    content: '';
+    height: 1px;
+    @include flex(1);
+    background: #E0E0E0;
+    margin-left: rem(20px);
+  }
+}

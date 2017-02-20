@@ -1,0 +1,65 @@
+.header {
+
+  background: $white;
+  border-bottom: 1px solid $border;
+  position: relative;
+  z-index: 999;
+
+  &__container {
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(center);
+    padding: rem(18px) 0;
+  }
+
+}
+
+.menu {
+  &__item {
+    display: inline-block;
+    margin-right: rem(26px);
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &--highlighted {
+      padding: rem(10px);
+      color: $white;
+      background: $pink;
+    }
+  }
+
+  &__item a {
+    text-decoration: none;
+    color: inherit;
+
+    span, svg {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    > svg {
+      margin-right: rem(4px);
+    }
+  }
+}
+
+.icon-download {
+  width: 14px;
+  height: 14px;
+}
+
+.icon-link {
+  width: 19px;
+  height: 12px;
+}
+
+.icon-login {
+  width: 13px;
+  height: 10px;
+}
+.icon-donate {
+  width: 14px;
+  height: 10px;
+}

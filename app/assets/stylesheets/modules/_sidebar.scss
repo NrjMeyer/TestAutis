@@ -1,0 +1,35 @@
+.sidebar {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-right: 1px solid #DADADA;
+  width: rem(180px);
+  height: 100%;
+  padding: 0 rem(30px);
+
+  nav {
+    position: absolute;
+    top: 50%;
+    @include transform(translateY(-50%));
+  }
+
+  .sidebar__item {
+    margin-bottom: rem(16px);
+    color: #707070;
+    cursor: pointer;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--current {
+      color: $pink;
+    }
+
+    &--disabled {
+      cursor: default;
+      color: #9B9B9B;
+    }
+  }
+}
