@@ -21,6 +21,8 @@ var Packages = function () {
     var target = $(e.target),
         old    = $('.btn__choose--selected');
 
+    if (target.hasClass('btn__choose--selected')) return;
+
     chooseButtons.removeClass('btn__choose--selected');
 
     target.addClass('btn__choose--selected');
