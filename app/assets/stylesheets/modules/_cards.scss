@@ -10,6 +10,7 @@
     margin-bottom: rem(50px);
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: 100%;
 
     &:last-child {
       margin-right: 0;
@@ -55,19 +56,15 @@
     }
 
     &--visa {
-      background-image: url('../img/radio-visa-logo.png');
+      background-image: url('icons/visa.svg');
     }
 
     &--mc {
-      background-image: url('../img/radio-mastercard-logo.png');
+      background-image: url('icons/mastercard.svg');
     }
 
     &--amex {
-      background-image: url('../img/radio-amex-logo.png');
-    }
-
-    &--cb {
-      background-image: url('../img/radio-cb-logo.png');
+      background-image: url('icons/amex.svg');
     }
 
   }
