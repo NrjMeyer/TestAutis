@@ -4,6 +4,7 @@ var Payment = function () {
 
   var paymentOptions  = $('.payment__option');
   var paymentSections = $('.payment__section');
+  var paymentInfo     = $('.js-payment__info');
 
   var init = function () {
 
@@ -21,6 +22,10 @@ var Payment = function () {
 
     var target = $(e.target),
         targetIndex = target.index() / 2;
+
+    if (!paymentOptions.hasClass('payment__option--selected')) {
+      paymentInfo.addClass('hidden');
+    }
 
     paymentOptions.removeClass('payment__option--selected');
 

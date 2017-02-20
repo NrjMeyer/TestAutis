@@ -8,36 +8,28 @@
 
             <li class="menu__item">
               <a href="#">
-                <svg class="icon-download">
-                  <use xlink:href="img/sprite/sprite.svg#download"></use>
-                </svg>
+                <%= embedded_svg "icons/download.svg", class: "icon-download" %>
                 <span>Formulaire papier</span>
               </a>
             </li>
 
             <li class="menu__item">
               <a href="#">
-                <svg class="icon-link">
-                  <use xlink:href="img/sprite/sprite.svg#link"></use>
-                </svg>
+                <%= embedded_svg "icons/link.svg", class: "icon-link" %>
                 <span>Site principal</span>
               </a>
             </li>
 
             <li class="menu__item">
               <a href="#">
-                <svg class="icon-login">
-                  <use xlink:href="img/sprite/sprite.svg#login"></use>
-                </svg>
+                <%= embedded_svg "icons/login.svg", class: "icon-login" %>
                 <span>Se connecter</span>
               </a>
             </li>
 
             <li class="menu__item menu__item--highlighted">
               <a href="#">
-                <svg class="icon-donate">
-                  <use xlink:href="img/sprite/sprite.svg#donate"></use>
-                </svg>
+                <%= embedded_svg "icons/donate.svg", class: "icon-donate" %>
                 <span>Faire un don</span>
               </a>
             </li>
@@ -78,17 +70,13 @@
                 </div>
                 <div class="choice__info">
                   soit <span>13,6€</span> après réduction fiscale
-                  <svg class="icon-infobox">
-                    <use xlink:href="img/sprite/sprite.svg#infobox"></use>
-                  </svg>
+                  <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
                 </div>
                 <div class="choice__features">
                   <p class="choice__catchline">Soutenir l'association</p>
                   <ul class="features">
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Accès à l'espace adhérent
                     </li>
                   </ul>
@@ -107,35 +95,25 @@
                 </div>
                 <div class="choice__info">
                   soit <span>20,4€</span> après réduction fiscale
-                  <svg class="icon-infobox">
-                    <use xlink:href="img/sprite/sprite.svg#infobox"></use>
-                  </svg>
+                  <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
                 </div>
                 <div class="choice__features">
                   <p class="choice__catchline">Bénéficier des conseils/expertises</p>
                   <ul class="features">
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Accès à l'espace adhérent
                     </li>
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Carte de membre
                     </li>
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Accès aux documents privilégiés
                     </li>
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Espace questions/réponses
                     </li>
                   </ul>
@@ -155,41 +133,29 @@
                 </div>
                 <div class="choice__info">
                   soit <span>40,8€</span> après réduction fiscale
-                  <svg class="icon-infobox">
-                    <use xlink:href="img/sprite/sprite.svg#infobox"></use>
-                  </svg>
+                  <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
                 </div>
                 <div class="choice__features">
                   <p class="choice__catchline">S'engager avec nous</p>
                   <ul class="features">
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Accès à l'espace adhérent
                     </li>
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Carte de membre
                     </li>
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Accès aux documents privilégiés
                     </li>
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Espace questions/réponses
                     </li>
                     <li class="features__item">
-                      <svg class="icon-check">
-                        <use xlink:href="img/sprite/sprite.svg#check"></use>
-                      </svg>
+                      <%= embedded_svg "icons/check.svg", class: "icon-check" %>
                       Devenez membre actif
                     </li>
                   </ul>
@@ -346,7 +312,7 @@
             </div>
             <div class="form-block">
               <div class="form-block__top">Mode de paiement</div>
-              <div class="form-block__bottom">
+              <div class="form-block__bottom js-payment__info">
                 <p class="payment__info">Choisissez ci-dessous un mode de paiement pour finaliser votre adhésion à l'association</p>
               </div>
               <div class="payment__options">
