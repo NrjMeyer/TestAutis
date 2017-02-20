@@ -20,6 +20,12 @@ body {
   margin: auto;
 }
 
+.main__container {
+  width: calc(100% - 180px);
+  position: relative;
+  left: 180px;
+}
+
 .small-section {
   width: 60%;
   margin: auto;
