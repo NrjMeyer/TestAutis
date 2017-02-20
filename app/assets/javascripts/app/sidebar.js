@@ -2,18 +2,25 @@ var Sidebar = function () {
 
   'use strict';
 
-  var sidebarItems         = $('.sidebar__item');
+  var sidebarItems  = $('.sidebar__item');
 
-  var offsetChoice          = $('.choice').offset().top;
-  var offsetOptions         = $('.options').offset().top;
-  var offsetInfos           = $('.informations').offset().top;
-  var offsetPayment         = $('.payment').offset().top;
+  var allSections    = $('.js-section');
+  var choiceSection  = $('.choice');
+  var optionsSection = $('.options');
+  var infosSection   = $('.informations');
+  var paymentSection = $('.payment');
+
+  var offsetChoice  = choiceSection.offset().top;
+  var offsetOptions = optionsSection.offset().top;
+  var offsetInfos   = infosSection.offset().top;
+  var offsetPayment = paymentSection.offset().top;
 
   var offsets = [offsetChoice, offsetOptions, offsetInfos, offsetPayment];
 
   var init = function () {
 
     _initEvents();
+    _highlightSection();
 
   };
 
@@ -34,6 +41,32 @@ var Sidebar = function () {
       scrollTop: offsets[targetIndex] - 25
     }, 500);
 
+
+  };
+
+  var _highlightSection = function () {
+
+    var onScrollDown = allSections.waypoint(function (direction) {
+
+        if (direction === 'down') {
+          var index = $(this.element).index() - 1;
+
+          sidebarItems.removeClass('sidebar__item--current');
+          sidebarItems.eq(index).addClass('sidebar__item--current');
+        }
+
+      }, {offset: '40%'});
+
+    var onScrollUp = allSections.waypoint(function (direction) {
+
+        if (direction === 'up') {
+          var index = $(this.element).index() - 1;
+
+          sidebarItems.removeClass('sidebar__item--current');
+          sidebarItems.eq(index).addClass('sidebar__item--current');
+        }
+
+      }, {offset: '1%'});
 
   };
 

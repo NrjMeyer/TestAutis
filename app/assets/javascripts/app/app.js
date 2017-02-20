@@ -9,6 +9,14 @@ var App = function () {
     _initEvents();
     _initSelects();
 
+    $('.testinput').on('change', function () {
+      console.log('lol');
+    });
+
+    $('.input__classic').on('input', function () {
+      console.log('mdrrr');
+    });
+
   };
 
   var _initEvents = function () {
