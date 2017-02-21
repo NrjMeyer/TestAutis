@@ -7,6 +7,11 @@
   width: rem(180px);
   height: 100%;
   padding: 0 rem(30px);
+  display: none;
+
+  @include desktop {
+    display: block;
+  }
 
   nav {
     position: absolute;

@@ -4,8 +4,11 @@
   @include justify-content(space-between);
   @include flex-wrap(wrap);
 
-  width: 75%;
   margin: rem(40px) auto 0;
+
+  @include bigdesktop {
+    width: 75%;
+  }
 
   &__item {
     @include display(flex);
