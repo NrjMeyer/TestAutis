@@ -82,7 +82,6 @@ var Sidebar = function () {
   var _checkThirdSection = function () {
 
     thirdSectionInputs.on('change input', throttle(function () {
-      console.log('throttled my friend');
       var empty = thirdSectionInputs.filter(function () {
         return this.value === "";
       });
