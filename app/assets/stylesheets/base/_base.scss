@@ -18,12 +18,17 @@ body {
   max-width: 1280px;
   width: 90%;
   margin: auto;
+  position: relative;
 }
 
 .main__container {
   width: calc(100% - 180px);
   position: relative;
   left: 180px;
+
+  .container {
+    margin-bottom: rem(200px);
+  }
 }
 
 .small-section {
@@ -33,4 +38,8 @@ body {
 
 .hidden {
   display: none;
+}
+
+.visible {
+  display: block;
 }

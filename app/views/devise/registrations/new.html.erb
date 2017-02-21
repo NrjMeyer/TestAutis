@@ -43,9 +43,9 @@
   <nav>
     <ul>
       <li class="sidebar__item sidebar__item--current">1. Choix</li>
-      <li class="sidebar__item">2. Options</li>
-      <li class="sidebar__item">3. Informations</li>
-      <li class="sidebar__item sidebar__item">4. Paiement</li>
+      <li class="sidebar__item sidebar__item--disabled">2. Options</li>
+      <li class="sidebar__item sidebar__item--disabled">3. Informations</li>
+      <li class="sidebar__item sidebar__item--disabled">4. Paiement</li>
       <li class="sidebar__item sidebar__item--disabled">5. Validation</li>
     </ul>
   </nav>
@@ -81,7 +81,7 @@
                 </li>
               </ul>
               <div>
-                <input type="radio" id="formule-1" name="formule">
+                <input type="radio" id="formule-1" name="formule" class="formule-input">
                 <label class="btn btn__choose" for="formule-1">choisir cette formule</label>
               </div>
             </div>
@@ -118,7 +118,7 @@
                 </li>
               </ul>
               <div>
-                <input type="radio" id="formule-2" name="formule">
+                <input type="radio" id="formule-2" name="formule" class="formule-input">
                 <label class="btn btn__choose" for="formule-2">choisir cette formule</label>
               </div>
             </div>
@@ -160,7 +160,7 @@
                 </li>
               </ul>
               <div>
-                <input type="radio" id="formule-3" name="formule">
+                <input type="radio" id="formule-3" name="formule" class="formule-input">
                 <label class="btn btn__choose" for="formule-3">choisir cette formule</label>
               </div>
             </div>
@@ -168,7 +168,7 @@
         </div>
       </section>
 
-      <section class="options small-section js-section">
+      <section class="options small-section js-section hidden">
         <div class="section-title">2. Options</div>
         <div class="form-block">
           <div class="form-block__top">Mensualiser mon paiement</div>
@@ -176,11 +176,11 @@
             <div class="form-block__container">
               Je veux payer mon adhésion :
               <label for="once" class="custom-radio">
-                <input type="radio" id="once" name="subscribe-rate" class="testinput">
+                <input type="radio" id="once" name="subscribe-rate" class="option-input">
                 <span>en une seule fois</span>
               </label>
               <label for="monthly" class="custom-radio">
-                <input type="radio" id="monthly" name="subscribe-rate" class="testinput">
+                <input type="radio" id="monthly" name="subscribe-rate" class="option-input">
                 <span>mensuellement</span>
               </label>
             </div>
@@ -219,12 +219,12 @@
         </div>
       </section>
 
-      <section class="informations small-section js-section">
+      <section class="informations small-section js-section hidden">
         <div class="section-title">3. Informations</div>
         <div class="form-block">
           <div class="form-block__top">Mon rôle dans l'association</div>
           <div class="form-block__bottom">
-            <select name="subscriber-type" id="subscriber-type">
+            <select name="subscriber-type" id="subscriber-type" class="info-input">
               <option value="" disbaled selected class="hidden-option">J'adhère en tant que</option>
               <option value="1">Adherent 1</option>
               <option value="2">Adherent 2</option>
@@ -236,19 +236,19 @@
           <div class="form-block__top">Informations personnelles</div>
           <div class="form-block__bottom">
             <div class="input-row">
-              <%= f.text_field :name, :class => 'input__classic', :placeholder => 'Nom' %>
-              <%= f.text_field :surname, :class => 'input__classic', :placeholder => 'Prénom' %>
+              <%= f.text_field :name, :class => 'input__classic info-input', :placeholder => 'Nom' %>
+              <%= f.text_field :surname, :class => 'input__classic info-input', :placeholder => 'Prénom' %>
             </div>
             <div class="input-row">
-              <%= f.text_field :phone_number, :class => 'input__classic', :placeholder => 'Téléphone' %>
+              <%= f.text_field :phone_number, :class => 'input__classic info-input', :placeholder => 'Téléphone' %>
             </div>
             <div class="input-row">
-              <%= f.text_field :address, :class => 'input__classic', :placeholder => 'Adresse' %>
+              <%= f.text_field :address, :class => 'input__classic info-input', :placeholder => 'Adresse' %>
               <%= f.text_field :address_extend, :class => 'input__classic', :placeholder => 'Adresse complémentaire' %>
             </div>
             <div class="input-row">
-              <%= f.text_field :post_code, :class => 'input__classic', :placeholder => 'Code Postal' %>
-              <%= f.text_field :city, :class => 'input__classic', :placeholder => 'Ville' %>
+              <%= f.text_field :post_code, :class => 'input__classic info-input', :placeholder => 'Code Postal' %>
+              <%= f.text_field :city, :class => 'input__classic info-input', :placeholder => 'Ville' %>
             </div>
           </div>
         </div>
@@ -256,16 +256,16 @@
           <div class="form-block__top">Espace adhérent</div>
           <div class="form-block__bottom">
             <div class="input-row">
-              <%= f.email_field :email, :class => 'input__classic', :placeholder => 'Adresse e-mail' %>
+              <%= f.email_field :email, :class => 'input__classic info-input', :placeholder => 'Adresse e-mail' %>
             </div>
             <div class="input-row">
 
               <% if @minimum_password_length %>
               <em>(<%= @minimum_password_length %> characters minimum)</em>
               <% end %><br />
-              <%= f.password_field :password, autocomplete: "off", :class => 'input__classic', :placeholder => 'Mot de passe' %>
+              <%= f.password_field :password, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Mot de passe' %>
 
-              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic', :placeholder => 'Répéter mot de passe' %>
+              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Répéter mot de passe' %>
 
             </div>
 
@@ -281,7 +281,7 @@
         </div>
       </section>
 
-      <section class="payment small-section js-section">
+      <section class="payment small-section js-section hidden">
         <div class="section-title">4. Paiement</div>
         <div class="form-block">
           <div class="form-block__top">Récapitulatif</div>

@@ -17,16 +17,25 @@ var Sidebar = function () {
 
   var offsets = [offsetChoice, offsetOptions, offsetInfos, offsetPayment];
 
+  // Display sections variables
+  var firstSectionInputs  = $('.formule-input');
+  var secondSectionInputs = $('.option-input');
+  var thirdSectionInputs = $('.info-input');
+
   var init = function () {
 
     _initEvents();
     _highlightSection();
+    _checkThirdSection();
 
   };
 
   var _initEvents = function () {
 
     sidebarItems.on('click', $.proxy(_goToSection, this));
+
+    firstSectionInputs.on('change', function(){_displaySection(1)});
+    secondSectionInputs.on('change', function(){_displaySection(2)});
 
   };
 
@@ -35,7 +44,7 @@ var Sidebar = function () {
     var target = $(e.target),
         targetIndex = target.index();
 
-    if (targetIndex === 4) return;
+    if (target.hasClass('sidebar__item--disabled') || targetIndex === 4) return;
 
     $('html, body').animate({
       scrollTop: offsets[targetIndex] - 25
@@ -67,6 +76,48 @@ var Sidebar = function () {
         }
 
       }, {offset: '1%'});
+
+  };
+
+  var _checkThirdSection = function () {
+
+    thirdSectionInputs.on('change input', throttle(function () {
+      console.log('throttled my friend');
+      var empty = thirdSectionInputs.filter(function () {
+        return this.value === "";
+      });
+
+      if (empty.length === 0 && paymentSection.hasClass('hidden')) {
+        _displaySection(3);
+      }
+    }, 500));
+
+  };
+
+  var _displaySection = function (number) {
+
+    var current = allSections[number];
+
+    if ($(current).hasClass('visible')) return;
+
+    $(current).removeClass('hidden').addClass('visible');
+
+    sidebarItems.eq(number).removeClass('sidebar__item--disabled');
+
+    Waypoint.refreshAll();
+
+    _resetVariables();
+
+  };
+
+  var _resetVariables = function () {
+
+    offsetChoice  = choiceSection.offset().top;
+    offsetOptions = optionsSection.offset().top;
+    offsetInfos   = infosSection.offset().top;
+    offsetPayment = paymentSection.offset().top;
+
+    offsets = [offsetChoice, offsetOptions, offsetInfos, offsetPayment];
 
   };
 
