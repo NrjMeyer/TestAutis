@@ -13,6 +13,12 @@
   &__item {
     @include display(flex);
 
+    @include tablet {
+      width: 100%;
+      @include justify-content(center);
+      margin-bottom: rem(30px);
+    }
+
     .content {
       @include display(flex);
       @include flex-direction(column);

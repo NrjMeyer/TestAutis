@@ -26,6 +26,12 @@
     border-right: 1px solid $white;
     cursor: pointer;
 
+    @include fromtablet {
+      @include flex-direction(column);
+      @include justify-content(center);
+      display: inherit;
+    }
+
     &:last-child {
       border-right: none;
     }

@@ -38,7 +38,7 @@ body {
   width: 90%;
   margin: auto;
 
-  @include desktop {
+  @include bigdesktop {
     width: 60%;
   }
 }

@@ -20,6 +20,10 @@
   &__add {
     padding: rem(10px) rem(40px);
     margin-left: auto;
+
+    @include tablet {
+      padding: rem(10px) rem(24px);
+    }
   }
 
   &__payment {
