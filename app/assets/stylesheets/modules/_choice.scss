@@ -49,17 +49,60 @@
     text-align: center;
     font-size: rem(12px);
 
-    > span {
-      color: $white;
+    .big {
       font-size: rem(14px);
     }
 
-    > svg {
-      width: rem(12px);
-      height: rem(12px);
-      margin-left: rem(2px);
-      cursor: pointer;
+    .white {
+      color: $white;
     }
+
+    .infobox {
+      position: relative;
+      margin-left: rem(2px);
+      > svg {
+        width: rem(12px);
+        height: rem(12px);
+        cursor: pointer;
+      }
+
+      &:hover {
+        .infobox__text {
+          display: block;
+        }
+      }
+
+      &__text {
+        position: absolute;
+        display: none;
+        width: 222px;
+        font-size: rem(10px);
+        line-height: rem(15px);
+        color: #9B9B9B;
+        background: #272727;
+        padding: rem(7px) rem(10px);
+        left: 50%;
+        @include transform(translateX(-50%));
+        top: -50px;
+        text-align: left;
+
+        &:before {
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          @include transform(translateX(-50%));
+          height: 0;
+          width: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 5px solid #272727;
+        }
+      }
+    }
+
+
   }
 
   &__features {
