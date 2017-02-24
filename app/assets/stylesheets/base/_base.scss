@@ -50,7 +50,7 @@ body {
     width: 60%;
   }
 
-  @include mobile {
+  @include small {
     width: 100%;
   }
 }

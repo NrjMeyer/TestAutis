@@ -67,6 +67,12 @@ Mixins
   }
 }
 
+@mixin tablet-pt {
+  @media (min-width: #{$tablet-pt-width}) and (max-width: #{$tablet-width - 1px}) {
+    @content;
+  }
+}
+
 @mixin tablet {
   @media (min-width: #{$tablet-width}) and (max-width: #{$desktop-width - 1px}) {
     @content;

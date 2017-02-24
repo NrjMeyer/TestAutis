@@ -10,6 +10,12 @@
     width: 75%;
   }
 
+  @include tablet-pt {
+    @include flex-wrap(initial);
+    @include flex-direction(column);
+    @include justify-content(center);
+  }
+
   &__item {
     @include display(flex);
 
@@ -21,7 +27,7 @@
       }
     }
 
-    @include tablet {
+    @include fromtablet {
       @include justify-content(center);
       margin-bottom: rem(30px);
     }
