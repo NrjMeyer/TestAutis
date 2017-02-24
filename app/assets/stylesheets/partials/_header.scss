@@ -10,19 +10,125 @@
     @include justify-content(space-between);
     @include align-items(center);
     padding: rem(18px) 0;
+
+    @include small {
+      padding: rem(12px) 0;
+    }
   }
 
   &__logo {
     width: 206px;
     height: 26px;
+
+    @include small {
+      width: 132px;
+      height: 17px;
+    }
+  }
+
+  &__burger {
+    width: 18px;
+    height: 16px;
+    cursor: pointer;
+    position: relative;
+    display: none;
+
+    @include small {
+      display: block;
+    }
+
+    .burger {
+      display: block;
+      background: #9B9B9B;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      @include transition(all 0.4s ease);
+
+      &:before, &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        background: #9B9B9B;
+        width: 100%;
+        height: 2px;
+        @include transition(all 0.4s ease);
+      }
+
+      &:before {
+        top: -6px;
+      }
+
+      &:after {
+        top: 6px;
+      }
+
+    }
+
+    &.active {
+
+      .burger {
+        background: transparent;
+
+        &:before, &:after {
+          top: 0;
+        }
+
+        &:before {
+          @include transform(rotate(45deg));
+        }
+
+        &:after {
+          @include transform(rotate(-45deg));
+        }
+      }
+    }
   }
 
 }
 
 .menu {
+
+  @include small {
+    position: fixed;
+    width:100%;
+    height: calc(100% - 42px);
+    bottom:0;
+    left:0;
+    background: rgba(47, 47, 47, 0.8);
+    display: none;
+    @include flex-direction(column);
+    @include transition(all 0.4s ease);
+
+    &.active {
+      @include display(flex);
+    }
+
+  }
+
   &__item {
     display: inline-block;
     margin-right: rem(26px);
+
+    @include small {
+      display: block;
+      width: 100%;
+      margin-right: 0;
+      background: $white;
+      text-align: center;
+      padding: rem(20px) 0;
+    }
+
+    &--border {
+      @include small {
+        border-bottom: 1px solid #D1D1D1;
+      }
+    }
 
     &:last-child {
       margin-right: 0;
@@ -32,6 +138,11 @@
       padding: rem(10px);
       color: $white;
       background: $pink;
+
+      @include small {
+        padding: rem(20px);
+        margin-top: auto;
+      }
     }
   }
 
@@ -49,6 +160,18 @@
     }
   }
 }
+
+// .menu-mobile {
+//   display: none;
+//
+//   @include mobile {
+//     display: block;
+//   }
+//
+//   @include tablet {
+//     display: block;
+//   }
+// }
 
 .icon-download {
   width: 14px;

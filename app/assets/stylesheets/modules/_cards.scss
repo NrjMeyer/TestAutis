@@ -1,6 +1,11 @@
 .cards {
   @include display(flex);
 
+  @include mobile {
+    @include flex-wrap(wrap);
+    @include justify-content(space-between);
+  }
+
   &__input {
     position: relative;
     width: 64px;
@@ -11,6 +16,10 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100%;
+
+    @include mobile {
+      margin-right: 0;
+    }
 
     &:last-child {
       margin-right: 0;

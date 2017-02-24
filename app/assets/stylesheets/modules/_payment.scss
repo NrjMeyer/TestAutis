@@ -6,6 +6,10 @@
     font-size: rem(16px);
     line-height: rem(24px);
     padding: rem(40px) rem(110px);
+
+    @include mobile {
+      padding: 0;
+    }
   }
 
   &__options {
@@ -13,18 +17,38 @@
     @include display(flex);
     @include flex-flow(row wrap);
 
-    input {
+    @include mobile {
+      margin-top: rem(10px);
+    }
+
+    input[type="radio"] {
       display: none;
     }
+
+  }
+
+  &__container {
+    @include flex(1 0 25%);
+
+    @include mobile {
+      @include flex(1 0 100%);
+      border-right: none;
+      margin-bottom: rem(10px);
+    }
+
+
   }
 
   &__option {
-    @include flex(1 0 25%);
     text-align: center;
     background: #EAEAEA;
     padding: rem(18px) rem(14px);
     border-right: 1px solid $white;
     cursor: pointer;
+
+    @include mobile {
+      border-right: none;
+    }
 
     @include fromtablet {
       @include flex-direction(column);
@@ -32,14 +56,15 @@
       display: inherit;
     }
 
-    &:last-child {
-      border-right: none;
+    label {
+      cursor: pointer;
     }
 
     &--selected {
       background: $pink;
       color: $white;
     }
+
   }
 
   &__section {
@@ -50,6 +75,12 @@
     &--small {
       padding: rem(30px) rem(112px);
     }
+  }
+
+  &__section--mobile {
+    background: $white;
+    padding: rem(20px);
+    display: none;
   }
 
   &__card, &__debit {
@@ -87,6 +118,8 @@
   &__cheque {
 
     color: #ABABAB;
+    font-family: 'Roboto';
+    font-weight: normal;
 
     .content {
       line-height: rem(21px);

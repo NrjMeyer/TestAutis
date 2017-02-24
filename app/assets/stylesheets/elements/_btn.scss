@@ -15,6 +15,22 @@
     &--selected {
       background: $pink;
     }
+
+    @include mobile {
+      width: 100%;
+      padding: rem(12px) rem(10px);
+      font-size: rem(12px);
+      margin: 0;
+    }
+  }
+
+  &__perks, &__hide {
+    @extend .btn__choose;
+  }
+
+  &__hide {
+    width: 80%;
+    margin: auto;
   }
 
   &__add {
@@ -23,6 +39,11 @@
 
     @include tablet {
       padding: rem(10px) rem(24px);
+    }
+
+    @include mobile {
+      margin: auto;
+      margin-top: rem(18px);
     }
   }
 

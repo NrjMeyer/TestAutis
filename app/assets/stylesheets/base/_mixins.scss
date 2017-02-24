@@ -50,13 +50,19 @@ Mixins
 }
 
 @mixin mobile {
+  @media (max-width: #{$tablet-pt-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin small {
   @media (max-width: #{$tablet-width - 1px}) {
     @content;
   }
 }
 
 @mixin fromtablet {
-  @media (min-width: #{$tablet-width}) {
+  @media (min-width: #{$tablet-pt-width}) {
     @content;
   }
 }

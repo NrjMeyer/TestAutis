@@ -4,6 +4,10 @@
   padding: rem(18px) rem(30px) rem(14px);
   color: #ABABAB;
 
+  @include mobile {
+    padding: rem(18px) rem(20px);
+  }
+
   .row__content {
     @include display(flex);
     margin-bottom: rem(14px);
@@ -28,4 +32,8 @@
   background: $pink;
   padding: rem(10px) rem(30px);
   color: $white;
+
+  @include mobile {
+    padding: rem(10px) rem(20px);
+  }
 }

@@ -12,6 +12,10 @@ html, body{
 
 body {
   background: #F4F4F4;
+
+  &.disable-scrolling {
+    overflow: hidden;
+  }
 }
 
 .container {
@@ -31,6 +35,10 @@ body {
 
   .container {
     margin-bottom: rem(200px);
+
+    @include mobile {
+      margin-bottom: rem(100px);
+    }
   }
 }
 
@@ -41,6 +49,10 @@ body {
   @include bigdesktop {
     width: 60%;
   }
+
+  @include mobile {
+    width: 100%;
+  }
 }
 
 .hidden {
@@ -49,4 +61,18 @@ body {
 
 .visible {
   display: block;
+}
+
+.mobile {
+  display: none!important;
+
+  @include mobile {
+    display: block!important;
+  }
+}
+
+.no-mobile {
+  @include mobile {
+    display: none!important;
+  }
 }

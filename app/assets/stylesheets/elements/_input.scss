@@ -15,8 +15,18 @@
   padding-left: rem(10px);
   font-family: inherit;
 
+  @include mobile {
+    width: 100%;
+    background: $white;
+  }
+
   &:first-child {
     margin-right: rem(32px);
+
+    @include mobile {
+      margin-right: 0;
+      margin-bottom: rem(10px);
+    }
   }
 
   @include placeholder {
@@ -41,6 +51,10 @@
 
   &--big {
     width: 310px;
+
+    @include mobile {
+      width: 100%;
+    }
   }
 
   @include placeholder {
@@ -49,6 +63,14 @@
   }
 }
 
-.input__debit {
+input[name="user[phone_number]"] {
+  @include mobile {
+    margin-bottom: 0!important;
+  }
+}
 
+input[name="user[password]"] {
+  @include mobile {
+    margin-bottom: rem(10px);
+  }
 }

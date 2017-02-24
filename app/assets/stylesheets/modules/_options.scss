@@ -1,3 +1,7 @@
 .options {
   margin-top: rem(40px);
+
+  @include mobile {
+    margin-top: 0;
+  }
 }

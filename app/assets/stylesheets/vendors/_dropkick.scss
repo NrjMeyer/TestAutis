@@ -9,7 +9,12 @@
   vertical-align: middle;
   line-height: 1.5em;
   width: 200px;
-  cursor: pointer; }
+  cursor: pointer;
+
+  @include mobile {
+    width: 100%;
+  }
+}
 
 .dk-selected {
   @extend .roboto--italic;
@@ -22,7 +27,12 @@
   padding: em(8px) 1.5em em(8px) 0.75em;
   color: #8D8D8D;
   -o-text-overflow: ellipsis;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+
+  @include mobile {
+    background-color: $white;
+  }
+}
   .dk-selected:before, .dk-selected:after {
     content: '';
     display: block;
