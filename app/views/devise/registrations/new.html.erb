@@ -262,7 +262,7 @@
         <div class="form-block">
           <div class="form-block__top form-block__top--mobile">Mon rôle dans l'association</div>
           <div class="form-block__bottom form-block__bottom--mobile">
-            <select name="subscriber-type" id="subscriber-type" class="info-input">
+            <select name="subscriber-type" id="subscriber-type" class="info-input" data-parsley-required data-parsley-group="block-3">
               <option value="" disbaled selected class="hidden-option">J'adhère en tant que</option>
               <option value="1">Adherent 1</option>
               <option value="2">Adherent 2</option>
@@ -274,19 +274,19 @@
           <div class="form-block__top form-block__top--mobile">Informations personnelles</div>
           <div class="form-block__bottom form-block__bottom--mobile">
             <div class="input-row">
-              <%= f.text_field :name, :class => 'input__classic info-input', :placeholder => 'Nom' %>
-              <%= f.text_field :surname, :class => 'input__classic info-input', :placeholder => 'Prénom' %>
+              <%= f.text_field :name, :class => 'input__classic info-input', :placeholder => 'Nom', 'data-parsley-group' => 'block-3' %>
+              <%= f.text_field :surname, :class => 'input__classic info-input', :placeholder => 'Prénom', 'data-parsley-group' => 'block-3' %>
             </div>
             <div class="input-row">
-              <%= f.text_field :phone_number, :class => 'input__classic info-input', :placeholder => 'Téléphone' %>
+              <%= f.text_field :phone_number, :class => 'input__classic info-input', :placeholder => 'Téléphone', 'data-parsley-group' => 'block-3' %>
             </div>
             <div class="input-row">
-              <%= f.text_field :address, :class => 'input__classic info-input', :placeholder => 'Adresse' %>
+              <%= f.text_field :address, :class => 'input__classic info-input', :placeholder => 'Adresse', 'data-parsley-group' => 'block-3' %>
               <%= f.text_field :address_extend, :class => 'input__classic', :placeholder => 'Adresse complémentaire' %>
             </div>
             <div class="input-row">
-              <%= f.text_field :post_code, :class => 'input__classic info-input', :placeholder => 'Code Postal' %>
-              <%= f.text_field :city, :class => 'input__classic info-input', :placeholder => 'Ville' %>
+              <%= f.text_field :post_code, :class => 'input__classic info-input', :placeholder => 'Code Postal', 'data-parsley-group' => 'block-3' %>
+              <%= f.text_field :city, :class => 'input__classic info-input', :placeholder => 'Ville', 'data-parsley-group' => 'block-3' %>
             </div>
           </div>
         </div>
@@ -294,16 +294,16 @@
           <div class="form-block__top form-block__top--mobile">Espace adhérent</div>
           <div class="form-block__bottom form-block__bottom--mobile">
             <div class="input-row">
-              <%= f.email_field :email, :class => 'input__classic info-input', :placeholder => 'Adresse e-mail' %>
+              <%= f.email_field :email, :class => 'input__classic info-input', :placeholder => 'Adresse e-mail', 'data-parsley-group' => 'block-3' %>
             </div>
             <div class="input-row">
 
               <% if @minimum_password_length %>
               <em>(<%= @minimum_password_length %> characters minimum)</em>
               <% end %><br />
-              <%= f.password_field :password, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Mot de passe' %>
+              <%= f.password_field :password, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Mot de passe', 'data-parsley-group' => 'block-3' %>
 
-              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Répéter mot de passe' %>
+              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Répéter mot de passe', 'data-parsley-group' => 'block-3' %>
 
             </div>
 
