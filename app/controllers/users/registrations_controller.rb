@@ -1,16 +1,20 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  include Paypal
 # before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
-  #   super
+  #   super    
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    puts params.inspect
+    # payment_data = Paypal.simplePayment(20)
+    # :redirect_to payment_data['links'][1]['href']
+  end
 
   # GET /resource/edit
   # def edit
