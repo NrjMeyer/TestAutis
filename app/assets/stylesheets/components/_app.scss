@@ -57,13 +57,13 @@ Functions
   font-family: "DIN-Bold";
   font-style: normal;
   font-weight: normal;
-  src: url("dinbold-webfont.eot?#iefix") format("embedded-opentype"), url("dinbold-webfont.woff") format("woff"), url("dinbold-webfont.ttf") format("truetype"), url("dinbold-webfont.svg#DIN-Bold") format("svg"); }
+  src: font-url("dinbold-webfont.eot?#iefix") format("embedded-opentype"), font-url("dinbold-webfont.woff") format("woff"), font-url("dinbold-webfont.ttf") format("truetype"), font-url("dinbold-webfont.svg#DIN-Bold") format("svg"); }
 
 @font-face {
   font-family: "LucidaGrande-Bold";
   font-style: normal;
   font-weight: normal;
-  src: url("lucida_grande_bold-webfont.eot?#iefix") format("embedded-opentype"), url("lucida_grande_bold-webfont.woff") format("woff"), url("lucida_grande_bold-webfont.ttf") format("truetype"), url("lucida_grande_bold-webfont.svg#LucidaGrande-Bold") format("svg"); }
+  src: font-url("lucida_grande_bold-webfont.eot?#iefix") format("embedded-opentype"), font-url("lucida_grande_bold-webfont.woff") format("woff"), font-url("lucida_grande_bold-webfont.ttf") format("truetype"), font-url("lucida_grande_bold-webfont.svg#LucidaGrande-Bold") format("svg"); }
 
 .roboto--italic, .payment__debit .phone-tip, .dk-selected {
   font-style: italic; }
