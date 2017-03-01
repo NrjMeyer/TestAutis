@@ -6,7 +6,6 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     super
-    puts 'yolo'
   end
 
   def payment
@@ -15,10 +14,20 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    payment_option = params[:payment_option]
+    monthly = false
+
+    if payment_option == "paypal" && monthly == false
+      payment_data = Paypal.simplePayment(20)
+      # puts payment_data['id']
+      params[:cache_user].merge("payment_id" => payment_data['id'])
+      puts params['cache_user']['name']
+      puts params['cache_user']['payment_id']
+    end
+
     super
-    puts @cache_user.errors.inspect
-    # payment_data = Paypal.simplePayment(0.01)
-    # puts payment_data
+    # puts @cache_user.errors.inspect
+
     # # puts payment_data['links'][1]['href']
     # redirect_to payment_data['links'][1]['href']
   end
@@ -26,7 +35,7 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   # def edit
-  #   super
+  #   super'
   # end
 
   # PUT /resource
@@ -53,7 +62,7 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :surname,
-      :phone_number, :address, :address_extend, :post_code, :city])
+      :phone_number, :address, :address_extend, :post_code, :city, :payment_id])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -62,9 +71,9 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_sign_up_path_for(ressource)
+    # puts(ressource)
+  end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
