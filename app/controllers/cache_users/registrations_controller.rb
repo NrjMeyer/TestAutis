@@ -1,4 +1,4 @@
-class Users::RegistrationsController < Devise::RegistrationsController
+class CacheUsers::RegistrationsController < Devise::RegistrationsController
   include Paypal
 # before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
@@ -9,12 +9,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
     puts 'yolo'
   end
 
+  def payment
+    
+  end
+
   # POST /resource
   def create
     super
-    # payment_data = Paypal.simplePayment(20)
-    # :redirect_to payment_data['links'][1]['href']
+    # payment_data = Paypal.simplePayment(0.01)
+    # puts payment_data
+    # # puts payment_data['links'][1]['href']
+    # redirect_to payment_data['links'][1]['href']
   end
+
 
   # GET /resource/edit
   # def edit
