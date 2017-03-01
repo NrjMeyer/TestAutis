@@ -9,6 +9,10 @@
 .input-single {
   display: inline-block;
   vertical-align: top;
+
+  @include mobile {
+    display: block;
+  }
 }
 
 .input__classic {

@@ -18,7 +18,6 @@
 
 $(document).on('turbolinks:load', function () {
   var app = new App();
-  var sidebar = new Sidebar();
   var payment = new Payment();
   var packages = new Packages();
   var addMember = new FamilyMember();
