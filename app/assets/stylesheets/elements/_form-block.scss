@@ -104,8 +104,9 @@
 
     &__family {
       width: rem(200px);
-      height: rem(30px);
+      height: rem(40px);
       padding-left: rem(10px);
+      font-size: rem(14px);
 
       @include mobile {
         width: 100%;
