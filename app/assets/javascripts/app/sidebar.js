@@ -87,7 +87,9 @@ var Sidebar = function () {
       });
 
       if (empty.length === 0 && paymentSection.hasClass('hidden')) {
-        _displaySection(3);
+        if ($('.new_user').parsley().validate({group: 'block-3'})) {
+          _displaySection(3);
+        }
       }
     }, 500));
 
