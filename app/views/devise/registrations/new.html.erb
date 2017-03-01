@@ -387,6 +387,7 @@
         <div class="payment__options">
           <div class="payment__container">
             <div class="payment__option" data-option="card">
+              <%= embedded_svg "icons/card.svg", class: "icon-card" %>
               <label for="card" class="label">
                 Carte bancaire
               </label>
@@ -437,6 +438,7 @@
           </div>
           <div class="payment__container">
             <div class="payment__option" data-option="paypal">
+              <%= embedded_svg "icons/paypal.svg", class: "icon-paypal" %>
               <label for="paypal" class="label">
                 Paypal
               </label>
@@ -451,6 +453,7 @@
           </div>
           <div class="payment__container">
             <div class="payment__option" data-option="debit">
+              <%= embedded_svg "icons/debit.svg", class: "icon-debit" %>
               <label for="debit" class="label">
                 Prélèvement automatique
               </label>
@@ -475,6 +478,7 @@
           </div>
           <div class="payment__container">
             <div class="payment__option" data-option="cheque">
+              <%= embedded_svg "icons/cheque.svg", class: "icon-cheque" %>
               <label for="cheque" class="label">
                 Paiement par chèque
               </label>
@@ -516,10 +520,10 @@
 
           <div class="input-row">
             <div class="input-single">
-              <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte" data-parsley-required="true" data-parsley-trigger="focusout">
+              <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout">
             </div>
             <div class="input-single">
-              <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte" data-parsley-required="true" data-parsley-trigger="focusout" data-parsley-type="number">
+              <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout" data-parsley-type="number">
             </div>
           </div>
           <div class="input-row">
@@ -527,7 +531,7 @@
               <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)" data-parsley-required="true" data-parsley-trigger="change focusout" data-parsley-pattern="/^(0[1-9]|1[0-2])\/\d{2}$/">
             </div>
             <div class="input-single">
-              <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="3">
+              <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" maxlength="3">
             </div>
           </div>
           <label class="custom-radio custom-radio--block">
