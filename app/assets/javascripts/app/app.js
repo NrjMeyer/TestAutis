@@ -158,7 +158,13 @@ var App = function () {
 
     if ($(current).hasClass('visible')) return;
 
-    $(current).removeClass('hidden').addClass('visible');
+    $(current).removeClass('hidden').addClass('visible fadeInUp');
+
+    if (!$(current).hasClass('informations')) {
+      $('html, body').animate({
+        scrollTop: $(current).offset().top
+      }, 1500);
+    }
 
     sidebarItems.eq(number).removeClass('sidebar__item--disabled');
 
