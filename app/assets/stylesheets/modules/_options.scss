@@ -5,3 +5,36 @@
     margin-top: 0;
   }
 }
+
+.members {
+  margin-top: rem(20px);
+}
+
+.member {
+
+  @include display(flex);
+  @include align-items(center);
+  color: #BBBBBB;
+  margin-bottom: rem(14px);
+
+  &__name {
+    width: 31%;
+  }
+
+  &__delete {
+    cursor: pointer;
+    margin-left: auto;
+    color: #AFAFAF;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    svg, span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+}

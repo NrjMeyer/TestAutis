@@ -63,7 +63,6 @@
       <div class="intro__content">Adhérer à <span>Vaincre l'autisme</span>, c'est très simple et vous permet de <span>vous impliquer dans la vie de notre association à votre niveau</span>, en fonction de la formule que vous choisissez ci-dessous.</div>
     </section>
 
-    <form action="#" data-parsley-validate="true">
       <section class="choice js-section">
         <div class="choice__item">
           <div class="content">
@@ -204,7 +203,7 @@
         </div>
       </section>
 
-      <section class="options small-section js-section hidden">
+      <section class="options small-section js-section">
         <div class="section-title no-mobile">2. Options</div>
         <div class="section-title mobile">Options</div>
         <div class="form-block">
@@ -248,10 +247,17 @@
         <div class="form-block">
           <div class="form-block__top">Faire adhérer un membre de ma famille (1€/mois seulement)</div>
           <div class="form-block__bottom">
-            <div class="form-block__container">
-              <input class="input input__family" type="text" id="family-name" placeholder="Nom / Prénom" data-parsley-required="false">
-              <input class="input input__family" type="mail" id="family-mail" placeholder="Adresse mail" data-parsley-required="false">
-              <button class="btn btn__add">Ajouter</button>
+            <div class="form-block__container form-block__container--alignedtop">
+              <div class="input-single">
+                <input class="input input__family" type="text" id="family-name" placeholder="Prénom / Nom" data-parsley-required="true"data-parsley-error-message="Ce champ est invalide" data-parsley-group="family-member">
+              </div>
+              <div class="input-single">
+                <input class="input input__family" type="mail" id="family-mail" placeholder="Adresse mail" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" data-parsley-group="family-member">
+              </div>
+              <div class="btn btn__add js-add-member">Ajouter</div>
+            </div>
+            <div class="members">
+              <ul></ul>
             </div>
           </div>
         </div>
@@ -566,7 +572,6 @@
           </div>
         </div>
       </section>
-    </form>
 
   </div>
 

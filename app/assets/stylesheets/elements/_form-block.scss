@@ -9,6 +9,10 @@
     @include display(flex);
     @include align-items(center);
 
+    &--alignedtop {
+      @include align-items(flex-start);
+    }
+
     @include mobile {
       @include flex-direction(column);
       @include align-items(flex-start);

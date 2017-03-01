@@ -21,4 +21,5 @@ $(document).on('turbolinks:load', function () {
   var sidebar = new Sidebar();
   var payment = new Payment();
   var packages = new Packages();
+  var addMember = new FamilyMember();
 });
