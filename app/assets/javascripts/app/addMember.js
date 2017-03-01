@@ -32,7 +32,7 @@ var FamilyMember = function () {
         mail          = mailInput.val(),
         membersLength = $('.member').length;
 
-    if ($('.new_user').parsley().validate({group: 'family-member'}) && membersLength < 5) {
+    if ($('.new_user').parsley().validate({group: 'family-member', force: true}) && membersLength < 5) {
 
       membersContainer.append('<li class="member">\
           <p class="member__name">'+name+'</p>\
