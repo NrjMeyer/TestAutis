@@ -1,4 +1,4 @@
-.price-table, .price-table--highlighted {
+.price-table, .price-table--highlighted, .price-table--grey {
   @include display(flex);
   @include flex-direction(column);
   padding: rem(18px) rem(30px) rem(14px);
@@ -22,10 +22,13 @@
   }
 
   .row__total {
-    padding-top: rem(14px);
-    border-top: 1px solid #E7E7E7;
-    color: #7D7D7D;
+    color: #7C7C7C;
   }
+}
+
+.price-table--grey {
+  background: #EAEAEA;
+  padding: rem(10px) rem(30px);
 }
 
 .price-table--highlighted {
