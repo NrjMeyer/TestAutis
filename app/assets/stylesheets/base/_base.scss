@@ -34,7 +34,8 @@ body {
   }
 
   .container {
-    margin-bottom: rem(200px);
+    margin-top: rem(100px);
+    margin-bottom: rem(100px);
 
     @include mobile {
       margin-bottom: rem(100px);
