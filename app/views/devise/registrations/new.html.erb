@@ -1,5 +1,20 @@
 <%= form_for @cache_user, url: {action: "create"} do |f| %>
 
+<% flash.each do |name, msg| %>
+
+  # New code (allow for flash elements to be arrays)
+  <% if msg.class == Array %>
+    <% msg.each do |message| %>
+      <%= content_tag :div, message, :id => "flash_#{name}" %>
+    <% end %>
+  <% else %>
+
+    # old code
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+
+  <% end %> #don't forget the extra end
+<% end %>
+
 <header class="header">
       <div class="container header__container">
         <img class="logo" src="img/logo.png" alt="Logo Vaincre l'autisme">
