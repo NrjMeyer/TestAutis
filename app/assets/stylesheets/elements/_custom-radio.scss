@@ -27,6 +27,7 @@
     position: relative;
     @include display(flex);
     @include align-items(center);
+    cursor: pointer;
 
     &:before {
       content: '';
@@ -35,7 +36,6 @@
       height: rem(14px);
       border: 1px solid #979797;
       margin-right: rem(8px);
-      cursor: pointer;
     }
   }
 
