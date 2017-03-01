@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20170301155643) do
     t.string   "city"
     t.boolean  "tax_receipt"
     t.boolean  "sub_newsletter"
+    t.string   "payer_id"
     t.index ["email"], name: "index_cache_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_cache_users_on_reset_password_token", unique: true, using: :btree
   end
