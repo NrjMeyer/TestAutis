@@ -4,7 +4,6 @@ var Packages = function () {
 
   var chooseButtons = $('.btn__choose');
   var perksButtons  = $('.btn__perks');
-  var hideButtons   = $('.btn__hide');
   var perks         = $('.choice__features');
 
   var init = function () {
@@ -18,25 +17,25 @@ var Packages = function () {
     chooseButtons.on('click', $.proxy(_selectPackage, this));
 
     if ($(window).width() < 768) {
-      perksButtons.on('click', _showPerks);
-      hideButtons.on('click', _hidePerks);
+      perksButtons.on('click', _togglePerks);
     }
 
   };
 
-  var _showPerks = function (e) {
+  var _togglePerks = function (e) {
     var target = $(e.target),
         targetIndex = target.data('perks');
 
-    perks.eq(targetIndex - 1).slideDown();
+    if (target.hasClass('active')) {
+      target.html('voir les avantages')
+    }
 
-  };
+    else {
+      target.html('masquer les avantages');
+    }
+    target.toggleClass('active');
+    perks.eq(targetIndex - 1).slideToggle();
 
-  var _hidePerks = function (e) {
-    var target = $(e.target),
-        targetIndex = target.data('perks');
-
-    perks.eq(targetIndex - 1).slideUp();
   };
 
   var _selectPackage = function (e) {
