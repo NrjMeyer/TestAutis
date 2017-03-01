@@ -4,14 +4,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super    
-  # end
+  def new
+    super    
+    puts 'yolo'
+  end
 
   # POST /resource
   def create
     super
-    puts params.inspect
     # payment_data = Paypal.simplePayment(20)
     # :redirect_to payment_data['links'][1]['href']
   end

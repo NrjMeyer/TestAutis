@@ -1,4 +1,4 @@
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for @user, url: {action: "create"} do |f| %>
 
 <header class="header">
       <div class="container header__container">
@@ -353,19 +353,19 @@
                 <label for="card" class="payment__option">
                   Carte bancaire
                 </label>
-                <input type="radio" id="card" name="payment-option">
+                <input type="radio" id="card" name="payment-option" value="card">
                 <label for="paypal" class="payment__option">
                   Paypal
                 </label>
-                <input type="radio" id="paypal" name="payment-option">
+                <input type="radio" id="paypal" name="payment-option" value="paypal">
                 <label for="debit" class="payment__option">
                   Prélèvement automatique
                 </label>
-                <input type="radio" id="debit" name="payment-option">
+                <input type="radio" id="debit" name="payment-option" value="debit">
                 <label for="cheque" class="payment__option">
                   Paiement par chèque
                 </label>
-                <input type="radio" id="cheque" name="payment-option">
+                <input type="radio" id="cheque" name="payment-option" value="cheque">
               </div>
 
               <div class="payment__section payment__card">
