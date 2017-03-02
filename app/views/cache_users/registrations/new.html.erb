@@ -1,4 +1,19 @@
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for @cache_user, url: {action: "create"} do |f| %>
+
+<% flash.each do |name, msg| %>
+
+  # New code (allow for flash elements to be arrays)
+  <% if msg.class == Array %>
+    <% msg.each do |message| %>
+      <%= content_tag :div, message, :id => "flash_#{name}" %>
+    <% end %>
+  <% else %>
+
+    # old code
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+
+  <% end %> #don't forget the extra end
+<% end %>
 
 <header class="header">
       <div class="container header__container">
@@ -353,19 +368,19 @@
                 <label for="card" class="payment__option">
                   Carte bancaire
                 </label>
-                <input type="radio" id="card" name="payment-option">
+                <input type="radio" id="card" name="payment_option" value="card">
                 <label for="paypal" class="payment__option">
                   Paypal
                 </label>
-                <input type="radio" id="paypal" name="payment-option">
+                <input type="radio" id="paypal" name="payment_option" value="paypal">
                 <label for="debit" class="payment__option">
                   Prélèvement automatique
                 </label>
-                <input type="radio" id="debit" name="payment-option">
+                <input type="radio" id="debit" name="payment_option" value="debit">
                 <label for="cheque" class="payment__option">
                   Paiement par chèque
                 </label>
-                <input type="radio" id="cheque" name="payment-option">
+                <input type="radio" id="cheque" name="payment_option" value="cheque">
               </div>
 
               <div class="payment__section payment__card">
@@ -415,7 +430,8 @@
                 <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
                 <!-- Ici il faut surement un submit au lieu d'un lien mais dunno avec Slimpay -->
                 <div class="btn-container">
-                  <button class="btn btn__payment"><a href="https://www.paypal.com" target="_blank">Payer avec PayPal</a></button>
+                  <%= f.submit %>
+                  <!-- <button class="btn btn__payment"><a href="https://www.paypal.com" target="_blank">Payer avec PayPal</a></button> -->
                 </div>
               </div>
 
