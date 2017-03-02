@@ -57,6 +57,8 @@
 
   span {
 
+    font-size: rem(16px);
+
     @include mobile {
       display: inline-block;
 
