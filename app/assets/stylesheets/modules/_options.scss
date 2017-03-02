@@ -8,6 +8,10 @@
 
 .members {
   margin-top: rem(20px);
+
+  ul > p {
+    margin-bottom: rem(10px);
+  }
 }
 
 .member {
@@ -18,7 +22,13 @@
   margin-bottom: rem(14px);
 
   &__name {
-    width: 31%;
+    color: $pink;
+  }
+
+  &__mail {
+    @include mobile {
+      display: none;
+    }
   }
 
   &__delete {
