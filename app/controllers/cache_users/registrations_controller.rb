@@ -8,10 +8,6 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
     super
   end
 
-  def payment
-    @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
-  end
-
   # POST /resource
   def create
     @cache_user = CacheUser.create(params.require(:cache_user).permit(:name, :surname,
@@ -27,7 +23,11 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
 
     @cache_user.save
 
-    redirect_to payment_data['links'][1]['href']
+    if @cache_user.new_record?
+      puts @cache_user.errors
+    else
+      redirect_to payment_data['links'][1]['href']
+    end
   end
 
 

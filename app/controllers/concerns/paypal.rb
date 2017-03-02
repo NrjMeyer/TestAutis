@@ -36,7 +36,7 @@ module Paypal
         "intent": "sale",
         "redirect_urls":
           {
-            "return_url": "http://127.0.0.1:3000/payment",
+            "return_url": "http://127.0.0.1:3000/validation",
             "cancel_url": "http://127.0.0.1:3000/anulation"
           },
           "payer":
