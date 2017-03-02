@@ -1,2 +1,11 @@
 fr:
   submit: "submit"
+  activerecord:
+    errors:
+      models:
+        cache_user:
+          attributes:
+            email:
+              blank: "Email manquant"
+            password:
+              blank: "Mot de passe manquant"

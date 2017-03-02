@@ -9,27 +9,25 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
   end
 
   def payment
-
+    @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
   end
 
   # POST /resource
   def create
+    @cache_user = CacheUser.create(params.require(:cache_user).permit(:name, :surname,
+      :phone_number, :address, :address_extend, :post_code, :city, :email, :password, :password_confirmation))
+
     payment_option = params[:payment_option]
     monthly = false
 
     if payment_option == "paypal" && monthly == false
       payment_data = Paypal.simplePayment(20)
-      # puts payment_data['id']
-      params[:cache_user].merge("payment_id" => payment_data['id'])
-      puts params['cache_user']['name']
-      puts params['cache_user']['payment_id']
+      @cache_user.payment_id = payment_data['id']
     end
 
-    super
-    # puts @cache_user.errors.inspect
+    @cache_user.save
 
-    # # puts payment_data['links'][1]['href']
-    # redirect_to payment_data['links'][1]['href']
+    redirect_to payment_data['links'][1]['href']
   end
 
 
@@ -71,9 +69,9 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  def after_sign_up_path_for(ressource)
-    # puts(ressource)
-  end
+  # def after_sign_up_path_for(ressource)
+  #   # puts(ressource)
+  # end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
