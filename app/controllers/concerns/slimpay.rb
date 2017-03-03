@@ -1,4 +1,5 @@
 module Slimpay
+  extend ActiveSupport::Concern
   attr_accessor :token
   attr_accessor :links
 
@@ -6,7 +7,7 @@ module Slimpay
     before_action :get_token
   end
 
-  def self.create_order
+  def self.simpleIbanPayment(amount)
     order = HTTParty.post(@links["_links"]['https://api.slimpay.net/alps#create-orders']["href"],
         headers: {
           'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -46,7 +47,7 @@ module Slimpay
             {
                 type: "directDebit",
                 directDebit: {
-                    amount: "20",
+                    amount: amount,
                     paymentReference: "mypayment",
                     label: "This is my Direct Debit"
                 }
