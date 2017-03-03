@@ -10,6 +10,10 @@
   display: inline-block;
   vertical-align: top;
 
+  &:first-child {
+    margin-bottom: rem(10px);
+  }
+
   @include mobile {
     display: block;
   }
@@ -35,7 +39,6 @@
 
     @include mobile {
       margin-right: 0;
-      margin-bottom: rem(10px);
     }
   }
 
@@ -76,11 +79,5 @@
 input[name="user[phone_number]"] {
   @include mobile {
     margin-bottom: 0!important;
-  }
-}
-
-input[name="user[password]"] {
-  @include mobile {
-    margin-bottom: rem(10px);
   }
 }
