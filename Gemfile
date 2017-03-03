@@ -51,4 +51,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
+<<<<<<< HEAD
 gem 'httparty'
+=======
+gem 'config'
+>>>>>>> cdc411dc427fca2e9d0f2ddd8a4bf6d392411245
