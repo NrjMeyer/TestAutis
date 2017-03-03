@@ -20,18 +20,29 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
     if payment_option == "paypal" && monthly == false
       payment_data = Paypal.simplePayment(20)
       @cache_user.payment_id = payment_data['id']
+
+      @cache_user.save
+
+      if @cache_user.new_record?
+        puts @cache_user.errors
+      else
+        redirect_to payment_data['links'][1]['href']
+      end
+
     elsif payment_option == "slimpay_iban" && monthly == false
-      payment_data = Slimpay.simpleIbanPayment(20)
+      payment_data = JSON.parse(Slimpay.simpleIbanPayment(20))
       puts payment_data
+
+      @cache_user.save
+
+      if @cache_user.new_record?
+        puts @cache_user.errors
+      else
+        redirect_to payment_data['_links']['https://api.slimpay.net/alps#user-approval']['href']
+      end
+
     end
 
-    @cache_user.save
-
-    if @cache_user.new_record?
-      puts @cache_user.errors
-    else
-      redirect_to payment_data['links'][1]['href']
-    end
   end
 
 

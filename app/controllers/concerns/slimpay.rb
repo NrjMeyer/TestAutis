@@ -1,18 +1,36 @@
 module Slimpay
   extend ActiveSupport::Concern
-  attr_accessor :token
+  attr_accessor :slimpay_token
   attr_accessor :links
+
+  private
 
   included do
     before_action :get_token
   end
 
+  def get_token
+    authorization = 'Basic '+ Settings.slimpay.encoded_key
+    @@slimpay_token = HTTParty.post(Settings.slimpay.server+'/oauth/token',
+        headers: {
+          'Accept'        => 'application/json',
+          'Content-Type'  => 'application/x-www-form-urlencoded',
+          'Authorization' => authorization
+        },
+        body: {
+          :grant_type => 'client_credentials',
+          :scope      => 'api'
+        }.to_query
+      )['access_token']
+  end
+
   def self.simpleIbanPayment(amount)
-    order = HTTParty.post(@links["_links"]['https://api.slimpay.net/alps#create-orders']["href"],
+    puts @@slimpay_token
+    HTTParty.post(Settings.slimpay.url.create_order,
         headers: {
           'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
           'Content-Type' => 'application/json',
-          'Authorization' => 'Bearer ' + @token
+          'Authorization' => 'Bearer ' + @@slimpay_token
         },
         body: {
           started: true,
@@ -54,32 +72,8 @@ module Slimpay
             },
           ]
         }.to_json
-
       )
   end
 
-  private
-  def get_token
-    authorization = 'Basic '+ Settings.slimpay.encoded_key
-    @slimpay_token = HTTParty.post(Settings.slimpay.server+'/oauth/token',
-        headers: {
-          'Accept'        => 'application/json',
-          'Content-Type'  => 'application/x-www-form-urlencoded',
-          'Authorization' => authorization
-        },
-        body: {
-          :grant_type => 'client_credentials',
-          :scope      => 'api'
-        }.to_query
-      )['access_token']
-
-    @links = HTTParty.get('https://api-sandbox.slimpay.net/',
-      headers: {
-        'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
-        'Content-Type' => 'application/json',
-        'Authorization' => 'Bearer ' + @slimpay_token
-      }
-    )
-  end
 
 end

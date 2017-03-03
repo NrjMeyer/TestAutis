@@ -4,3 +4,5 @@ slimpay:
   encoded_key: 'dmFpbmNyZWxhdXRpc21lMDE6OHBnV0NGRnFvbXllUWRIaG1KUkFMSXd1akVla3ZIOFVCc2FabncwWA=='
   creditor_reference: 'vaincrelautisme'
   server: 'https://api-sandbox.slimpay.net'
+  url:
+    create_order: 'https://api-sandbox.slimpay.net/orders'
