@@ -21,10 +21,8 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
       @cache_user.payment_id = payment_data['id']
     end
 
-    @cache_user.save
-
-    if @cache_user.new_record?
-      puts @cache_user.errors
+    if @cache_user.save
+      puts @cache_user.errors.inspect
     else
       redirect_to payment_data['links'][1]['href']
     end
