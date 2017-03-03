@@ -1,5 +1,6 @@
 class CacheUsers::RegistrationsController < Devise::RegistrationsController
   include Paypal
+  include Slimpay
   before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -19,6 +20,9 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
     if payment_option == "paypal" && monthly == false
       payment_data = Paypal.simplePayment(20)
       @cache_user.payment_id = payment_data['id']
+    elsif payment_option == "slimpay_iban" && monthly == false
+      payment_data = Slimpay.simpleIbanPayment(20)
+      puts payment_data
     end
 
     @cache_user.save
