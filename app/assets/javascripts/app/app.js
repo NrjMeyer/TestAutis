@@ -27,12 +27,15 @@ var App = function () {
   var secondSectionInputs = $('.option-input');
   var thirdSectionInputs  = $('.info-input');
 
+  // Scroll variables
+  var sections = [];
+
   var init = function () {
 
     _initEvents();
     _fixedElement();
+    _highlightSection();
     _initSelects();
-    //_highlightSection();
     _checkThirdSection();
 
     // hide sections
@@ -98,36 +101,36 @@ var App = function () {
     $('html, body').animate({
       scrollTop: offsets[targetIndex] - 25
     }, 500);
-
-
   };
 
-  // var _highlightSection = function () {
-  //
-  //   var onScrollDown = allSections.waypoint(function (direction) {
-  //
-  //       if (direction === 'down') {
-  //         console.log($(this.element));
-  //         var index = $(this.element).index() - 2;
-  //
-  //         sidebarItems.removeClass('sidebar__item--current');
-  //         sidebarItems.eq(index).addClass('sidebar__item--current');
-  //       }
-  //
-  //     }, {offset: '40%'});
-  //
-  //   var onScrollUp = allSections.waypoint(function (direction) {
-  //
-  //       if (direction === 'up') {
-  //         var index = $(this.element).index() - 2;
-  //
-  //         sidebarItems.removeClass('sidebar__item--current');
-  //         sidebarItems.eq(index).addClass('sidebar__item--current');
-  //       }
-  //
-  //     }, {offset: '1%'});
-  //
-  // };
+  var _highlightSection = function () {
+
+    var id = false;
+    var scrollId;
+    var navbar = $('.js-scroll');
+
+    sections.push($('#choice'));
+
+    $(window).on('scroll', throttle(function (e) {
+      var scrollTop = $(this).scrollTop() + ($(window).height() / 2);
+
+      for (var i in sections) {
+        var section = sections[i];
+
+        if (scrollTop > section.offset().top) {
+          scrollId = section.attr('id');
+        }
+      }
+
+      if (scrollId !== id) {
+        id = scrollId;
+        $('.js-scroll').removeClass('sidebar__item--current');
+        $('.js-scroll[data-section="#'+id+'"]').addClass('sidebar__item--current');
+      }
+
+    }, 250));
+
+  };
 
   var _checkThirdSection = function () {
 
@@ -158,6 +161,9 @@ var App = function () {
 
     if ($(current).hasClass('visible')) return;
 
+    // add section to scroll spy function
+    sections.push($(current));
+
     $(current).removeClass('hidden').addClass('visible fadeInUp');
 
     if (!$(current).hasClass('informations')) {
@@ -168,21 +174,9 @@ var App = function () {
 
     sidebarItems.eq(number).removeClass('sidebar__item--disabled');
 
-    //Waypoint.refreshAll();
-
-    //_resetVariables();
-
   };
 
-  // var _resetVariables = function () {
-  //
-  //   offsetChoice  = choiceSection.offset().top;
-  //   offsetOptions = optionsSection.offset().top;
-  //   offsetInfos   = infosSection.offset().top;
-  //   offsetPayment = paymentSection.offset().top;
-  //
-  //   offsets = [offsetChoice, offsetOptions, offsetInfos, offsetPayment];
-  // };
+
 
   init();
 
