@@ -1,4 +1,4 @@
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {'data-parsley-validate' => 'true'}) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => "main-form"}) do |f| %>
 
 <header class="header">
     <div class="container header__container">
@@ -79,7 +79,7 @@
               <p class="monthly-price">mensualisation non proposée</p>
             </div>
             <div class="price__right">
-              <input type="radio" id="formule-1" name="formule" class="formule-input">
+              <input type="radio" id="formule-1" name="formule" class="formule-input input-mobile" required>
               <label class="btn btn__choose" for="formule-1">choisir cette formule</label>
               <div class="btn btn__perks" data-perks="1">voir les avantages</div>
             </div>
@@ -100,7 +100,7 @@
               </li>
             </ul>
             <div>
-              <input type="radio" id="formule-1" name="formule" class="formule-input" data-parsley-required="true">
+              <input type="radio" id="formule-1" name="formule" class="formule-input input-desktop" required>
               <label class="btn btn__choose" for="formule-1">choisir cette formule</label>
             </div>
           </div>
@@ -114,7 +114,7 @@
               <p class="monthly-price">ou 5€ /mois</p>
             </div>
             <div class="price__right">
-              <input type="radio" id="formule-2" name="formule" class="formule-input">
+              <input type="radio" id="formule-2" name="formule" class="formule-input input-mobile" required>
               <label class="btn btn__choose" for="formule-2">choisir cette formule</label>
               <div class="btn btn__perks" data-perks="2">voir les avantages</div>
             </div>
@@ -147,7 +147,7 @@
               </li>
             </ul>
             <div>
-              <input type="radio" id="formule-2" name="formule" class="formule-input">
+              <input type="radio" id="formule-2" name="formule" class="formule-input input-desktop" required>
               <label class="btn btn__choose" for="formule-2">choisir cette formule</label>
             </div>
           </div>
@@ -162,7 +162,7 @@
               <p class="monthly-price">ou 10€ /mois</p>
             </div>
             <div class="price__right">
-              <input type="radio" id="formule-3" name="formule" class="formule-input">
+              <input type="radio" id="formule-3" name="formule" class="formule-input input-mobile" required>
               <label class="btn btn__choose" for="formule-3">choisir cette formule</label>
               <div class="btn btn__perks" data-perks="3">voir les avantages</div>
             </div>
@@ -199,7 +199,7 @@
               </li>
             </ul>
             <div>
-              <input type="radio" id="formule-3" name="formule" class="formule-input">
+              <input type="radio" id="formule-3" name="formule" class="formule-input input-desktop" required>
               <label class="btn btn__choose" for="formule-3">choisir cette formule</label>
             </div>
           </div>
@@ -233,7 +233,7 @@
         <div class="form-block__bottom">
           <div class="form-block__container">
             <div class="no-mobile">Je veux donner</div>
-            <input class="input input__donation" type="number" id="donation" placeholder="5 euros" data-parsley-required="false"> <div class="no-mobile">euros.</div>
+            <input class="input input__donation" type="number" id="donation" placeholder="5 euros"> <div class="no-mobile">euros.</div>
             <div class="custom-radio__donate">
               <label for="donate-once" class="custom-radio">
                 <input type="radio" id="donate-once" name="donate-rate" data-parsley-required="false">
@@ -272,7 +272,7 @@
       <div class="form-block">
         <div class="form-block__top form-block__top--mobile">Mon rôle dans l'association</div>
         <div class="form-block__bottom form-block__bottom--mobile">
-          <select name="subscriber-type" id="subscriber-type" class="info-input" data-parsley-required="true" data-parsley-group="block-3">
+          <select name="subscriber-type" id="subscriber-type" class="info-input" data-parsley-group="block-3" required>
             <option value="" disbaled selected class="hidden-option">J'adhère en tant que</option>
             <option value="1">Adherent 1</option>
             <option value="2">Adherent 2</option>
@@ -285,18 +285,18 @@
         <div class="form-block__bottom form-block__bottom--mobile">
           <div class="input-row">
             <div class="input-single">
-              <%= f.text_field :name, :class => 'input__classic info-input', :placeholder => 'Nom', 'data-parsley-required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+              <%= f.text_field :name, :class => 'input__classic info-input', :placeholder => 'Nom', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
             </div>
             <div class="input-single">
-              <%= f.text_field :surname, :class => 'input__classic info-input', :placeholder => 'Prénom', 'data-parsley-required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+              <%= f.text_field :surname, :class => 'input__classic info-input', :placeholder => 'Prénom', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
             </div>
           </div>
           <div class="input-row">
-            <%= f.text_field :phone_number, :class => 'input__classic info-input', :placeholder => 'Téléphone', 'data-parsley-required' => 'true', 'data-parsley-pattern' => '/0[1-7,9]\d{8}/', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            <%= f.text_field :phone_number, :class => 'input__classic info-input', :placeholder => 'Téléphone', 'required' => 'true', 'data-parsley-pattern' => '/0[1-7,9]\d{8}/', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
           </div>
           <div class="input-row">
             <div class="input-single">
-              <%= f.text_field :address, :class => 'input__classic info-input', :placeholder => 'Adresse', 'data-parsley-required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+              <%= f.text_field :address, :class => 'input__classic info-input', :placeholder => 'Adresse', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
             </div>
             <div class="input-single">
               <%= f.text_field :address_extend, :class => 'input__classic', :placeholder => 'Adresse complémentaire', 'data-parsley-required' => 'false' %>
@@ -304,10 +304,10 @@
           </div>
           <div class="input-row">
             <div class="input-single">
-              <%= f.text_field :post_code, :class => 'input__classic info-input', :placeholder => 'Code Postal', 'data-parsley-required' => 'true', 'data-parsley-pattern' => '/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+              <%= f.text_field :post_code, :class => 'input__classic info-input', :placeholder => 'Code Postal', 'required' => 'true', 'data-parsley-pattern' => '/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
             </div>
             <div class="input-single">
-              <%= f.text_field :city, :class => 'input__classic info-input', :placeholder => 'Ville', 'data-parsley-required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+              <%= f.text_field :city, :class => 'input__classic info-input', :placeholder => 'Ville', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
             </div>
           </div>
         </div>
@@ -316,15 +316,15 @@
         <div class="form-block__top form-block__top--mobile">Espace adhérent</div>
         <div class="form-block__bottom form-block__bottom--mobile">
           <div class="input-row">
-            <%= f.email_field :email, :class => 'input__classic info-input', :placeholder => 'Adresse e-mail', 'data-parsley-required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            <%= f.email_field :email, :class => 'input__classic info-input', :placeholder => 'Adresse e-mail', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
           </div>
           <div class="input-row">
 
             <div class="input-single">
-              <%= f.password_field :password, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Mot de passe', 'data-parsley-required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+              <%= f.password_field :password, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Mot de passe', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
             </div>
             <div class="input-single">
-              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Répéter mot de passe','data-parsley-required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-equalto' => '#user_password', 'data-parsley-error-message' => 'Les mots de passe ne correspondent pas', 'data-parsley-group' => 'block-3' %>
+              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Répéter mot de passe', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-equalto' => '#user_password', 'data-parsley-error-message' => 'Les mots de passe ne correspondent pas', 'data-parsley-group' => 'block-3' %>
             </div>
             <div>
               <% if @minimum_password_length %>
@@ -391,7 +391,7 @@
                 Carte bancaire
               </label>
             </div>
-            <input type="radio" id="card" name="payment-option">
+            <input type="radio" id="card" name="payment-option" required>
             <div class="payment__section--mobile payment__card" data-option="card">
               <div class="cards">
                 <label class="cards__input cards__input--visa">
@@ -412,22 +412,22 @@
               </div>
               <div class="input-row">
                 <div class="input-single">
-                  <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout">
+                  <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout">
                 </div>
                 <div class="input-single">
-                  <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout" data-parsley-type="number">
+                  <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout" data-parsley-type="number">
                 </div>
               </div>
               <div class="input-row">
                 <div class="input-single">
-                  <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="change focusout" data-parsley-pattern="/^(0[1-9]|1[0-2])\/\d{2}$/">
+                  <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="change focusout" data-parsley-pattern="/^(0[1-9]|1[0-2])\/\d{2}$/">
                 </div>
                 <div class="input-single">
-                  <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="3" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide">
+                  <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="3" data-parsley-error-message="Ce champ est invalide">
                 </div>
               </div>
               <label class="custom-radio custom-radio--block">
-                <input type="checkbox" id="cgv" name="cgv">
+                <input type="checkbox" id="cgv" name="cgv" class="input-mobile" required>
                 <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
               </label>
               <div class="btn-container">
@@ -442,7 +442,7 @@
                 Paypal
               </label>
             </div>
-            <input type="radio" id="paypal" name="payment-option">
+            <input type="radio" id="paypal" name="payment-option" required>
             <div class="payment__section--mobile payment__paypal" data-option="paypal">
               <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
               <div class="btn-container">
@@ -457,7 +457,7 @@
                 Prélèvement automatique
               </label>
             </div>
-            <input type="radio" id="debit" name="payment-option">
+            <input type="radio" id="debit" name="payment-option" required>
             <div class="payment__section--mobile payment__debit" data-option="debit">
               <div class="input-row">
                 <input type="text" class="input__classic input__payment input__payment--big" name="iban" placeholder="Votre IBAN">
@@ -467,7 +467,7 @@
               </div>
               <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
               <label class="custom-radio custom-radio--block">
-                <input type="checkbox" id="cgv" name="cgv">
+                <input type="checkbox" id="cgv" name="cgv" class="input-mobile" required>
                 <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
               </label>
               <div class="btn-container">
@@ -482,7 +482,7 @@
                 Paiement par chèque
               </label>
             </div>
-            <input type="radio" id="cheque" name="payment-option">
+            <input type="radio" id="cheque" name="payment-option" required>
             <div class="payment__section--mobile payment__cheque" data-option="cheque">
               <p class="content">Votre adhésion sera prise en compte dès réception de votre chèque et de votre récapitulatif à l'ordre de <span>VAINCRE L'AUTISME</span> et imprimé à l'adresse :</p>
               <p class="adress">
@@ -519,22 +519,22 @@
 
           <div class="input-row">
             <div class="input-single">
-              <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout">
+              <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte">
             </div>
             <div class="input-single">
-              <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout" data-parsley-type="number">
+              <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte">
             </div>
           </div>
           <div class="input-row">
             <div class="input-single">
-              <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)" data-parsley-required="true" data-parsley-trigger="change focusout" data-parsley-pattern="/^(0[1-9]|1[0-2])\/\d{2}$/">
+              <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)">
             </div>
             <div class="input-single">
-              <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" data-parsley-required="true" data-parsley-error-message="Ce champ est invalide" maxlength="3">
+              <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="4">
             </div>
           </div>
           <label class="custom-radio custom-radio--block">
-            <input type="checkbox" id="cgv" name="cgv" data-parsley-required="true">
+            <input type="checkbox" id="cgv" name="cgv" class="input-desktop" required>
             <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
           </label>
           <!-- Ici il faut surement un submit au lieu d'un lien mais dunno avec Slimpay -->
@@ -560,7 +560,7 @@
           </div>
           <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
           <label class="custom-radio custom-radio--block">
-            <input type="checkbox" id="cgv" name="cgv">
+            <input type="checkbox" id="cgv" name="cgv" class="input-desktop" required>
             <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
           </label>
           <div class="btn-container">

@@ -140,7 +140,7 @@ var App = function () {
       });
 
       if (empty.length === 0 && paymentSection.hasClass('hidden')) {
-        if ($('.new_user').parsley().validate({group: 'block-3'})) {
+        if ($('.main-form').parsley().validate({group: 'block-3'})) {
           _displaySection(3);
           $(window).on('scroll', throttle(_removeFixedElement, 250));
         }

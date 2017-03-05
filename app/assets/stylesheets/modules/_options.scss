@@ -23,6 +23,11 @@
 
   &__name {
     color: $pink;
+    width: 31%;
+
+    @include mobile {
+      width: initial;
+    }
   }
 
   &__mail {
