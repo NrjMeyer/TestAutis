@@ -176,8 +176,6 @@ var App = function () {
 
   };
 
-
-
   init();
 
   return {

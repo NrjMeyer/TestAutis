@@ -32,11 +32,11 @@ var FamilyMember = function () {
         mail          = mailInput.val(),
         membersLength = $('.member').length;
 
-    if ($('.main-form').parsley().validate({group: 'family-member', force: true}) && membersLength === 0) {
-      membersContainer.append('<p>Membre(s) ajouté(s) :</p>');
+    if ($('.main-form').parsley().validate({group: 'family-member', force: true}) && membersLength === 0 && $('.member__title').length === 0) {
+      membersContainer.append('<p class="member__title">Membre(s) ajouté(s) :</p>');
     }
 
-    if ($('.main-form').parsley().validate({group: 'family-member', force: true}) && membersLength < 5) {
+    if ($('.main-form').parsley().validate({group: 'family-member', force: true}) && membersLength < 5 && !_isAlreadyAdded(mail)) {
 
       membersContainer.append('<li class="member">\
           <p class="member__name">'+name+'</p>\
@@ -61,7 +61,26 @@ var FamilyMember = function () {
 
         deleteButton.on('click', _deleteRow);
     }
-  }
+  };
+
+  var _isAlreadyAdded = function (value) {
+
+    var added;
+    var $familyMail = $('.member__mail');
+
+    $familyMail.each(function () {
+      if ($(this).text() === value) {
+        added = true;
+      }
+
+      else {
+        added = false;
+      }
+    });
+
+    return added;
+
+  };
 
   init();
 
