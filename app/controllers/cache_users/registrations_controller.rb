@@ -22,9 +22,10 @@ class CacheUsers::RegistrationsController < Devise::RegistrationsController
     end
 
     if @cache_user.save
-      puts @cache_user.errors.inspect
-    else
+      puts payment_data
       redirect_to payment_data['links'][1]['href']
+    else
+      puts @cache_user.errors.inspect
     end
   end
 

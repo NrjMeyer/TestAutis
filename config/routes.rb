@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/validation', to: 'users/registrations#new'    
-    post '/users', to: 'registrations#create'    
+    post '/save_user', to: 'users/registrations#create'    
   end
 
 end

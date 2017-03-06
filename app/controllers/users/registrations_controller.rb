@@ -4,16 +4,87 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
+    # super
+    if CacheUser.find_by(payment_id: params[:paymentId]) != nil
+      @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
+      # @user = User.create(
+      #   email: @cache_user.email,
+      #   encrypted_password: @cache_user.encrypted_password,
+      #   name: @cache_user.name,
+      #   surname: @cache_user.surname,
+      #   phone_number: @cache_user.phone_number,
+      #   address: @cache_user.address,
+      #   address_extend: @cache_user.address_extend,
+      #   post_code: @cache_user.post_code,
+      #   city: @cache_user.city,
+      #   tax_receipt: @cache_user.tax_receipt,
+      #   sub_newsletter: @cache_user.sub_newsletter,
+      #   payment_id: params[:payer_id],
+      #   )
+      @user = User.new
+      @user.email = @cache_user.email
+      @user.email = @cache_user.encrypted_password
 
-    
-
+      puts @user.inspect
+      puts @cache_user.inspect
+      if @user.save
+        payment = HTTParty.post('https://api.sandbox.paypal.com/v1/payments/payment/'+ params[:payment_id] +'/execute', 
+          headers: {
+              'Content-Type' => 'application/json',
+              'Authorization' => params[:token],
+            },
+          body: {
+              :payer_id => params[:payer_id]
+            }.to_json
+            )
+        puts payment
+      else
+        puts @user.errors.inspect
+      end
+      # redirect_to save_users_path, :payment_method => 'paypal',
+      #                              :payment_id => params[:paymentId],
+      #                              :token => params[:token], 
+      #                              :payer_id => params[:PayerId]
+    end
   end
 
   # POST /resource
   def create
-    puts params
-    # super
+    puts params.inspect
+    if params[:payment_method] == 'paypal'
+      @cache_user = CacheUser.find_by(payment_id: params[:payment_id])
+      @user = User.create(
+        email: @cache_user.email,
+        encrypted_password: @cache_user.encrypted_password,
+        name: @cache_user.name,
+        surname: @cache_user.surname,
+        phone_number: @cache_user.phone_number,
+        address: @cache_user.address,
+        address_extend: @cache_user.address_extend,
+        post_code: @cache_user.post_code,
+        city: @cache_user.city,
+        tax_receipt: @cache_user.tax_receipt,
+        sub_newsletter: @cache_user.sub_newsletter,
+        payment_id: params[:payer_id],
+        )
+
+      if @user.valid?
+        payment = HTTParty.post('https://api.sandbox.paypal.com/v1/payments/payment/'+ params[:payment_id] +'/execute', 
+          headers: {
+              'Content-Type' => 'application/json',
+              'Authorization' => params[:token],
+            },
+          body: {
+              :payer_id => params[:payer_id]
+            }.to_json
+            )
+        puts payment
+      else
+        puts @cache_user.errors.inspect      
+      end
+
+    end
+    redirect_to root_path
   end
 
   # GET /resource/edit
