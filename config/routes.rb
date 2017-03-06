@@ -1,16 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :cache_users, :path => 'cache_users', :controllers => {:registrations => "registrations"}
   devise_for :users, :path => 'users', :controllers => {:registrations => "registrations"}
   root to: "home#index"
 
-	devise_scope :cache_user do
-    get '/inscription', to: 'cache_users/registrations#new'
-    post '/cache_user', to: 'cache_users/registrations#create'
-	end
-
   devise_scope :user do
-    get '/validation', to: 'users/registrations#new'    
-    post '/save_user', to: 'users/registrations#create'    
+    get '/inscription', to: 'users/registrations#new'
+    post '/inscription_payment', to: 'users/registrations#create'
+    # get '/validation', to: 'users/registrations#new'    
+    # post '/save_user', to: 'users/registrations#create'    
   end
 
 end
