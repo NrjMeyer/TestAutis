@@ -1,17 +1,11 @@
 module Slimpay
   extend ActiveSupport::Concern
-  attr_accessor :slimpay_token
-  attr_accessor :links
 
   private
 
-  included do
-    before_action :get_token
-  end
-
   def get_token
     authorization = 'Basic '+ Settings.slimpay.encoded_key
-    @@slimpay_token = HTTParty.post(Settings.slimpay.server+'/oauth/token',
+    HTTParty.post(Settings.slimpay.server+'/oauth/token',
         headers: {
           'Accept'        => 'application/json',
           'Content-Type'  => 'application/x-www-form-urlencoded',
@@ -24,13 +18,12 @@ module Slimpay
       )['access_token']
   end
 
-  def self.simpleIbanPayment(amount)
-    puts @@slimpay_token
-    HTTParty.post(Settings.slimpay.url.create_order,
+  def self.simpleIbanPayment(token, amount)
+    HTTParty.post(Settings.slimpay.server + Settings.slimpay.url.create_order,
         headers: {
           'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
           'Content-Type' => 'application/json',
-          'Authorization' => 'Bearer ' + @@slimpay_token
+          'Authorization' => 'Bearer ' + token
         },
         body: {
           started: true,

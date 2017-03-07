@@ -19,7 +19,8 @@ class CacheUsersController < ApplicationController
     monthly = false
 
     if payment_option == "paypal" && monthly == false
-      payment_data = Paypal.simplePayment(20)
+      token = Paypal.get_token
+      payment_data = Paypal.simplePayment(token, 20)
       @user.payment_id = payment_data['id']
     end
 
