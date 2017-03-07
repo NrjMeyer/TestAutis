@@ -1,14 +1,11 @@
 module Encrypt
   extend ActiveSupport::Concern
 
-  KEY = "EncryptDecryptGurudathBN"
-  ALGORITHM = 'AES-128-ECB'
-
   def self.encryption(msg)
     begin
-      cipher = OpenSSL::Cipher.new(ALGORITHM)
+      cipher = OpenSSL::Cipher.new(Settings.encrypt.algorithme)
       cipher.encrypt()
-      cipher.key = KEY
+      cipher.key = Settings.encrypt.key
       crypt = cipher.update(msg) + cipher.final()
       crypt_string = (Base64.encode64(crypt))
       return crypt_string
@@ -19,9 +16,9 @@ module Encrypt
 
   def self.decryption(msg)
     begin
-      cipher = OpenSSL::Cipher.new(ALGORITHM)
+      cipher = OpenSSL::Cipher.new(Settings.encrypt.algorithme)
       cipher.decrypt()
-      cipher.key = KEY
+      cipher.key = Settings.encrypt.key
       tempkey = Base64.decode64(msg)
       crypt = cipher.update(tempkey)
       crypt << cipher.final()

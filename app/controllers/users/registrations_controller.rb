@@ -1,32 +1,8 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  include Paypal
   before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  def new
-    super
-  end
-
-  def create
-    @user = User.create(params.require(:user).permit(:name, :surname,
-      :phone_number, :address, :address_extend, :post_code, :city, :email, :password, :password_confirmation))
-
-    payment_option = params[:payment_option]
-    monthly = false
-
-    if payment_option == "paypal" && monthly == false
-      payment_data = Paypal.simplePayment(20)
-      @user.payment_id = payment_data['id']
-    end
-
-    if @user.save
-      puts payment_data
-      redirect_to payment_data['links'][1]['href']
-    else
-      puts @user.errors.inspect
-    end
-  end
 
   # def new
   #   # super
@@ -139,10 +115,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
-  def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :surname,
-      :phone_number, :address, :address_extend, :post_code, :city, :payment_id])
-  end
+  # def configure_sign_up_params
+  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :surname,
+  #     :phone_number, :address, :address_extend, :post_code, :city, :payment_id])
+  # end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params

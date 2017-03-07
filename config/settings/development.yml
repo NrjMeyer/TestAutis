@@ -6,3 +6,6 @@ slimpay:
   server: 'https://api-sandbox.slimpay.net'
   url:
     create_order: 'https://api-sandbox.slimpay.net/orders'
+encrypt:
+  key: 'EncryptDecryptGurudathBN'
+  algorithme: 'AES-128-ECB'
