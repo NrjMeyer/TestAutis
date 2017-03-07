@@ -25,19 +25,19 @@ module Paypal
       body: {
         "intent": "sale",
         "redirect_urls": {
-            "return_url": "http://127.0.0.1:3000/validation",
-            "cancel_url": "http://127.0.0.1:3000/anulation"
+          "return_url": "http://127.0.0.1:3000/validation",
+          "cancel_url": "http://127.0.0.1:3000/anulation"
+        },
+        "payer": {
+          "payment_method": "paypal"
+        },
+        "transactions": [{
+          "amount": {
+            "total": amount.to_s,
+            "currency": "EUR"
           },
-          "payer": {
-            "payment_method": "paypal"
-          },
-          "transactions": [{
-            "amount": {
-              "total": amount.to_s,
-              "currency": "EUR"
-            },
-            "description": "Adhésion à vaincre l'autisme pour un montant de " + amount.to_s + "€."
-          }]
+          "description": "Adhésion à vaincre l'autisme pour un montant de " + amount.to_s + "€."
+        }]
       }.to_json)
   end
 

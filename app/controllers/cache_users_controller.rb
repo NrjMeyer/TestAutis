@@ -7,13 +7,13 @@ class CacheUsersController < ApplicationController
   end
 
   def create
-    if params.require(:cache_user).require(:password) == params.require(:cache_user).require(:password_confirmation)
-      @user = CacheUser.new(params.require(:cache_user).permit(:name, :surname,
-        :phone_number, :address, :address_extend, :post_code, :city, :email))
-      @user.password = Encrypt.encryption(params.require(:cache_user).require(:password))
-    else
-      raise 'Password non confirmé'
-    end
+
+    @user = CacheUser.new(params.require(:cache_user).permit(:password,
+      :password_confirmation, :name, :surname, :phone_number, :address,
+      :address_extend, :post_code, :city, :email))
+
+    @user.password = Encrypt.encryption(params.require(:cache_user).require(:password))
+    @user.password_confirmation = Encrypt.encryption(params.require(:cache_user).require(:password_confirmation))
 
     payment_option = params[:payment_option]
     monthly = false

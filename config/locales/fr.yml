@@ -9,3 +9,7 @@ fr:
               blank: "Email manquant"
             password:
               blank: "Mot de passe manquant"
+              too_short: "Mot de passe trop court"
+            password_confirmation:
+              blank: "Confirmation de mot de passe manquant."
+              confirmation: "Les deux mots de passes ne correspondent pas."

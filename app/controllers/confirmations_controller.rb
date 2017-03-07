@@ -9,7 +9,7 @@ class ConfirmationsController < Devise::ConfirmationsController
       },
       body: {
         :payer_id => resource.payer_id
-      }.to_json)
+      })
     puts '---------------------'
     puts payment
     puts '---------------------'

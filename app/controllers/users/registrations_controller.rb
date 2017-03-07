@@ -6,13 +6,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   def new
-    # super
     if CacheUser.find_by(payment_id: params[:paymentId]) != nil
       @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
       password = Encrypt.decryption(@cache_user.password)
       @user = User.create(
         email: @cache_user.email,
-        encrypted_password: password,
+        password: password,
         name: @cache_user.name,
         surname: @cache_user.surname,
         phone_number: @cache_user.phone_number,
@@ -28,11 +27,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       )
 
       if @user.save
-        @cache_user.destroy
+        users = CacheUser.where(email: @cache_user.email).destroy_all
       else
         puts @user.errors.inspect
       end
-
+      super
     end
   end
 
