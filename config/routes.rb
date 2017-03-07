@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/validation', to: 'users/registrations#new'    
+    get '/execute_payment', to: 'users/registrations#payment'
   end
 
 end

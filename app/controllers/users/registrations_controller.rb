@@ -1,5 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include Encrypt
+  include Paypal
+
   before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
 
@@ -33,6 +35,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
       super
     end
+  end
+
+  def payment
+    payment = HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/#{params[:payment_id]}/execute",
+      headers: {
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer ' + Paypal.get_token,
+      },
+      body: {
+        :payer_id => params[:payer_id]
+      }.to_json)
+
+    render html:'...attendez'
+    
+    if payment['state'] == 'approved'
+      redirect_to root_path
+    end
+  
   end
 
   # POST /resource
