@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, :path => 'users', :controllers => {:registrations => "registrations"}
+  devise_for :users, :path => 'users', :controllers => {:registrations => "registrations", confirmations: 'confirmations'}
   root to: "home#index"
 
   get '/inscription', to: 'cache_users#new'
@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/validation', to: 'users/registrations#new'    
-    post '/save_user', to: 'users/registrations#create'    
   end
 
 end
