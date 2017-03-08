@@ -29,11 +29,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       )
 
       if @user.save
-        users = CacheUser.where(email: @cache_user.email).destroy_all
+        CacheUser.where(email: @cache_user.email).destroy_all
       else
         puts @user.errors.inspect
       end
-      super
     end
   end
 
