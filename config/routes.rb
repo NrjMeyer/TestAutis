@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users, :path => 'users', :controllers => {:registrations => "registrations",
-    confirmations: 'confirmations'}
+  ActiveAdmin.routes(self)
+  devise_for :users, :path => 'users', :controllers => {:registrations => "registrations", confirmations: 'confirmations'}
   root to: "home#index"
 
   get '/inscription', to: 'cache_users#new'
