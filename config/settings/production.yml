@@ -1,0 +1,3 @@
+slimpay:
+  url:
+    create_order: 'https://api.slimpay.net/alps#create-orders'

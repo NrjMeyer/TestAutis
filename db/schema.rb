@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20170220155931) do
+=======
+ActiveRecord::Schema.define(version: 20170306225626) do
+>>>>>>> origin/paypal
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
@@ -54,6 +59,23 @@ ActiveRecord::Schema.define(version: 20170220155931) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+=======
+  create_table "cache_users", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "email"
+    t.string   "name"
+    t.string   "surname"
+    t.string   "phone_number"
+    t.text     "address"
+    t.text     "address_extend"
+    t.integer  "post_code"
+    t.string   "city"
+    t.boolean  "tax_receipt"
+    t.boolean  "sub_newsletter"
+    t.string   "payment_id"
+    t.string   "password"
+>>>>>>> origin/paypal
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,6 +89,10 @@ ActiveRecord::Schema.define(version: 20170220155931) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
@@ -78,8 +104,15 @@ ActiveRecord::Schema.define(version: 20170220155931) do
     t.string   "city"
     t.boolean  "tax_receipt"
     t.boolean  "sub_newsletter"
+<<<<<<< HEAD
     t.datetime "last_payment"
     t.boolean  "monthly_payment"
+=======
+    t.string   "payment_id"
+    t.string   "payer_id"
+    t.string   "payment_token"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+>>>>>>> origin/paypal
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
