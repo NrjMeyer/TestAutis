@@ -25,11 +25,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
         sub_newsletter: @cache_user.sub_newsletter,
       )
 
-      @paypal_payment = PaypalPayment.create(
-        payment: params[:paymentId],
-        payer: params[:PayerID],
-        token: params[:token],
-      )
+      if params[:paymentId]
+        @paypal_payment = PaypalPayment.create(
+          payment: params[:paymentId],
+          payer: params[:PayerID],
+          token: params[:token],
+        )
+      else
+        @user.slimpay_payment = @cache_user.slimpay_payment
+      end
 
       @user.paypal_payment = @paypal_payment
 
@@ -42,19 +46,49 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def payment
-    payment = HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/#{params[:payment_id]}/execute",
-      headers: {
-        'Content-Type' => 'application/json',
-        'Authorization' => 'Bearer ' + Paypal.get_token,
-      },
-      body: {
-        :payer_id => params[:payer_id]
-      }.to_json)
+    if params[:payment_option] == 'paypal'
+      payment = HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/#{params[:payment_id]}/execute",
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => 'Bearer ' + Paypal.get_token,
+        },
+        body: {
+          :payer_id => params[:payer_id]
+        }.to_json)
 
-    render html:'...attendez'
-    
-    if payment['state'] == 'approved'
-      redirect_to root_path
+      render html:'...attendez'
+      
+      if payment['state'] == 'approved'
+        redirect_to root_path
+      end
+    elsif params[:payment_option] == 'slimpay'
+      payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => 'Bearer ' + Slimpay.get_token,
+        },
+        body: {
+          creditor: [
+              reference: Settings.slimpay.creditor_reference
+          ],
+          mandate => [
+              reference: params[:reference]
+          ],
+          reference: null,
+          amount: params[:amount],
+          currency: 'EUR',
+          scheme: 'SEPA.DIRECT_DEBIT.CORE',
+          label: 'Débit pour votre adhésion vaincre l\'autisme',
+          executionDate: null
+        }.to_json)
+
+      render html:'...attendez'
+
+      puts payment
+      
+      # if payment['state'] == 'approved'
+      #   redirect_to root_path
+      # end
     end
   
   end

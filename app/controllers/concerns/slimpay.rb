@@ -3,7 +3,7 @@ module Slimpay
 
   private
 
-  def get_token
+  def self.get_token
     authorization = 'Basic '+ Settings.slimpay.encoded_key
     HTTParty.post(Settings.slimpay.server+'/oauth/token',
         headers: {
