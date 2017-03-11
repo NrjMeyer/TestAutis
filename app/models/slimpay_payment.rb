@@ -1,0 +1,2 @@
+class SlimpayPayment < ApplicationRecord
+end
