@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170311155937) do
   create_table "paypal_payments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "user_id"
     t.string   "payment"
     t.string   "payer"
     t.string   "token"

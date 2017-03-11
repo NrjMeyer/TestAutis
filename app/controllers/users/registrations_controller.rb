@@ -23,10 +23,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
         city: @cache_user.city,
         tax_receipt: @cache_user.tax_receipt,
         sub_newsletter: @cache_user.sub_newsletter,
-        payment_id: params[:paymentId],
-        payer_id: params[:PayerID],
-        payment_token: params[:token],
       )
+
+      @paypal_payment = PaypalPayment.create(
+        payment: params[:paymentId],
+        payer: params[:PayerID],
+        token: params[:token],
+      )
+
+      @user.paypal_payment = @paypal_payment
 
       if @user.save
         CacheUser.where(email: @cache_user.email).destroy_all
