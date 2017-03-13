@@ -23,17 +23,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
         city: @cache_user.city,
         tax_receipt: @cache_user.tax_receipt,
         sub_newsletter: @cache_user.sub_newsletter,
+        payment_option: 'paypal'
       )
 
-      if params[:paymentId]
-        @paypal_payment = PaypalPayment.create(
-          payment: params[:paymentId],
-          payer: params[:PayerID],
-          token: params[:token],
-        )
-      else
-        @user.slimpay_payment = @cache_user.slimpay_payment
-      end
+      @paypal_payment = PaypalPayment.create(
+        payment: params[:paymentId],
+        payer: params[:PayerID],
+        token: params[:token],
+      )
 
       @user.paypal_payment = @paypal_payment
 
@@ -42,6 +39,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         puts @user.errors.inspect
       end
+
+    elsif cookies.signed.encrypted[:id] != nil
+      @cache_user = CacheUser.find_by(payment_id: cookies.signed.encrypted[:id])
+      
+      password = Encrypt.decryption(@cache_user.password)
+      @user = User.create(
+        email: @cache_user.email,
+        password: password,
+        name: @cache_user.name,
+        surname: @cache_user.surname,
+        phone_number: @cache_user.phone_number,
+        address: @cache_user.address,
+        address_extend: @cache_user.address_extend,
+        post_code: @cache_user.post_code,
+        city: @cache_user.city,
+        tax_receipt: @cache_user.tax_receipt,
+        sub_newsletter: @cache_user.sub_newsletter,
+        payment_option: 'slimpay'
+      )
+
+      @cache_user.slimpay_payment.user_id = @user.id
+      @cache_user.save
+
+      if @user.save
+        cookies.delete :id
+        CacheUser.where(email: @cache_user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
+
     end
   end
 

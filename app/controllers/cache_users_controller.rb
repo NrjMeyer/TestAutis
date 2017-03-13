@@ -26,12 +26,12 @@ class CacheUsersController < ApplicationController
       token = Slimpay.get_token
       payment_data = Slimpay.simpleIbanPayment(token, 20)
       payment_json = JSON.parse(payment_data)
-      @user.payment_id = payment_data['id']
+      @user.payment_id = payment_json['reference']
       slimpay_payment = SlimpayPayment.create(
         payment_reference: payment_json['reference'],
         amount: 20
       )
-      @user.slimpay_payment = @slimpay_payment
+      @user.slimpay_payment = slimpay_payment
     else
       puts 'meh'
     end
@@ -40,6 +40,7 @@ class CacheUsersController < ApplicationController
       if payment_option == 'paypal'
         redirect_to payment_data['links'][1]['href']
       elsif payment_option == 'debit'
+        cookies.signed.encrypted[:id] = payment_json['reference']
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
       end  
     else
