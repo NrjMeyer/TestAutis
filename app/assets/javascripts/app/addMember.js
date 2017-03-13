@@ -2,11 +2,11 @@ var FamilyMember = function () {
 
   'use strict';
 
-  var deleteButton     = $('.member__delete');
-  var addButton        = $('.js-add-member');
-  var membersContainer = $('.members ul');
-  var nameInput        = $('#family-name');
-  var mailInput        = $('#family-mail');
+  var $deleteButton     = $('.member__delete');
+  var $addButton        = $('.js-add-member');
+  var $membersContainer = $('.members ul');
+  var $nameInput        = $('#family-name');
+  var $mailInput        = $('#family-mail');
 
   var init = function () {
 
@@ -16,8 +16,7 @@ var FamilyMember = function () {
 
   var _initEvents = function () {
 
-
-    addButton.on('click', _addRow);
+    $addButton.on('click', _addRow);
 
   }
 
@@ -28,17 +27,17 @@ var FamilyMember = function () {
 
   var _addRow = function () {
 
-    var name          = nameInput.val(),
-        mail          = mailInput.val(),
-        membersLength = $('.member').length;
+    var name           = $nameInput.val(),
+        mail           = $mailInput.val(),
+        $membersLength = $('.member').length;
 
-    if ($('.main-form').parsley().validate({group: 'family-member', force: true}) && membersLength === 0 && $('.member__title').length === 0) {
-      membersContainer.append('<p class="member__title">Membre(s) ajouté(s) :</p>');
+    if ($('.main-form').parsley().validate({group: 'family-member', force: true}) && $membersLength === 0 && $('.member__title').length === 0) {
+      $membersContainer.append('<p class="member__title">Membre(s) ajouté(s) :</p>');
     }
 
-    if ($('.main-form').parsley().validate({group: 'family-member', force: true}) && membersLength < 5 && !_isAlreadyAdded(mail)) {
+    if ($('.main-form').parsley().validate({group: 'family-member', force: true}) && $membersLength < 5 && !_isAlreadyAdded(mail)) {
 
-      membersContainer.append('<li class="member">\
+      $membersContainer.append('<li class="member">\
           <p class="member__name">'+name+'</p>\
           <p class="member__mail">'+mail+'</p>\
           <div class="member__delete">\
@@ -52,14 +51,14 @@ var FamilyMember = function () {
           </div>\
         </li>');
 
-        nameInput.val('');
-        mailInput.val('');
+        $nameInput.val('');
+        $mailInput.val('');
 
-        deleteButton = $('.member__delete');
+        $deleteButton = $('.member__delete');
 
-        deleteButton.unbind('click');
+        $deleteButton.unbind('click');
 
-        deleteButton.on('click', _deleteRow);
+        $deleteButton.on('click', _deleteRow);
     }
   };
 

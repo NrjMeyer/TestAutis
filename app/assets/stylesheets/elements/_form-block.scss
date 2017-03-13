@@ -42,6 +42,17 @@
       padding: rem(18px) rem(20px) 0;
     }
 
+    &--highpadding {
+      padding: rem(10px) rem(6px) rem(10px) rem(30px);
+
+      @include mobile {
+        background: $dark-grey;
+        color: $white;
+        padding: rem(10px) rem(20px);
+
+      }
+    }
+
     &--mobile {
 
       @include mobile {
@@ -132,6 +143,27 @@
 
       .custom-radio:first-child {
         margin-right: rem(14px);
+      }
+    }
+
+  }
+}
+
+.with-button {
+  @include display(flex);
+  @include align-items(center);
+
+  .btn__download {
+
+    @include mobile {
+      display: none;
+    }
+
+    a {
+      @include display(flex);
+
+      svg {
+        margin-right: rem(10px);
       }
     }
 

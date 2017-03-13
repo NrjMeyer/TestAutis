@@ -2,10 +2,10 @@ var Payment = function () {
 
   'use strict';
 
-  var paymentOptions        = $('.payment__option');
-  var paymentSections       = $('.payment__section');
-  var paymentSectionsMobile = $('.payment__section--mobile');
-  var paymentInfo           = $('.js-payment__info');
+  var $paymentOptions        = $('.payment__option');
+  var $paymentSections       = $('.payment__section');
+  var $paymentSectionsMobile = $('.payment__section--mobile');
+  var $paymentInfo           = $('.js-payment__info');
 
   var init = function () {
 
@@ -16,11 +16,11 @@ var Payment = function () {
   var _initEvents = function () {
 
     if ($(window).width() > 767) {
-      paymentOptions.on('click', _changePaymentMethod);
+      $paymentOptions.on('click', _changePaymentMethod);
     }
 
     if ($(window).width() < 768) {
-      paymentOptions.on('click', _changePaymentMethodMobile);
+      $paymentOptions.on('click', _changePaymentMethodMobile);
     }
 
   }
@@ -34,18 +34,18 @@ var Payment = function () {
       target = target.parent();
     }
 
-    if (!paymentOptions.hasClass('payment__option--selected')) {
-      paymentInfo.addClass('hidden');
+    if (!$paymentOptions.hasClass('payment__option--selected')) {
+      $paymentInfo.addClass('hidden');
     }
 
-    paymentOptions.removeClass('payment__option--selected');
+    $paymentOptions.removeClass('payment__option--selected');
 
     if (target.hasClass('payment__option')) {
       targetOption = target.data('option');
       $(this).addClass('payment__option--selected');
     }
 
-    paymentSections.hide();
+    $paymentSections.hide();
     $('.payment__section[data-option='+targetOption+']').show();
 
   };
@@ -59,18 +59,18 @@ var Payment = function () {
       target = target.parent();
     }
 
-    if (!paymentOptions.hasClass('payment__option--selected')) {
-      paymentInfo.addClass('hidden');
+    if (!$paymentOptions.hasClass('payment__option--selected')) {
+      $paymentInfo.addClass('hidden');
     }
 
-    paymentOptions.removeClass('payment__option--selected');
+    $paymentOptions.removeClass('payment__option--selected');
 
     if (target.hasClass('payment__option')) {
       targetOption = target.data('option');
       $(this).addClass('payment__option--selected');
     }
 
-    paymentSectionsMobile.hide();
+    $paymentSectionsMobile.hide();
     $('.payment__section--mobile[data-option='+targetOption+']').show();
 
   };
