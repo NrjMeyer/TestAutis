@@ -38,7 +38,8 @@ body {
     margin-bottom: rem(100px);
 
     @include mobile {
-      margin-bottom: rem(100px);
+      margin-top: rem(50px);
+      margin-bottom: rem(50px);
     }
   }
 }

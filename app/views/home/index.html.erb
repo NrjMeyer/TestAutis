@@ -1,0 +1,124 @@
+<header class="header">
+    <div class="container header__container">
+      <img class="header__logo" src="img/logo.png" alt="Logo Vaincre l'autisme">
+      <nav>
+        <ul class="menu">
+
+          <li class="menu__item menu__item--border">
+            <a href="#">
+              <%= embedded_svg "icons/download.svg", class: "icon-download" %>
+              <span>Formulaire papier</span>
+            </a>
+          </li>
+
+          <li class="menu__item menu__item--border">
+            <a href="#">
+              <%= embedded_svg "icons/link.svg", class: "icon-link" %>
+              <span>Site principal</span>
+            </a>
+          </li>
+
+          <li class="menu__item">
+            <a href="#">
+              <%= embedded_svg "icons/login.svg", class: "icon-login" %>
+              <span>Se connecter</span>
+            </a>
+          </li>
+
+          <li class="menu__item menu__item--highlighted">
+            <a href="#">
+              <%= embedded_svg "icons/donate.svg", class: "icon-donate" %>
+              <span>Faire un don</span>
+            </a>
+          </li>
+
+        </ul>
+        <div class="header__burger">
+          <div class="burger"></div>
+        </div>
+      </nav>
+    </div>
+</header>
+
+<div class="sidebar">
+  <nav>
+    <ul>
+      <li class="sidebar__item js-scroll " data-section="#choice">1. Choix</li>
+      <li class="sidebar__item js-scroll" data-section="#options">2. Options</li>
+      <li class="sidebar__item js-scroll" data-section="#infos">3. Informations</li>
+      <li class="sidebar__item js-scroll" data-section="#payment">4. Paiement</li>
+      <li class="sidebar__item sidebar__item--current">5. Validation</li>
+    </ul>
+  </nav>
+</div>
+
+<main class="main__container">
+
+  <div class="container">
+
+    <section class="payment-validation small-section">
+
+      <div class="form-block">
+        <div class="form-block__top form-block__top--highpadding">Confirmation de paiement</div>
+        <div class="form-block__bottom">
+          <div class="form-block__container form-block__column">
+            <div class="payment-validation__content payment-validation__donation">Votre don a bien été pris en compte <%= embedded_svg "icons/check.svg", class: "icon-check" %></div>
+            <div class="payment__cheque">
+              <p class="content">Votre adhésion sera prise en compte dès réception de votre chèque et de votre récapitulatif à l'ordre de <span>VAINCRE L'AUTISME</span> et imprimé à l'adresse :</p>
+              <p class="adress">
+                <span>Service adhésion - Vaincre l'autisme</span>
+                <span>51 rue Servan</span>
+                <span>75011 Paris</span>
+              </p>
+              <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent :</p>
+              <div class="btn-container">
+                <button class="btn btn__contact"><a href="mailto:adhesions@vaincrelautisme.org">Contacter le service</a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-block">
+        <div class="form-block__top form-block__top--highpadding with-button">
+          Récapitulatif
+          <div class="btn btn__download">
+            <a href="#"><%= embedded_svg "icons/print.svg", class: "icon-print" %> Imprimer le reçu fiscal</a>
+          </div>
+        </div>
+        <div class="form-block__bottom price-table">
+          <div class="row__content row__subscription">
+            <p class="content__listing">Votre adhésion (120)</p>
+            <p class="content__amount">120€</p>
+          </div>
+          <div class="row__content row__family">
+            <p class="content__listing">Vos proches (1)</p>
+            <p class="content__amount">12€</p>
+          </div>
+          <div class="row__content row__donation">
+            <p class="content__listing">Votre don</p>
+            <p class="content__amount">-</p>
+          </div>
+        </div>
+        <div class="price-table--grey">
+          <div class="row__content row__total">
+            <p class="content__listing">Total à payer</p>
+            <p class="content__amount">140€</p>
+          </div>
+        </div>
+        <div class="price-table--highlighted">
+          <div class="row__content row__taxes">
+            <p class="content__listing">Coût après réduction fiscale</p>
+            <p class="content__amount">1€</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn btn__add btn__downloadmail">Envoyer mon récapitulatif par mail</div>
+
+    </section>
+
+  </div>
+</main>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
