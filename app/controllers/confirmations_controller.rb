@@ -9,11 +9,12 @@ class ConfirmationsController < Devise::ConfirmationsController
       payment_token: resource.paypal_payment.token
     )
     else
-      @payment = SlimpayPayment.where(user_id: resource.id)
-      puts @payment.user_id.inspect
+      payment = SlimpayPayment.where(user_id: resource.id).last
+      puts @payment.inspect
       execute_payment_path( payment_option: 'slimpay',
-      reference: @payment.payment_reference,
-      amount: @payment.amount
+      email: resource.email,
+      reference: payment.payment_reference,
+      amount: payment.amount
     )
     end
   end

@@ -24,7 +24,7 @@ class CacheUsersController < ApplicationController
       @user.payment_id = payment_data['id']
     elsif payment_option == "debit" && monthly == false
       token = Slimpay.get_token
-      payment_data = Slimpay.simpleIbanPayment(token, 20)
+      payment_data = Slimpay.simpleIbanPayment(token, 20, @user.email)
       payment_json = JSON.parse(payment_data)
       @user.payment_id = payment_json['reference']
       slimpay_payment = SlimpayPayment.create(

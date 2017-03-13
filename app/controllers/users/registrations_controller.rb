@@ -1,6 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include Encrypt
   include Paypal
+  include Slimpay
 
   before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
@@ -8,7 +9,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   def new
-    if CacheUser.find_by(payment_id: params[:paymentId]) != nil
+    if CacheUser.find_by(payment_id: params[:paymentId]) != nil     
       @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
       password = Encrypt.decryption(@cache_user.password)
       @user = User.create(
@@ -91,31 +92,32 @@ class Users::RegistrationsController < Devise::RegistrationsController
     elsif params[:payment_option] == 'slimpay'
       payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
         headers: {
+          'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
           'Content-Type' => 'application/json',
           'Authorization' => 'Bearer ' + Slimpay.get_token,
         },
         body: {
-          creditor: [
-              reference: Settings.slimpay.creditor_reference
-          ],
-          mandate => [
-              reference: params[:reference]
-          ],
-          reference: null,
-          amount: params[:amount],
-          currency: 'EUR',
-          scheme: 'SEPA.DIRECT_DEBIT.CORE',
-          label: 'Débit pour votre adhésion vaincre l\'autisme',
-          executionDate: null
+            creditor: {
+                reference: Settings.slimpay.creditor_reference
+            },
+            subscriber: {
+                reference: params[:email]
+            },
+            reference: nil,
+            amount: params[:amount],
+            currency: 'EUR',
+            scheme: 'SEPA.DIRECT_DEBIT.CORE',
+            label: 'Débit pour votre adhésion vaincre l\'autisme',
+            executionDate: nil,
         }.to_json)
 
       render html:'...attendez'
 
       puts payment
       
-      # if payment['state'] == 'approved'
-      #   redirect_to root_path
-      # end
+      if payment['executionStatus'] == 'toprocess'
+        redirect_to root_path
+      end
     end
   
   end
