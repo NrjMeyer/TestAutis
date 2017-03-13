@@ -2,9 +2,9 @@ var Packages = function () {
 
   'use strict';
 
-  var chooseButtons = $('.btn__choose');
-  var perksButtons  = $('.btn__perks');
-  var perks         = $('.choice__features');
+  var $chooseButtons = $('.btn__choose');
+  var $perksButtons  = $('.btn__perks');
+  var $perks         = $('.choice__features');
 
   var init = function () {
 
@@ -14,10 +14,10 @@ var Packages = function () {
 
   var _initEvents = function () {
 
-    chooseButtons.on('click', $.proxy(_selectPackage, this));
+    $chooseButtons.on('click', $.proxy(_selectPackage, this));
 
     if ($(window).width() < 768) {
-      perksButtons.on('click', _togglePerks);
+      $perksButtons.on('click', _togglePerks);
     }
 
   };
@@ -34,7 +34,7 @@ var Packages = function () {
       target.html('masquer les avantages');
     }
     target.toggleClass('active');
-    perks.eq(targetIndex - 1).slideToggle();
+    $perks.eq(targetIndex - 1).slideToggle();
 
   };
 
@@ -45,7 +45,7 @@ var Packages = function () {
 
     if (target.hasClass('btn__choose--selected')) return;
 
-    chooseButtons.removeClass('btn__choose--selected');
+    $chooseButtons.removeClass('btn__choose--selected');
 
     target.addClass('btn__choose--selected');
     target.text('formule sélectionnée');

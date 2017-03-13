@@ -17,9 +17,11 @@
 //= require_directory ./app
 
 $(document).on('turbolinks:load', function () {
+
   var app = new App();
   var form = new Form();
   var payment = new Payment();
   var packages = new Packages();
   var addMember = new FamilyMember();
+
 });

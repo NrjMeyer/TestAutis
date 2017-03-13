@@ -2,30 +2,37 @@ var App = function () {
 
   'use strict';
 
-  var burgerMenu           = $('.header__burger');
-  var menu                 = $('.menu');
-  var subscriberTypeSelect = $('#subscriber-type');
-  var fixedBar             = $('.price-table--fixed');
+  var $burgerMenu           = $('.header__burger');
+  var $menu                 = $('.menu');
+  var $subscriberTypeSelect = $('#subscriber-type');
+  var $fixedBar             = $('.price-table--fixed');
 
-  var sidebarItems  = $('.sidebar__item');
+  var $sidebarItems  = $('.sidebar__item');
 
-  var allSections    = $('.js-section');
-  var choiceSection  = $('.choice');
-  var optionsSection = $('.options');
-  var infosSection   = $('.informations');
-  var paymentSection = $('.payment');
+  var $allSections    = $('.js-section');
+  var $choiceSection  = $('.choice');
+  var $optionsSection = $('.options');
+  var $infosSection   = $('.informations');
+  var $paymentSection = $('.payment');
 
-  var offsetChoice  = choiceSection.offset().top;
-  var offsetOptions = optionsSection.offset().top;
-  var offsetInfos   = infosSection.offset().top;
-  var offsetPayment = paymentSection.offset().top;
+  var offsetChoice;
+  var offsetOptions;
+  var offsetInfos;
+  var offsetPayment;
+
+  if ($('.main__container').hasClass('js-variables')) {
+    offsetChoice  = $choiceSection.offset().top;
+    offsetOptions = $optionsSection.offset().top;
+    offsetInfos   = $infosSection.offset().top;
+    offsetPayment = $paymentSection.offset().top;
+  }
 
   var offsets = [offsetChoice, offsetOptions, offsetInfos, offsetPayment];
 
   // Display sections variables
-  var firstSectionInputs  = $('.formule-input');
-  var secondSectionInputs = $('.option-input');
-  var thirdSectionInputs  = $('.info-input');
+  var $firstSectionInputs  = $('.formule-input');
+  var $secondSectionInputs = $('.option-input');
+  var $thirdSectionInputs  = $('.info-input');
 
   // Scroll variables
   var sections = [];
@@ -34,9 +41,12 @@ var App = function () {
 
     _initEvents();
     _fixedElement();
-    _highlightSection();
     _initSelects();
     _checkThirdSection();
+
+    if ($(window).width() > 1149) {
+      _highlightSection();
+    }
 
     // hide sections
     $('.js-hidden').addClass('hidden');
@@ -46,14 +56,14 @@ var App = function () {
   var _initEvents = function () {
 
     if ($(window).width() < 1024) {
-      burgerMenu.on('click', _toggleMenu);
+      $burgerMenu.on('click', _toggleMenu);
     }
 
     $(window).on('resize', _fixedElement);
 
-    sidebarItems.on('click', _goToSection);
-    firstSectionInputs.on('change', function(){_displaySection(1)});
-    secondSectionInputs.on('change', function(){_displaySection(2)});
+    $sidebarItems.on('click', _goToSection);
+    $firstSectionInputs.on('change', function(){_displaySection(1)});
+    $secondSectionInputs.on('change', function(){_displaySection(2)});
 
   };
 
@@ -62,14 +72,14 @@ var App = function () {
     var sectionWidth = $('.options').outerWidth();
 
     if ($(window).width() > 1149) {
-      fixedBar.css({
+      $fixedBar.css({
         'width': sectionWidth + 'px',
         'margin-left': (-(sectionWidth / 2)) + 90 + 'px'
       });
     }
 
     if ($(window).width() < 1150) {
-      fixedBar.css({
+      $fixedBar.css({
         'width': sectionWidth + 'px',
         'margin-left': (-(sectionWidth / 2)) + 'px'
       });
@@ -80,14 +90,14 @@ var App = function () {
   var _toggleMenu = function () {
 
     $('body').toggleClass('disable-scrolling');
-    burgerMenu.toggleClass('active');
-    menu.toggleClass('active');
+    $burgerMenu.toggleClass('active');
+    $menu.toggleClass('active');
 
   };
 
   var _initSelects = function () {
 
-    subscriberTypeSelect.dropkick({mobile:true});
+    $subscriberTypeSelect.dropkick({mobile:true});
 
   };
 
@@ -107,7 +117,6 @@ var App = function () {
 
     var id = false;
     var scrollId;
-    var navbar = $('.js-scroll');
 
     sections.push($('#choice'));
 
@@ -134,12 +143,12 @@ var App = function () {
 
   var _checkThirdSection = function () {
 
-    thirdSectionInputs.on('change input', throttle(function () {
-      var empty = thirdSectionInputs.filter(function () {
+    $thirdSectionInputs.on('change input', throttle(function () {
+      var empty = $thirdSectionInputs.filter(function () {
         return this.value === "";
       });
 
-      if (empty.length === 0 && paymentSection.hasClass('hidden')) {
+      if (empty.length === 0 && $paymentSection.hasClass('hidden')) {
         if ($('.main-form').parsley().validate({group: 'block-3'})) {
           _displaySection(3);
           $(window).on('scroll', throttle(_removeFixedElement, 250));
@@ -150,14 +159,14 @@ var App = function () {
   };
 
   var _removeFixedElement = function () {
-    if (fixedBar.offset().top > $('.js-sticky').offset().top) {
-      fixedBar.hide();
+    if ($fixedBar.offset().top > $('.js-sticky').offset().top) {
+      $fixedBar.hide();
     }
   };
 
   var _displaySection = function (number) {
 
-    var current = allSections[number];
+    var current = $allSections[number];
 
     if ($(current).hasClass('visible')) return;
 
@@ -172,7 +181,7 @@ var App = function () {
       }, 1500);
     }
 
-    sidebarItems.eq(number).removeClass('sidebar__item--disabled');
+    $sidebarItems.eq(number).removeClass('sidebar__item--disabled');
 
   };
 
