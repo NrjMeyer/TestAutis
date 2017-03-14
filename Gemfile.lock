@@ -89,14 +89,9 @@ GEM
       warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.7.0)
-<<<<<<< HEAD
     ffi (1.9.18)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
-=======
-    ffi (1.9.17)
-    ffi (1.9.17-x64-mingw32)
->>>>>>> origin
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -246,6 +241,7 @@ PLATFORMS
 
 DEPENDENCIES
   activemodel-serializers-xml!
+  bourbon
   byebug
   cancancan
   config
