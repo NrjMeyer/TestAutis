@@ -62,8 +62,8 @@ Rails.application.configure do
     :address        => 'smtp.gmail.com',
     :domain         => 'mail.google.com',
     :port           => 587,
-    :user_name      => 'martinziserman@gmail.com',
-    :password       => 'Tgttdepwtctwthdne',
+    :user_name      => 'vaincrelautisme17@gmail.com',
+    :password       => 'vaincrelautisme',
     :authentication => :plain,
   }
 

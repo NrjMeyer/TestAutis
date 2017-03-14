@@ -1,6 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   include Encrypt
   include Paypal
+  include Slimpay
 
   before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
@@ -8,53 +9,50 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   def new
-    if CacheUser.find_by(payment_id: params[:paymentId]) != nil
-      @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
-      password = Encrypt.decryption(@cache_user.password)
-      @user = User.create(
-        email: @cache_user.email,
-        password: password,
-        name: @cache_user.name,
-        surname: @cache_user.surname,
-        phone_number: @cache_user.phone_number,
-        address: @cache_user.address,
-        address_extend: @cache_user.address_extend,
-        post_code: @cache_user.post_code,
-        city: @cache_user.city,
-        tax_receipt: @cache_user.tax_receipt,
-        sub_newsletter: @cache_user.sub_newsletter,
-      )
+    if CacheUser.find_by(payment_id: params[:paymentId]) != nil     
 
-      @paypal_payment = PaypalPayment.create(
-        payment: params[:paymentId],
-        payer: params[:PayerID],
-        token: params[:token],
-      )
-
-      @user.paypal_payment = @paypal_payment
+      @user = createUserPaypal(params)
 
       if @user.save
         CacheUser.where(email: @cache_user.email).destroy_all
       else
         puts @user.errors.inspect
       end
+
+    elsif cookies.signed.encrypted[:id] != nil
+
+      @user = createUserSlimpay(cookies.signed.encrypted[:id])
+
+      if @user.save
+        cookies.delete :id
+        CacheUser.where(email: @cache_user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
+
     end
   end
 
   def payment
-    payment = HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/#{params[:payment_id]}/execute",
-      headers: {
-        'Content-Type' => 'application/json',
-        'Authorization' => 'Bearer ' + Paypal.get_token,
-      },
-      body: {
-        :payer_id => params[:payer_id]
-      }.to_json)
+    if params[:payment_option] == 'paypal'
 
-    render html:'...attendez'
-    
-    if payment['state'] == 'approved'
-      redirect_to root_path
+      payment = validePaymentPaypal(params)
+
+      render html:'...attendez'
+      
+      if payment['state'] == 'approved'
+        redirect_to root_path
+      end
+      
+    elsif params[:payment_option] == 'slimpay'
+      
+      payment = validePaymentSlimpay(params)
+
+      render html:'...attendez'
+      
+      if payment['executionStatus'] == 'toprocess'
+        redirect_to root_path
+      end
     end
   
   end
@@ -110,4 +108,94 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def validePaymentSlimpay(params)
+    payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
+      headers: {
+        'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer ' + Slimpay.get_token,
+      },
+      body: {
+          creditor: {
+              reference: Settings.slimpay.creditor_reference
+          },
+          subscriber: {
+              reference: params[:email]
+          },
+          reference: nil,
+          amount: params[:amount],
+          currency: 'EUR',
+          scheme: 'SEPA.DIRECT_DEBIT.CORE',
+          label: 'Débit pour votre adhésion vaincre l\'autisme',
+          executionDate: nil,
+      }.to_json
+    )
+  end
+
+  def validePaymentPaypal(params)
+      HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/#{params[:payment_id]}/execute",
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => 'Bearer ' + Paypal.get_token,
+        },
+        body: {
+          :payer_id => params[:payer_id]
+        }.to_json
+      )
+  end
+
+  def createUserSlimpay(cookie_id)
+    @cache_user = CacheUser.find_by(payment_id: cookie_id)
+      
+      password = Encrypt.decryption(@cache_user.password)
+      @user = User.create(
+        email: @cache_user.email,
+        password: password,
+        name: @cache_user.name,
+        surname: @cache_user.surname,
+        phone_number: @cache_user.phone_number,
+        address: @cache_user.address,
+        address_extend: @cache_user.address_extend,
+        post_code: @cache_user.post_code,
+        city: @cache_user.city,
+        tax_receipt: @cache_user.tax_receipt,
+        sub_newsletter: @cache_user.sub_newsletter,
+        payment_option: 'slimpay'
+      )
+
+      @cache_user.slimpay_payment.user_id = @user.id
+      @cache_user.save
+      return @user
+  end
+
+  def createUserPaypal(params)
+    @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
+    password = Encrypt.decryption(@cache_user.password)
+    @user = User.create(
+      email: @cache_user.email,
+      password: password,
+      name: @cache_user.name,
+      surname: @cache_user.surname,
+      phone_number: @cache_user.phone_number,
+      address: @cache_user.address,
+      address_extend: @cache_user.address_extend,
+      post_code: @cache_user.post_code,
+      city: @cache_user.city,
+      tax_receipt: @cache_user.tax_receipt,
+      sub_newsletter: @cache_user.sub_newsletter,
+      payment_option: 'paypal'
+    )
+
+    @paypal_payment = PaypalPayment.create(
+      payment: params[:paymentId],
+      payer: params[:PayerID],
+      token: params[:token],
+    )
+
+    @user.paypal_payment = @paypal_payment
+
+    return @user
+  end
+
 end

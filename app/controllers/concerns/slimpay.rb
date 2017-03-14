@@ -3,7 +3,7 @@ module Slimpay
 
   private
 
-  def get_token
+  def self.get_token
     authorization = 'Basic '+ Settings.slimpay.encoded_key
     HTTParty.post(Settings.slimpay.server+'/oauth/token',
         headers: {
@@ -18,7 +18,7 @@ module Slimpay
       )['access_token']
   end
 
-  def self.simpleIbanPayment(token, amount)
+  def self.simpleIbanPayment(token, amount, email)
     HTTParty.post(Settings.slimpay.server + Settings.slimpay.url.create_order,
         headers: {
           'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -31,7 +31,7 @@ module Slimpay
             reference: Settings.slimpay.creditor_reference
           },
           subscriber: {
-            reference: 'user1'
+            reference: email
           },
           items: [
             {

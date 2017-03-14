@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_one :offer
   has_one :role
   has_one :paypal_payment
+  has_many :slimpay_payment
   has_many :side_users
  
 end
