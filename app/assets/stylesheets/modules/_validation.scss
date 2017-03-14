@@ -1,0 +1,21 @@
+.payment-validation {
+
+  .form-block__column {
+    @include flex-direction(column);
+    @include align-items(initial);
+  }
+
+  &__content {
+    color: #ABABAB;
+  }
+
+  &__donation {
+    margin-bottom: rem(16px);
+
+    svg {
+      width: 12px;
+      height: 9px;
+    }
+  }
+
+}

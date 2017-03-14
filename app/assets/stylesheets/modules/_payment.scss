@@ -1,0 +1,164 @@
+.payment {
+
+  &__info {
+    color: #ABABAB;
+    text-align: center;
+    font-size: rem(16px);
+    line-height: rem(24px);
+    padding: rem(40px) rem(110px);
+
+    @include mobile {
+      padding: 0;
+    }
+  }
+
+  &__options {
+    @extend .roboto--medium;
+    @include display(flex);
+    @include flex-flow(row wrap);
+
+    @include mobile {
+      margin-top: rem(10px);
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+  }
+
+  &__container {
+    @include flex(1 0 25%);
+
+    @include mobile {
+      @include flex(1 0 100%);
+      border-right: none;
+      margin-bottom: rem(10px);
+    }
+
+
+  }
+
+  &__option {
+    text-align: center;
+    background: #EAEAEA;
+    padding: rem(18px) rem(14px);
+    border-right: 1px solid $white;
+    cursor: pointer;
+    height: 75px;
+
+    @include mobile {
+      border-right: none;
+      height: initial;
+    }
+
+    @include fromtablet {
+      @include flex-direction(column);
+      @include justify-content(center);
+      @include display(flex);
+    }
+
+    svg {
+      display: block;
+      margin: 0 auto rem(8px);
+    }
+
+    svg path {
+      fill: #ABABAB;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    &--selected {
+      background: $pink;
+      color: $white;
+
+      svg path {
+        fill: #fff;
+      }
+    }
+
+  }
+
+  &__section {
+    display: none;
+    background: $white;
+    padding: rem(30px) rem(76px);
+
+    &--small {
+      padding: rem(30px) rem(112px);
+    }
+  }
+
+  &__section--mobile {
+    background: $white;
+    padding: rem(20px);
+    display: none;
+  }
+
+  &__card, &__debit {
+
+    .custom-radio--block {
+      margin-top: rem(20px);
+    }
+    .custom-radio--block span {
+      color: #BBBBBB;
+    }
+
+    .custom-radio--block span a {
+      color: inherit;
+      margin-left: rem(4px);
+    }
+  }
+
+  &__paypal {
+    p {
+      color: #ABABAB;
+      line-height: rem(21px);
+    }
+  }
+
+  &__debit {
+    .phone-tip {
+      @extend .roboto--italic;
+      color: #BBBBBB;
+      font-size: rem(12px);
+      line-height: rem(18px);
+      max-width: rem(250px);
+    }
+  }
+
+  &__cheque {
+
+    color: #ABABAB;
+    font-family: 'Roboto';
+    font-weight: normal;
+
+    .content {
+      line-height: rem(21px);
+    }
+
+    .content, .adress {
+      span {
+        @extend .roboto--medium;
+        color: #A9A9A9;
+      }
+    }
+
+    .adress {
+      margin: rem(18px) 0;
+    }
+
+    .adress span {
+      display: block;
+      color: #ABABAB;
+      margin-bottom: rem(8px);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,55 @@
+.options {
+  margin-top: rem(40px);
+
+  @include mobile {
+    margin-top: 0;
+  }
+}
+
+.members {
+  margin-top: rem(20px);
+
+  ul > p {
+    margin-bottom: rem(10px);
+  }
+}
+
+.member {
+
+  @include display(flex);
+  @include align-items(center);
+  color: #BBBBBB;
+  margin-bottom: rem(14px);
+
+  &__name {
+    color: $pink;
+    width: 31%;
+
+    @include mobile {
+      width: initial;
+    }
+  }
+
+  &__mail {
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__delete {
+    cursor: pointer;
+    margin-left: auto;
+    color: #AFAFAF;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    svg, span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+}
