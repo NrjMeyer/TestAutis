@@ -42,3 +42,7 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore node_module for mail template
+/app/front-mail/node_modules
+/app/front-mail/dist
