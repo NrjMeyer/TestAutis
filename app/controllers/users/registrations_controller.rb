@@ -36,23 +36,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def payment
     if params[:payment_option] == 'paypal'
 
-      payment = validePaymentPaypal(params)
+      @payment = PaypalPayment.where(payment: params[:payment_id]).last
+      @user = User.find(@payment.user_id)
 
-      render html:'...attendez'
+      payment = validePaymentPaypal(params)
       
       if payment['state'] == 'approved'
-        redirect_to root_path
+        render 'users/confirmations/confirm'
       end
       
     elsif params[:payment_option] == 'slimpay'
-      
-      payment = validePaymentSlimpay(params)
 
-      render html:'...attendez'
+      @payment = SlimpayPayment.where(payment_reference: params[:reference]).last
+      @user = User.find(@payment.user_id)
       
+      payment = JSON.parse(validePaymentSlimpay(params))
+      
+      puts payment
+
       if payment['executionStatus'] == 'toprocess'
+        render 'users/confirmations/confirm'
+      else
         redirect_to root_path
       end
+    
     end
   
   end
