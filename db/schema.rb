@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170317180429) do
     t.string   "user_id"
     t.string   "cache_user_id"
     t.string   "payment_reference"
-    t.string   "amount"
+    t.integer  "amount"
   end
 
   create_table "users", force: :cascade do |t|

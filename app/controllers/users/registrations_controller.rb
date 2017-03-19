@@ -9,7 +9,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   def new
-    if CacheUser.find_by(payment_id: params[:paymentId]) != nil     
+    if CacheUser.find_by(payment_id: params[:paymentId]) != nil
 
       @user = createUserPaypal(params)
 
@@ -18,6 +18,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         puts @user.errors.inspect
       end
+
+    elsif CacheUser.find_by(payment_id: params[:token]) != nil
+      
+      @user = createUserPaypal(params, true)
+
+      if @user.save
+        CacheUser.where(email: @cache_user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
+
 
     elsif cookies.signed.encrypted[:id] != nil
 
@@ -36,12 +47,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def payment
     if params[:payment_option] == 'paypal'
 
-      @payment = PaypalPayment.where(payment: params[:payment_id]).last
-      @user = User.find(@payment.user_id)
+      if params[:monthly_payment] == 'true'
+        @payment = PaypalPayment.where(token: params[:payment_token]).last
+        puts @payment.inspect
+        @user = User.find(@payment.user_id)
 
-      payment = validePaymentPaypal(params)
+        payment = validePaymentPaypal(@payment, true)
+        puts payment
+      else
+        @payment = PaypalPayment.where(payment: params[:payment_id]).last
+        @user = User.find(@payment.user_id)
+
+        payment = validePaymentPaypal(@payment)
+      end
+
       
-      if payment['state'] == 'approved'
+      if payment['state'] == 'approved' || payment['state'] == 'Active'
         render 'users/confirmations/confirm'
       end
       
@@ -50,7 +71,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @payment = SlimpayPayment.where(payment_reference: params[:reference]).last
       @user = User.find(@payment.user_id)
       
-      payment = JSON.parse(validePaymentSlimpay(params))
+      payment = JSON.parse(validePaymentSlimpay(@payment, @user))
       
       puts payment
 
@@ -116,7 +137,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  def validePaymentSlimpay(params)
+  def validePaymentSlimpay(payment, user)
     payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
       headers: {
         'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -128,10 +149,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
               reference: Settings.slimpay.creditor_reference
           },
           subscriber: {
-              reference: params[:email]
+              reference: user.email
           },
           reference: nil,
-          amount: params[:amount],
+          amount: payment.amount,
           currency: 'EUR',
           scheme: 'SEPA.DIRECT_DEBIT.CORE',
           label: 'Débit pour votre adhésion vaincre l\'autisme',
@@ -140,8 +161,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
     )
   end
 
-  def validePaymentPaypal(params)
-      HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/#{params[:payment_id]}/execute",
+  def validePaymentPaypal(payment, reccuring = false)
+    if reccuring == true
+      HTTParty.post('https://api.sandbox.paypal.com/v1/payments/billing-agreements/'+payment.token+'/agreement-execute',
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => 'Bearer ' + Paypal.get_token,
+        }
+      )
+    else
+      HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/"+payment.payment+"/execute",
         headers: {
           'Content-Type' => 'application/json',
           'Authorization' => 'Bearer ' + Paypal.get_token,
@@ -150,6 +179,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           :payer_id => params[:payer_id]
         }.to_json
       )
+    end
   end
 
   def createUserSlimpay(cookie_id)
@@ -176,8 +206,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
       return @user
   end
 
-  def createUserPaypal(params)
-    @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
+  def createUserPaypal(params, reccuring = false)
+
+    if reccuring == false
+
+      @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
+
+      @paypal_payment = PaypalPayment.create(
+        payment: params[:paymentId],
+        payer: params[:PayerID],
+        token: params[:token],
+      )
+    
+    else
+
+      @cache_user = CacheUser.find_by(payment_id: params[:token])
+
+      @paypal_payment = PaypalPayment.create(
+        token: params[:token],
+      )
+  
+    end
+
     password = Encrypt.decryption(@cache_user.password)
     @user = User.create(
       email: @cache_user.email,
@@ -191,13 +241,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       city: @cache_user.city,
       tax_receipt: @cache_user.tax_receipt,
       sub_newsletter: @cache_user.sub_newsletter,
+      monthly_payment: reccuring,
       payment_option: 'paypal'
-    )
-
-    @paypal_payment = PaypalPayment.create(
-      payment: params[:paymentId],
-      payer: params[:PayerID],
-      token: params[:token],
     )
 
     @user.paypal_payment = @paypal_payment

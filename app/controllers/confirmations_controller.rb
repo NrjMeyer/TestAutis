@@ -5,7 +5,8 @@ class ConfirmationsController < Devise::ConfirmationsController
       execute_payment_path(payment_option: 'paypal',
       payment_id: resource.paypal_payment.payment,
       payer_id: resource.paypal_payment.payer,
-      payment_token: resource.paypal_payment.token
+      payment_token: resource.paypal_payment.token,
+      monthly_payment: resource.monthly_payment
     )
     else
       payment = SlimpayPayment.where(user_id: resource.id).last

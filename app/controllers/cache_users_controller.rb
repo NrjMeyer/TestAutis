@@ -55,12 +55,21 @@ class CacheUsersController < ApplicationController
         )
         @user.payment_id = payment_json['reference']
         puts payment_data
+      elsif payment_option == 'paypal'
+        token = Paypal.get_token
+        payment_data = Paypal.reccurringPayment(token, 20)
+        token = payment_data['links'][0]['href'].scan(/token=(.*)/)[0][0]
+        @user.payment_id = token
       end
     end
 
     if @user.save
       if payment_option == 'paypal'
-        redirect_to payment_data['links'][1]['href']
+        if !monthly
+          redirect_to payment_data['links'][1]['href']
+        else
+          redirect_to payment_data['links'][0]['href']
+        end
       elsif payment_option == 'debit' || payment_option == 'card'
         cookies.signed.encrypted[:id] = payment_json['reference']
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
