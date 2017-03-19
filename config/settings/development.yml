@@ -1,7 +1,7 @@
 slimpay:
   app_id: 'vaincrelautisme01'
-  app_secret: '8pgWCFFqomyeQdHhmJRALIwujEekvH8UBsaZnw0X'
-  encoded_key: 'dmFpbmNyZWxhdXRpc21lMDE6OHBnV0NGRnFvbXllUWRIaG1KUkFMSXd1akVla3ZIOFVCc2FabncwWA=='
+  app_secret: 'Dm29jZbhQjGrdMNeY6ifyayU6qqBggSWTIEO8G8N'
+  encoded_key: 'dmFpbmNyZWxhdXRpc21lMDE6RG0yOWpaYmhRakdyZE1OZVk2aWZ5YXlVNnFxQmdnU1dUSUVPOEc4Tg=='
   creditor_reference: 'vaincrelautisme'
   server: 'https://api-sandbox.slimpay.net'
   url:

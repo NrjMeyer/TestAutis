@@ -81,6 +81,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
         redirect_to root_path
       end
     
+    elsif params[:payment_option] == 'cheque'
+
+      @payment = PaymentCheque.where(user_id: params[:id])
+      @user = User.find(params[:id])
+      
+      render 'user/confirmations/confirm'
     end
   
   end

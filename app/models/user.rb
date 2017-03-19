@@ -9,5 +9,6 @@ class User < ApplicationRecord
   has_one :paypal_payment
   has_many :slimpay_payment
   has_many :side_users
+  has_many :payment_cheque
  
 end

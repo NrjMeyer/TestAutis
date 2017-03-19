@@ -43,6 +43,18 @@ class CacheUsersController < ApplicationController
           amount: 20
         )
         @user.payment_id = payment_json['reference']
+      elsif payment_option == 'cheque'
+        @user = User.new(params.require(:cache_user).permit(:password,
+      :password_confirmation, :name, :surname, :phone_number, :address,
+      :address_extend, :post_code, :city, :email))
+
+        @user.payment_option = 'cheque'
+
+        @cheque = PaymentCheque.create(amount: 20, validated: false, user_id: @user.id)
+
+        if @user.save
+          redirect_to validation_path
+        end
       end
     else
       if payment_option == 'debit'

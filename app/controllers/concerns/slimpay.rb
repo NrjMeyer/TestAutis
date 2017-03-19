@@ -5,7 +5,7 @@ module Slimpay
 
   def self.get_token
     authorization = 'Basic '+ Settings.slimpay.encoded_key
-    HTTParty.post(Settings.slimpay.server+'/oauth/token',
+    response = HTTParty.post(Settings.slimpay.server+'/oauth/token',
         headers: {
           'Accept'        => 'application/json',
           'Content-Type'  => 'application/x-www-form-urlencoded',
@@ -148,6 +148,5 @@ module Slimpay
         }.to_json
       )
   end
-
 
 end
