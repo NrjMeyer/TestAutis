@@ -1,0 +1,607 @@
+<%= form_for CacheUser.new, url: {action: "create"} do |f| %>
+
+<% flash.each do |name, msg| %>
+
+  # New code (allow for flash elements to be arrays)
+  <% if msg.class == Array %>
+    <% msg.each do |message| %>
+      <%= content_tag :div, message, :id => "flash_#{name}" %>
+    <% end %>
+  <% else %>
+
+    # old code
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+
+  <% end %> #don't forget the extra end
+<% end %>
+
+<header class="header">
+    <div class="container header__container">
+      <img class="header__logo" src="img/logo.png" alt="Logo Vaincre l'autisme">
+      <nav>
+        <ul class="menu">
+
+          <li class="menu__item menu__item--border">
+            <a href="#">
+              <%= embedded_svg "icons/download.svg", class: "icon-download" %>
+              <span>Formulaire papier</span>
+            </a>
+          </li>
+
+          <li class="menu__item menu__item--border">
+            <a href="#">
+              <%= embedded_svg "icons/link.svg", class: "icon-link" %>
+              <span>Site principal</span>
+            </a>
+          </li>
+
+          <li class="menu__item">
+            <a href="#">
+              <%= embedded_svg "icons/login.svg", class: "icon-login" %>
+              <span>Se connecter</span>
+            </a>
+          </li>
+
+          <li class="menu__item menu__item--highlighted">
+            <a href="#">
+              <%= embedded_svg "icons/donate.svg", class: "icon-donate" %>
+              <span>Faire un don</span>
+            </a>
+          </li>
+
+        </ul>
+        <div class="header__burger">
+          <div class="burger"></div>
+        </div>
+      </nav>
+    </div>
+</header>
+
+<div class="sidebar">
+  <nav>
+    <ul>
+      <li class="sidebar__item js-scroll sidebar__item--current" data-section="#choice">1. Choix</li>
+      <li class="sidebar__item js-scroll sidebar__item--disabled" data-section="#options">2. Options</li>
+      <li class="sidebar__item js-scroll sidebar__item--disabled" data-section="#infos">3. Informations</li>
+      <li class="sidebar__item js-scroll sidebar__item--disabled" data-section="#payment">4. Paiement</li>
+      <li class="sidebar__item sidebar__item--disabled">5. Validation</li>
+    </ul>
+  </nav>
+</div>
+
+<main class="main__container js-variables">
+
+  <div class="container">
+
+    <div class="price-table--highlighted price-table--fixed">
+      <div class="row__content row__taxes">
+        <p class="content__listing">Coût après réduction fiscale</p>
+        <p class="content__amount">1€</p>
+      </div>
+    </div>
+
+    <section class="intro">
+      <div class="intro__catchline">Adhérer pour donner plus de poids à notre association !</div>
+      <div class="intro__content">Adhérer à <span>Vaincre l'autisme</span>, c'est très simple et vous permet de <span>vous impliquer dans la vie de notre association à votre niveau</span>, en fonction de la formule que vous choisissez ci-dessous.</div>
+    </section>
+
+    <section class="choice js-section" id="choice">
+      <div class="choice__item">
+        <div class="content">
+          <div class="choice__price">
+            <div class="price__left">
+              <p class="price">40<span>€</span></p>
+              <p class="monthly-price">mensualisation non proposée</p>
+            </div>
+            <div class="price__right">
+              <input type="radio" id="formule-1" name="formule" class="formule-input input-mobile" required>
+              <label class="btn btn__choose" for="formule-1">choisir cette formule</label>
+              <div class="btn btn__perks" data-perks="1">voir les avantages</div>
+            </div>
+          </div>
+          <div class="choice__info">
+            soit <span class="big white">13,6€</span> après réduction fiscale
+            <span class="infobox">
+              <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
+              <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
+            <span>
+          </div>
+          <div class="choice__features">
+            <p class="choice__catchline">Soutenir l'association</p>
+            <ul class="features">
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Accès à l'espace adhérent
+              </li>
+            </ul>
+            <div>
+              <input type="radio" id="formule-1" name="formule" class="formule-input input-desktop" required>
+              <label class="btn btn__choose" for="formule-1">choisir cette formule</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="choice__item">
+        <div class="content">
+          <div class="choice__price">
+            <div class="price__left">
+              <p class="price">60<span>€</span></p>
+              <p class="monthly-price">ou 5€ /mois</p>
+            </div>
+            <div class="price__right">
+              <input type="radio" id="formule-2" name="formule" class="formule-input input-mobile" required>
+              <label class="btn btn__choose" for="formule-2">choisir cette formule</label>
+              <div class="btn btn__perks" data-perks="2">voir les avantages</div>
+            </div>
+          </div>
+          <div class="choice__info">
+            soit <span class="white big">20,4€</span> après réduction fiscale
+            <span class="infobox">
+              <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
+              <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
+            <span>
+          </div>
+          <div class="choice__features">
+            <p class="choice__catchline">Bénéficier des conseils/expertises</p>
+            <ul class="features">
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Accès à l'espace adhérent
+              </li>
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Carte de membre
+              </li>
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Accès aux documents privilégiés
+              </li>
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Espace questions/réponses
+              </li>
+            </ul>
+            <div>
+              <input type="radio" id="formule-2" name="formule" class="formule-input input-desktop" required>
+              <label class="btn btn__choose" for="formule-2">choisir cette formule</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="choice__item">
+        <div class="content">
+          <div class="choice__price">
+            <div class="price__left">
+              <p class="price">120<span>€</span></p>
+              <p class="monthly-price">ou 10€ /mois</p>
+            </div>
+            <div class="price__right">
+              <input type="radio" id="formule-3" name="formule" class="formule-input input-mobile" required>
+              <label class="btn btn__choose" for="formule-3">choisir cette formule</label>
+              <div class="btn btn__perks" data-perks="3">voir les avantages</div>
+            </div>
+          </div>
+          <div class="choice__info">
+            soit <span class="white big">40,8€</span> après réduction fiscale
+            <span class="infobox">
+              <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
+              <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
+            <span>
+          </div>
+          <div class="choice__features">
+            <p class="choice__catchline">S'engager avec nous</p>
+            <ul class="features">
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Accès à l'espace adhérent
+              </li>
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Carte de membre
+              </li>
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Accès aux documents privilégiés
+              </li>
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Espace questions/réponses
+              </li>
+              <li class="features__item">
+                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
+                Devenez membre actif
+              </li>
+            </ul>
+            <div>
+              <input type="radio" id="formule-3" name="formule" class="formule-input input-desktop" required>
+              <label class="btn btn__choose" for="formule-3">choisir cette formule</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="options small-section animated js-section js-hidden" id="options">
+      <div class="section-title no-mobile">2. Options</div>
+      <div class="section-title mobile">Options</div>
+      <div class="form-block">
+        <div class="form-block__top no-mobile">Mensualiser mon paiement</div>
+        <div class="form-block__bottom">
+          <div class="form-block__container">
+            <div class="special">Je veux payer mon adhésion :</div>
+            <div class="custom-radio__container">
+              <label for="once" class="custom-radio">
+                <input type="radio" id="once" name="subscribe-rate" class="option-input">
+                <span>en une seule fois</span>
+              </label>
+              <label for="monthly" class="custom-radio">
+                <input type="radio" id="monthly" name="subscribe-rate" class="option-input">
+                <span>mensuellement</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-block">
+        <div class="form-block__top">Faire un don complémentaire</div>
+        <div class="form-block__bottom">
+          <div class="form-block__container">
+            <div class="no-mobile">Je veux donner</div>
+            <input class="input input__donation" type="number" id="donation" placeholder="5 euros"> <div class="no-mobile">euros.</div>
+            <div class="custom-radio__donate">
+              <label for="donate-once" class="custom-radio">
+                <input type="radio" id="donate-once" name="donate-rate" data-parsley-required="false">
+                <span>don ponctuel</span>
+              </label>
+              <label for="donate-monthly" class="custom-radio">
+                <input type="radio" id="donate-monthly" name="donate-rate" data-parsley-required="false">
+                <span>don mensuel</span>
+              </label>
+            </div>
+            <button class="btn btn__add">Ajouter</button>
+          </div>
+        </div>
+      </div>
+      <div class="form-block">
+        <div class="form-block__top">Faire adhérer un membre de ma famille (1€/mois seulement)</div>
+        <div class="form-block__bottom">
+          <div class="members">
+            <ul></ul>
+          </div>
+          <div class="form-block__container form-block__container--alignedtop">
+            <div class="input-single">
+              <input class="input input__family" type="text" id="family-name" placeholder="Prénom / Nom" data-parsley-required="false" data-parsley-error-message="Ce champ est invalide" data-parsley-group="family-member">
+            </div>
+            <div class="input-single">
+              <input class="input input__family" type="mail" id="family-mail" placeholder="Adresse mail" data-parsley-required="false" data-parsley-type="email" data-parsley-error-message="Ce champ est invalide" data-parsley-group="family-member">
+            </div>
+            <div class="btn btn__add js-add-member">Ajouter</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="informations small-section animated js-section js-hidden" id="infos">
+      <div class="section-title no-mobile">3. Informations</div>
+      <div class="form-block">
+        <div class="form-block__top form-block__top--mobile">Mon rôle dans l'association</div>
+        <div class="form-block__bottom form-block__bottom--mobile">
+          <select name="subscriber-type" id="subscriber-type" class="info-input" data-parsley-group="block-3" required>
+            <option value="" disbaled selected class="hidden-option">J'adhère en tant que</option>
+            <option value="1">Adherent 1</option>
+            <option value="2">Adherent 2</option>
+            <option value="3">Adherent 3</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-block">
+        <div class="form-block__top form-block__top--mobile">Informations personnelles</div>
+        <div class="form-block__bottom form-block__bottom--mobile">
+          <div class="input-row">
+            <div class="input-single">
+              <%= f.text_field :name, :class => 'input__classic info-input', :placeholder => 'Nom', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            </div>
+            <div class="input-single">
+              <%= f.text_field :surname, :class => 'input__classic info-input', :placeholder => 'Prénom', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            </div>
+          </div>
+          <div class="input-row">
+            <%= f.text_field :phone_number, :class => 'input__classic info-input', :placeholder => 'Téléphone', 'required' => 'true', 'data-parsley-pattern' => '/0[1-7,9]\d{8}/', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+          </div>
+          <div class="input-row">
+            <div class="input-single">
+              <%= f.text_field :address, :class => 'input__classic info-input', :placeholder => 'Adresse', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            </div>
+            <div class="input-single">
+              <%= f.text_field :address_extend, :class => 'input__classic', :placeholder => 'Adresse complémentaire', 'data-parsley-required' => 'false' %>
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-single">
+              <%= f.text_field :post_code, :class => 'input__classic info-input', :placeholder => 'Code Postal', 'required' => 'true', 'data-parsley-pattern' => '/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            </div>
+            <div class="input-single">
+              <%= f.text_field :city, :class => 'input__classic info-input', :placeholder => 'Ville', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-block">
+        <div class="form-block__top form-block__top--mobile">Espace adhérent</div>
+        <div class="form-block__bottom form-block__bottom--mobile">
+          <div class="input-row">
+            <%= f.email_field :email, :class => 'input__classic info-input', :placeholder => 'Adresse e-mail', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+          </div>
+          <div class="input-row">
+
+            <div class="input-single">
+              <%= f.password_field :password, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Mot de passe', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            </div>
+            <div class="input-single">
+              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Répéter mot de passe', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-equalto' => '#user_password', 'data-parsley-error-message' => 'Les mots de passe ne correspondent pas', 'data-parsley-group' => 'block-3' %>
+            </div>
+            <div>
+              <% if @minimum_password_length %>
+              <p>(<%= @minimum_password_length %> caractères minimum)</p>
+              <% end %>
+            </div>
+
+
+          </div>
+
+          <label class="custom-radio custom-radio--block">
+            <input type="checkbox" id="fiscal-mail" name="fiscal-mail">
+            <span>Recevoir par mail mon reçu fiscal</span>
+          </label>
+          <label class="custom-radio custom-radio--block">
+            <input type="checkbox" id="newsletter" name="newsletter">
+            <span>S'inscrire à la newsletter</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="payment small-section animated js-section js-hidden" id="payment">
+      <div class="section-title no-mobile">4. Paiement</div>
+      <div class="form-block">
+        <div class="form-block__top form-block__top--mobile form-block__top--mobile--nomargin">Récapitulatif</div>
+        <div class="form-block__bottom price-table">
+          <div class="row__content row__subscription">
+            <p class="content__listing">Votre adhésion (120)</p>
+            <p class="content__amount">120€</p>
+          </div>
+          <div class="row__content row__family">
+            <p class="content__listing">Vos proches (1)</p>
+            <p class="content__amount">12€</p>
+          </div>
+          <div class="row__content row__donation">
+            <p class="content__listing">Votre don</p>
+            <p class="content__amount">-</p>
+          </div>
+        </div>
+        <div class="price-table--grey">
+          <div class="row__content row__total">
+            <p class="content__listing">Total à payer</p>
+            <p class="content__amount">140€</p>
+          </div>
+        </div>
+        <div class="price-table--highlighted js-sticky">
+          <div class="row__content row__taxes">
+            <p class="content__listing">Coût après réduction fiscale</p>
+            <p class="content__amount">1€</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-block">
+        <div class="form-block__top form-block__top--mobile form-block__top--mobile--nomargin">Mode de paiement</div>
+        <div class="form-block__bottom js-payment__info">
+          <p class="payment__info">Choisissez ci-dessous un mode de paiement pour finaliser votre adhésion à l'association</p>
+        </div>
+        <div class="payment__options">
+          <div class="payment__container">
+            <div class="payment__option" data-option="card">
+              <%= embedded_svg "icons/card.svg", class: "icon-card" %>
+              <label for="card" class="label">
+                Carte bancaire
+              </label>
+            </div>
+            <input type="radio" id="card" name="payment-option" required>
+            <div class="payment__section--mobile payment__card" data-option="card">
+              <div class="cards">
+                <label class="cards__input cards__input--visa">
+                  VISA
+                  <input type="radio" id="visa" name="card-option">
+                  <span></span>
+                </label>
+                <label class="cards__input cards__input--mc">
+                  MasterCard
+                  <input type="radio" id="mastercard" name="card-option">
+                  <span></span>
+                </label>
+                <label class="cards__input cards__input--amex">
+                  American Express
+                  <input type="radio" id="amex" name="card-option">
+                  <span></span>
+                </label>
+              </div>
+              <div class="input-row">
+                <div class="input-single">
+                  <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout">
+                </div>
+                <div class="input-single">
+                  <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout" data-parsley-type="number">
+                </div>
+              </div>
+              <div class="input-row">
+                <div class="input-single">
+                  <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="change focusout" data-parsley-pattern="/^(0[1-9]|1[0-2])\/\d{2}$/">
+                </div>
+                <div class="input-single">
+                  <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="3" data-parsley-error-message="Ce champ est invalide">
+                </div>
+              </div>
+              <label class="custom-radio custom-radio--block">
+                <input type="checkbox" id="cgv" name="cgv" class="input-mobile" required>
+                <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
+              </label>
+              <div class="btn-container">
+                <button class="btn btn__payment"><a href="#">Effectuer le paiement</a></button>
+              </div>
+            </div>
+          </div>
+          <div class="payment__container">
+            <div class="payment__option" data-option="paypal">
+              <%= embedded_svg "icons/paypal.svg", class: "icon-paypal" %>
+              <label for="paypal" class="label">
+                Paypal
+              </label>
+            </div>
+            <input type="radio" id="paypal" name="payment-option" required>
+            <div class="payment__section--mobile payment__paypal" data-option="paypal">
+              <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
+              <div class="btn-container">
+                <button class="btn btn__payment"><a href="https://www.paypal.com" target="_blank">Payer avec PayPal</a></button>
+              </div>
+            </div>
+          </div>
+          <div class="payment__container">
+            <div class="payment__option" data-option="debit">
+              <%= embedded_svg "icons/debit.svg", class: "icon-debit" %>
+              <label for="debit" class="label">
+                Prélèvement automatique
+              </label>
+            </div>
+            <input type="radio" id="debit" name="payment-option" required>
+            <div class="payment__section--mobile payment__debit" data-option="debit">
+              <div class="input-row">
+                <input type="text" class="input__classic input__payment input__payment--big" name="iban" placeholder="Votre IBAN">
+              </div>
+              <div class="input-row">
+                <input type="phone" class="input__classic input__payment" name="phone" placeholder="Numéro de téléphone mobile">
+              </div>
+              <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
+              <label class="custom-radio custom-radio--block">
+                <input type="checkbox" id="cgv" name="cgv" class="input-mobile" required>
+                <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
+              </label>
+              <div class="btn-container">
+                <button class="btn btn__payment"><a href="#">Effectuer le prélèvement</a></button>
+              </div>
+            </div>
+          </div>
+          <div class="payment__container">
+            <div class="payment__option" data-option="cheque">
+              <%= embedded_svg "icons/cheque.svg", class: "icon-cheque" %>
+              <label for="cheque" class="label">
+                Paiement par chèque
+              </label>
+            </div>
+            <input type="radio" id="cheque" name="payment-option" required>
+            <div class="payment__section--mobile payment__cheque" data-option="cheque">
+              <p class="content">Votre adhésion sera prise en compte dès réception de votre chèque et de votre récapitulatif à l'ordre de <span>VAINCRE L'AUTISME</span> et imprimé à l'adresse :</p>
+              <p class="adress">
+                <span>Service adhésion - Vaincre l'autisme</span>
+                <span>51 rue Servan</span>
+                <span>75011 Paris</span>
+              </p>
+              <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent.</p>
+              <div class="btn-container">
+                <button class="btn btn__payment"><a href="#">Pré-activer mon compte</a></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="payment__section payment__card no-mobile" data-option="card">
+          <div class="cards">
+            <label class="cards__input cards__input--visa">
+              VISA
+              <input type="radio" id="visa" name="card-option">
+              <span></span>
+            </label>
+            <label class="cards__input cards__input--mc">
+              MasterCard
+              <input type="radio" id="mastercard" name="card-option">
+              <span></span>
+            </label>
+            <label class="cards__input cards__input--amex">
+              American Express
+              <input type="radio" id="amex" name="card-option">
+              <span></span>
+            </label>
+          </div>
+
+          <div class="input-row">
+            <div class="input-single">
+              <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte">
+            </div>
+            <div class="input-single">
+              <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte">
+            </div>
+          </div>
+          <div class="input-row">
+            <div class="input-single">
+              <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)">
+            </div>
+            <div class="input-single">
+              <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="4">
+            </div>
+          </div>
+          <label class="custom-radio custom-radio--block">
+            <input type="checkbox" id="cgv" name="cgv" class="input-desktop" required>
+            <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
+          </label>
+          <!-- Ici il faut surement un submit au lieu d'un lien mais dunno avec Slimpay -->
+          <div class="btn-container">
+            <button class="btn btn__payment"><a href="#">Effectuer le paiement</a></button>
+          </div>
+
+        </div>
+
+        <div class="payment__section payment__section--small payment__paypal no-mobile" data-option="paypal">
+          <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
+          <div class="btn-container">
+            <button class="btn btn__payment"><a href="https://www.paypal.com" target="_blank">Payer avec PayPal</a></button>
+          </div>
+        </div>
+
+        <div class="payment__section payment__section--small payment__debit no-mobile" data-option="debit">
+          <div class="input-row">
+            <input type="text" class="input__classic input__payment input__payment--big" name="iban" placeholder="Votre IBAN">
+          </div>
+          <div class="input-row">
+            <input type="phone" class="input__classic input__payment" name="phone" placeholder="Numéro de téléphone mobile">
+          </div>
+          <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
+          <label class="custom-radio custom-radio--block">
+            <input type="checkbox" id="cgv" name="cgv" class="input-desktop" required>
+            <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
+          </label>
+          <div class="btn-container">
+            <button class="btn btn__payment"><a href="#">Effectuer le prélèvement</a></button>
+          </div>
+        </div>
+
+        <div class="payment__section payment__cheque no-mobile" data-option="cheque">
+          <p class="content">Votre adhésion sera prise en compte dès réception de votre chèque et de votre récapitulatif à l'ordre de <span>VAINCRE L'AUTISME</span> et imprimé à l'adresse :</p>
+          <p class="adress">
+            <span>Service adhésion - Vaincre l'autisme</span>
+            <span>51 rue Servan</span>
+            <span>75011 Paris</span>
+          </p>
+          <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent.</p>
+          <div class="btn-container">
+            <button class="btn btn__payment"><a href="#">Pré-activer mon compte</a></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<% end %>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

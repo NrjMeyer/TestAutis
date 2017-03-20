@@ -27,7 +27,7 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -53,4 +53,19 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  config.const_name = 'Settings'
+  config.use_env = true
+
+  ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.gmail.com',
+    :domain         => 'mail.google.com',
+    :port           => 587,
+    :user_name      => 'vaincrelautisme17@gmail.com',
+    :password       => 'vaincrelautisme',
+    :authentication => :plain,
+  }
+
+
 end
