@@ -173,12 +173,16 @@ var App = function () {
     // add section to scroll spy function
     sections.push($(current));
 
-    $(current).removeClass('hidden').addClass('visible fadeInUp');
+    $(current).removeClass('hidden').addClass('visible');
+
+    if ($(window).width() > 767) {
+      $(current).addClass('fadeInUp');
+    }
 
     if (!$(current).hasClass('informations')) {
-      $('html, body').animate({
-        scrollTop: $(current).offset().top
-      }, 1500);
+        $('html, body').animate({
+          scrollTop: $(current).offset().top
+        }, 1500);   
     }
 
     $sidebarItems.eq(number).removeClass('sidebar__item--disabled');
