@@ -11,7 +11,11 @@
     background: $dark-grey;
     color: $white;
     line-height: rem(30px);
-    padding: rem(17px) rem(36px);
+    padding: rem(16px) rem(36px);
+
+    @include mobile {
+      padding: rem(16px) rem(24px);
+    }
   }
 
   &__content {
@@ -22,6 +26,11 @@
 
     > span {
       color: #6C6C6C;
+    }
+
+    @include mobile {
+      font-size: rem(14px);
+      padding: 0 rem(10px);
     }
 
   }
