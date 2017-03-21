@@ -355,7 +355,7 @@
                 <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
               </label>
               <div class="btn-container">
-                <button class="btn btn__payment"><a href="#">Effectuer le paiement</a></button>
+                <%= f.submit %>
               </div>
             </div>
           </div>
@@ -370,7 +370,7 @@
             <div class="payment__section--mobile payment__paypal" data-option="paypal">
               <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
               <div class="btn-container">
-                <button class="btn btn__payment"><a href="https://www.paypal.com" target="_blank">Payer avec PayPal</a></button>
+                <%= f.submit %>
               </div>
             </div>
           </div>
@@ -395,7 +395,7 @@
                 <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
               </label>
               <div class="btn-container">
-                <button class="btn btn__payment"><a href="#">Effectuer le prélèvement</a></button>
+                <%= f.submit %>
               </div>
             </div>
           </div>
@@ -416,7 +416,7 @@
               </p>
               <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent.</p>
               <div class="btn-container">
-                <button class="btn btn__payment"><a href="#">Pré-activer mon compte</a></button>
+                <%= f.submit %>
               </div>
             </div>
           </div>
@@ -463,7 +463,7 @@
           </label>
           <!-- Ici il faut surement un submit au lieu d'un lien mais dunno avec Slimpay -->
           <div class="btn-container">
-            <button class="btn btn__payment"><a href="#">Effectuer le paiement</a></button>
+            <%= f.submit %>
           </div>
 
         </div>
@@ -471,7 +471,7 @@
         <div class="payment__section payment__section--small payment__paypal no-mobile" data-option="paypal">
           <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
           <div class="btn-container">
-            <button class="btn btn__payment"><a href="https://www.paypal.com" target="_blank">Payer avec PayPal</a></button>
+            <%= f.submit %>
           </div>
         </div>
 
@@ -488,7 +488,7 @@
             <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
           </label>
           <div class="btn-container">
-            <button class="btn btn__payment"><a href="#">Effectuer le prélèvement</a></button>
+            <%= f.submit %>
           </div>
         </div>
 
@@ -501,7 +501,7 @@
           </p>
           <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent.</p>
           <div class="btn-container">
-            <button class="btn btn__payment"><a href="#">Pré-activer mon compte</a></button>
+            <%= f.submit %>
           </div>
         </div>
       </div>
