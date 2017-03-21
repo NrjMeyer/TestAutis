@@ -1,0 +1,2 @@
+class AdhesionType < ApplicationRecord
+end

@@ -1,4 +1,4 @@
-<%= form_for CacheUser.new, url: {action: "create"} do |f| %>
+<%= form_for CacheUser.new, url: {action: "create"}, :html => {:class => "main-form"} do |f| %>
 
 <% flash.each do |name, msg| %>
 
@@ -84,14 +84,19 @@
       <div class="intro__catchline">Adhérer pour donner plus de poids à notre association !</div>
       <div class="intro__content">Adhérer à <span>Vaincre l'autisme</span>, c'est très simple et vous permet de <span>vous impliquer dans la vie de notre association à votre niveau</span>, en fonction de la formule que vous choisissez ci-dessous.</div>
     </section>
-
+    
     <section class="choice js-section" id="choice">
+      <% @offers.each do |offer| %>
       <div class="choice__item">
         <div class="content">
           <div class="choice__price">
             <div class="price__left">
-              <p class="price">40<span>€</span></p>
-              <p class="monthly-price">mensualisation non proposée</p>
+              <p class="price"><%= offer.amount %><span>€</span></p>
+              <% if offer.mensualisable == false %>
+                <p class="monthly-price">mensualisation non proposée</p>
+              <% else %>
+                <p class="monthly-price">ou <%= (offer.amount / 12).round(2) %>€ /mois</p>
+              <% end %>
             </div>
             <div class="price__right">
               <input type="radio" id="formule-1" name="formule" class="formule-input input-mobile" required>
@@ -100,7 +105,7 @@
             </div>
           </div>
           <div class="choice__info">
-            soit <span class="big white">13,6€</span> après réduction fiscale
+            soit <span class="big white"><%= (offer.amount  * 0.33).round(2) %></span> après réduction fiscale
             <span class="infobox">
               <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
               <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
@@ -109,10 +114,12 @@
           <div class="choice__features">
             <p class="choice__catchline">Soutenir l'association</p>
             <ul class="features">
+              <% offer.advantages.each do |advantage| %>
               <li class="features__item">
                 <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Accès à l'espace adhérent
+                <%= advantage.description %>
               </li>
+              <% end %>
             </ul>
             <div>
               <input type="radio" id="formule-1" name="formule" class="formule-input input-desktop" required>
@@ -121,105 +128,7 @@
           </div>
         </div>
       </div>
-      <div class="choice__item">
-        <div class="content">
-          <div class="choice__price">
-            <div class="price__left">
-              <p class="price">60<span>€</span></p>
-              <p class="monthly-price">ou 5€ /mois</p>
-            </div>
-            <div class="price__right">
-              <input type="radio" id="formule-2" name="formule" class="formule-input input-mobile" required>
-              <label class="btn btn__choose" for="formule-2">choisir cette formule</label>
-              <div class="btn btn__perks" data-perks="2">voir les avantages</div>
-            </div>
-          </div>
-          <div class="choice__info">
-            soit <span class="white big">20,4€</span> après réduction fiscale
-            <span class="infobox">
-              <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
-              <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
-            <span>
-          </div>
-          <div class="choice__features">
-            <p class="choice__catchline">Bénéficier des conseils/expertises</p>
-            <ul class="features">
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Accès à l'espace adhérent
-              </li>
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Carte de membre
-              </li>
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Accès aux documents privilégiés
-              </li>
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Espace questions/réponses
-              </li>
-            </ul>
-            <div>
-              <input type="radio" id="formule-2" name="formule" class="formule-input input-desktop" required>
-              <label class="btn btn__choose" for="formule-2">choisir cette formule</label>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="choice__item">
-        <div class="content">
-          <div class="choice__price">
-            <div class="price__left">
-              <p class="price">120<span>€</span></p>
-              <p class="monthly-price">ou 10€ /mois</p>
-            </div>
-            <div class="price__right">
-              <input type="radio" id="formule-3" name="formule" class="formule-input input-mobile" required>
-              <label class="btn btn__choose" for="formule-3">choisir cette formule</label>
-              <div class="btn btn__perks" data-perks="3">voir les avantages</div>
-            </div>
-          </div>
-          <div class="choice__info">
-            soit <span class="white big">40,8€</span> après réduction fiscale
-            <span class="infobox">
-              <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
-              <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
-            <span>
-          </div>
-          <div class="choice__features">
-            <p class="choice__catchline">S'engager avec nous</p>
-            <ul class="features">
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Accès à l'espace adhérent
-              </li>
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Carte de membre
-              </li>
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Accès aux documents privilégiés
-              </li>
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Espace questions/réponses
-              </li>
-              <li class="features__item">
-                <%= embedded_svg "icons/check.svg", class: "icon-check" %>
-                Devenez membre actif
-              </li>
-            </ul>
-            <div>
-              <input type="radio" id="formule-3" name="formule" class="formule-input input-desktop" required>
-              <label class="btn btn__choose" for="formule-3">choisir cette formule</label>
-            </div>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </section>
 
     <section class="options small-section animated js-section js-hidden" id="options">
@@ -289,9 +198,9 @@
         <div class="form-block__bottom form-block__bottom--mobile">
           <select name="subscriber-type" id="subscriber-type" class="info-input" data-parsley-group="block-3" required>
             <option value="" disbaled selected class="hidden-option">J'adhère en tant que</option>
-            <option value="1">Adherent 1</option>
-            <option value="2">Adherent 2</option>
-            <option value="3">Adherent 3</option>
+            <% @roles.each do |role| %>
+              <option value="<%= role.id %>"><%= role.name %></option>
+            <% end %>
           </select>
         </div>
       </div>
@@ -339,7 +248,7 @@
               <%= f.password_field :password, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Mot de passe', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
             </div>
             <div class="input-single">
-              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Répéter mot de passe', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-equalto' => '#user_password', 'data-parsley-error-message' => 'Les mots de passe ne correspondent pas', 'data-parsley-group' => 'block-3' %>
+              <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'input__classic info-input', :placeholder => 'Répéter mot de passe', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-minlength' => '6', 'data-parsley-equalto' => '#cache_user_password', 'data-parsley-error-message' => 'Les mots de passe ne correspondent pas', 'data-parsley-group' => 'block-3' %>
             </div>
             <div>
               <% if @minimum_password_length %>

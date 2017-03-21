@@ -4,6 +4,9 @@ class CacheUsersController < ApplicationController
   include Encrypt
 
   def new
+    @offers = Offer.all
+    @roles = Role.all
+
     render 'cache_users/new'
   end
 

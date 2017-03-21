@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20170319171151) do
 
   create_table "advantages", force: :cascade do |t|
     t.text     "description"
+    t.string   "offer_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -40,8 +41,9 @@ ActiveRecord::Schema.define(version: 20170319171151) do
 
   create_table "offers", force: :cascade do |t|
     t.integer  "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "mensualisable"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "role"
   end
 
