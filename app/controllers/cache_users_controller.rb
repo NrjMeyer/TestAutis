@@ -18,32 +18,39 @@ class CacheUsersController < ApplicationController
     @user.password = Encrypt.encryption(params.require(:cache_user).require(:password))
     @user.password_confirmation = Encrypt.encryption(params.require(:cache_user).require(:password_confirmation))
 
+    offer_id = params.key('on')
+    offer = Offer.find(offer_id)
+
     payment_option = params[:payment_option]
-    monthly = ActiveRecord::Type::Boolean.new.cast(params[:subscribe_rate])
+    monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
     puts monthly
 
+    puts '111111111111111111111111111111111'
+
     if !monthly
+      puts '2222222222222222222222222222222'
       if payment_option == "paypal"
+        puts '3333333333333333333333333333'
         token = Paypal.get_token
-        payment_data = Paypal.simplePayment(token, 20)
+        payment_data = Paypal.simplePayment(token, offer.amount)
         @user.payment_id = payment_data['id']
       elsif payment_option == "debit"
         token = Slimpay.get_token
-        payment_data = Slimpay.simpleIbanPayment(token, 20, @user.email)
+        payment_data = Slimpay.simpleIbanPayment(token, offer.amount, @user.email)
         payment_json = JSON.parse(payment_data)
         @user.payment_id = payment_json['reference']
         slimpay_payment = SlimpayPayment.create(
           payment_reference: payment_json['reference'],
-          amount: 20
+          amount: offer.amount
         )
         @user.slimpay_payment = slimpay_payment
       elsif payment_option == 'card'
         token = Slimpay.get_token
-        payment_data = Slimpay.simpleCardPayment(token, 20, @user.email)
+        payment_data = Slimpay.simpleCardPayment(token, offer.amount, @user.email)
         payment_json = JSON.parse(payment_data)
         slimpay_payment = SlimpayPayment.create(
           payment_reference: payment_json['reference'],
-          amount: 20
+          amount: offer.amount
         )
         @user.payment_id = payment_json['reference']
       elsif payment_option == 'cheque'
@@ -53,7 +60,7 @@ class CacheUsersController < ApplicationController
 
         @user.payment_option = 'cheque'
 
-        @cheque = PaymentCheque.create(amount: 20, validated: false, user_id: @user.id)
+        @cheque = PaymentCheque.create(amount: offer.amount, validated: false, user_id: @user.id)
 
         if @user.save
           redirect_to validation_path
@@ -62,25 +69,28 @@ class CacheUsersController < ApplicationController
     else
       if payment_option == 'debit'
         token = Slimpay.get_token
-        payment_data = Slimpay.recurringIbanPayment(token, 20, @user.email)
+        payment_data = Slimpay.recurringIbanPayment(token, offer.amount, @user.email)
         payment_json = JSON.parse(payment_data)
         slimpay_payment = SlimpayPayment.create(
           payment_reference: payment_json['reference'],
-          amount: 20
+          amount: offer.amount
         )
         @user.payment_id = payment_json['reference']
         puts payment_data
       elsif payment_option == 'paypal'
         token = Paypal.get_token
-        payment_data = Paypal.reccurringPayment(token, 20)
+        payment_data = Paypal.reccurringPayment(token, offer.amount)
         token = payment_data['links'][0]['href'].scan(/token=(.*)/)[0][0]
         @user.payment_id = token
       end
     end
 
     if @user.save
+      puts '44444444444444444444444444444'
       if payment_option == 'paypal'
+        puts '55555555555555555555555555555'
         if !monthly
+          puts '666666666666666666666666666666'
           redirect_to payment_data['links'][1]['href']
         else
           redirect_to payment_data['links'][0]['href']
