@@ -38,16 +38,18 @@ var App = function () {
   var sections = [];
 
   // Update price variables
-  var packagePrice = 0;
-  var familyPrice = 0;
+  var packagePrice  = 0;
+  var familyPrice   = 0;
+  var familyCount  = 0;
   var donationPrice = 0;
-  var totalPrice = packagePrice + familyPrice + donationPrice;
+  var totalPrice    = packagePrice + familyPrice + donationPrice;
 
   // Price sections
   var $priceWithoutPromo    = $('.total-price--withoutPromo');
   var $priceWithPromo       = $('.total-price--withPromo');
   var $subscriptionPrice    = $('.adhesion-price');
   var $familyPriceContainer = $('.family-price');
+  var $familyCountContainer = $('.family-count');
 
   var init = function () {
 
@@ -210,19 +212,23 @@ var App = function () {
     if (option === 'addFamily') {
       familyPrice = price;
       totalPrice = packagePrice + donationPrice + familyPrice;
+      familyCount = familyPrice / 12;
 
       $priceWithoutPromo.html(totalPrice);
       $priceWithPromo.html(totalPrice - (totalPrice * 66/100));
       $familyPriceContainer.html(familyPrice);
+      $familyCountContainer.html(familyCount);
     }
 
     if (option === 'removeFamily') {
       familyPrice = price;
       totalPrice = packagePrice + donationPrice + familyPrice;
+      familyCount = familyPrice / 12;
 
       $priceWithoutPromo.html(totalPrice);
       $priceWithPromo.html(totalPrice - (totalPrice * 66/100));
       $familyPriceContainer.html(familyPrice);
+      $familyCountContainer.html(familyCount);
     }
   };
 
