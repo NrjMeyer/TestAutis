@@ -203,33 +203,26 @@ var App = function () {
     if (option === 'package') {
       packagePrice = price;
       totalPrice = packagePrice + donationPrice + familyPrice;
-
-      $priceWithoutPromo.html(totalPrice);
-      $priceWithPromo.html(totalPrice - (totalPrice * 66/100));
-      $subscriptionPrice.html(packagePrice);
     }
 
     if (option === 'addFamily') {
       familyPrice = price;
       totalPrice = packagePrice + donationPrice + familyPrice;
       familyCount = familyPrice / 12;
-
-      $priceWithoutPromo.html(totalPrice);
-      $priceWithPromo.html(totalPrice - (totalPrice * 66/100));
-      $familyPriceContainer.html(familyPrice);
-      $familyCountContainer.html(familyCount);
     }
 
     if (option === 'removeFamily') {
       familyPrice = price;
       totalPrice = packagePrice + donationPrice + familyPrice;
       familyCount = familyPrice / 12;
-
-      $priceWithoutPromo.html(totalPrice);
-      $priceWithPromo.html(totalPrice - (totalPrice * 66/100));
-      $familyPriceContainer.html(familyPrice);
-      $familyCountContainer.html(familyCount);
     }
+
+    // update all prices
+    $subscriptionPrice.html(packagePrice);
+    $priceWithoutPromo.html(totalPrice);
+    $priceWithPromo.html(totalPrice - (totalPrice * 66/100));
+    $familyPriceContainer.html(familyPrice);
+    $familyCountContainer.html(familyCount);
   };
 
   init();
