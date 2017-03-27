@@ -269,6 +269,15 @@
           </label>
         </div>
       </div>
+      <div class="form-block">
+        <div class="form-block__top form-block__top--mobile">Conditions générales de vente</div>
+        <div class="form-block__bottom form-block__bottom--mobile">
+          <label class="custom-radio custom-radio--single">
+            <input type="checkbox" id="cgv" name="cgv" required>
+            <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
+          </label>
+        </div>
+      </div>
     </section>
 
     <section class="payment small-section animated js-section js-hidden" id="payment">
@@ -350,10 +359,6 @@
                   <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="3" data-parsley-error-message="Ce champ est invalide">
                 </div>
               </div>
-              <label class="custom-radio custom-radio--block">
-                <input type="checkbox" id="cgv" name="cgv" class="input-mobile" required>
-                <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
-              </label>
               <div class="btn-container">
                 <%= f.submit %>
               </div>
@@ -390,10 +395,6 @@
                 <input type="phone" class="input__classic input__payment" name="phone" placeholder="Numéro de téléphone mobile">
               </div>
               <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
-              <label class="custom-radio custom-radio--block">
-                <input type="checkbox" id="cgv" name="cgv" class="input-mobile" required>
-                <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
-              </label>
               <div class="btn-container">
                 <%= f.submit %>
               </div>
@@ -457,10 +458,6 @@
               <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="4">
             </div>
           </div>
-          <label class="custom-radio custom-radio--block">
-            <input type="checkbox" id="cgv" name="cgv" class="input-desktop" required>
-            <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
-          </label>
           <div class="btn-container">
             <%= f.submit %>
           </div>
@@ -482,10 +479,6 @@
             <input type="phone" class="input__classic input__payment" name="phone" placeholder="Numéro de téléphone mobile">
           </div>
           <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
-          <label class="custom-radio custom-radio--block">
-            <input type="checkbox" id="cgv" name="cgv" class="input-desktop" required>
-            <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
-          </label>
           <div class="btn-container">
             <%= f.submit %>
           </div>

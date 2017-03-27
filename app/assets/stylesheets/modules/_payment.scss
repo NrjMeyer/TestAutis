@@ -98,21 +98,6 @@
     display: none;
   }
 
-  &__card, &__debit {
-
-    .custom-radio--block {
-      margin-top: rem(20px);
-    }
-    .custom-radio--block span {
-      color: #BBBBBB;
-    }
-
-    .custom-radio--block span a {
-      color: inherit;
-      margin-left: rem(4px);
-    }
-  }
-
   &__paypal {
     p {
       color: #ABABAB;
