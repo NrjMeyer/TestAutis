@@ -11,6 +11,9 @@ class CacheUsersController < ApplicationController
   end
 
   def create
+
+    puts '111111111111111111111111111111111'
+
     @user = CacheUser.new(params.require(:cache_user).permit(:password,
       :password_confirmation, :name, :surname, :phone_number, :address,
       :address_extend, :post_code, :city, :email))
@@ -18,14 +21,13 @@ class CacheUsersController < ApplicationController
     @user.password = Encrypt.encryption(params.require(:cache_user).require(:password))
     @user.password_confirmation = Encrypt.encryption(params.require(:cache_user).require(:password_confirmation))
 
-    offer_id = params.key('on')
-    offer = Offer.find(offer_id)
+    offer = Offer.find(params[:formule])
+
+    @user.offer = offer
 
     payment_option = params[:payment_option]
     monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
     puts monthly
-
-    puts '111111111111111111111111111111111'
 
     if !monthly
       puts '2222222222222222222222222222222'
