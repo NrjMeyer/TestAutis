@@ -78,6 +78,20 @@
   }
 }
 
+.custom-radio--single {
+
+  margin-left: 0!important;
+
+  span {
+    color: #868686;
+  }
+
+  span a {
+    color: inherit;
+    margin-left: rem(4px);
+  }
+}
+
 .custom-radio__container {
   @include mobile {
     width: 100%;
