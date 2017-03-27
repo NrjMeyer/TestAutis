@@ -22,16 +22,26 @@ RailsAdmin.config do |config|
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar true
+  config.included_models = ["SideUser", "User", "Offer", "SlimpayPayment",
+    "PaypalPayment", "Role", "Advantages"]
 
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
-    new
+    new do
+      except ["SideUser", "SlimpayPayment", "PaypalPayment"]
+    end
     export
-    bulk_delete
+    bulk_delete do
+      except ["SideUser", "SlimpayPayment", "PaypalPayment"]
+    end
     show
-    edit
-    delete
+    edit do
+      except ["SideUser", "SlimpayPayment", "PaypalPayment"]
+    end
+    delete do
+      except ["SideUser", "SlimpayPayment", "PaypalPayment"]
+    end
     show_in_app
 
     ## With an audit adapter, you can add:
