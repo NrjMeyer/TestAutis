@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170319171151) do
     t.boolean  "sub_newsletter"
     t.string   "payment_id"
     t.string   "password"
+    t.string   "offer_id"
   end
 
   create_table "offers", force: :cascade do |t|
@@ -125,6 +126,7 @@ ActiveRecord::Schema.define(version: 20170319171151) do
     t.datetime "last_payment"
     t.boolean  "monthly_payment"
     t.string   "payment_option"
+    t.string   "offer_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

@@ -12,8 +12,6 @@ class CacheUsersController < ApplicationController
 
   def create
 
-    puts '111111111111111111111111111111111'
-
     @user = CacheUser.new(params.require(:cache_user).permit(:password,
       :password_confirmation, :name, :surname, :phone_number, :address,
       :address_extend, :post_code, :city, :email))
@@ -22,17 +20,14 @@ class CacheUsersController < ApplicationController
     @user.password_confirmation = Encrypt.encryption(params.require(:cache_user).require(:password_confirmation))
 
     offer = Offer.find(params[:formule])
-
-    @user.offer = offer
+    @user.offer_id = offer.id
 
     payment_option = params[:payment_option]
     monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
     puts monthly
 
     if !monthly
-      puts '2222222222222222222222222222222'
       if payment_option == "paypal"
-        puts '3333333333333333333333333333'
         token = Paypal.get_token
         payment_data = Paypal.simplePayment(token, offer.amount)
         @user.payment_id = payment_data['id']
@@ -78,7 +73,6 @@ class CacheUsersController < ApplicationController
           amount: offer.amount
         )
         @user.payment_id = payment_json['reference']
-        puts payment_data
       elsif payment_option == 'paypal'
         token = Paypal.get_token
         payment_data = Paypal.reccurringPayment(token, offer.amount)
@@ -88,11 +82,8 @@ class CacheUsersController < ApplicationController
     end
 
     if @user.save
-      puts '44444444444444444444444444444'
       if payment_option == 'paypal'
-        puts '55555555555555555555555555555'
         if !monthly
-          puts '666666666666666666666666666666'
           redirect_to payment_data['links'][1]['href']
         else
           redirect_to payment_data['links'][0]['href']

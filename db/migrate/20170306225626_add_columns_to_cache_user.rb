@@ -12,5 +12,6 @@ class AddColumnsToCacheUser < ActiveRecord::Migration[5.0]
     add_column :cache_users, :sub_newsletter, :boolean
     add_column :cache_users, :payment_id, :string
     add_column :cache_users, :password, :string
+    add_column :cache_users, :offer_id, :string
   end
 end

@@ -4,5 +4,6 @@ class CacheUser < ApplicationRecord
 
   has_one :slimpay_payment
   has_many :side_users
+  has_one :offer
 
 end
