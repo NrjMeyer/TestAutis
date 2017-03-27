@@ -17,9 +17,15 @@ ActiveRecord::Schema.define(version: 20170319171151) do
 
   create_table "advantages", force: :cascade do |t|
     t.text     "description"
-    t.string   "offer_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "advantages_offers", id: false, force: :cascade do |t|
+    t.integer "advantages_id"
+    t.integer "offers_id"
+    t.index ["advantages_id"], name: "index_advantages_offers_on_advantages_id", using: :btree
+    t.index ["offers_id"], name: "index_advantages_offers_on_offers_id", using: :btree
   end
 
   create_table "cache_users", force: :cascade do |t|
@@ -72,11 +78,13 @@ ActiveRecord::Schema.define(version: 20170319171151) do
   end
 
   create_table "side_users", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "cache_user_id"
     t.string   "name"
     t.string   "surname"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "slimpay_payments", force: :cascade do |t|

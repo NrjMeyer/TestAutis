@@ -1,5 +1,5 @@
 class Advantage < ApplicationRecord
 
-	belongs_to :offer
+	has_and_belongs_to_many :offers
 
 end

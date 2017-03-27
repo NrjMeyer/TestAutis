@@ -1,6 +1,6 @@
 class Offer < ApplicationRecord
 
-	has_many :advantages 
+	has_and_belongs_to_many :advantages 
 	belongs_to :user
 
 end
