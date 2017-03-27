@@ -37,6 +37,20 @@ var App = function () {
   // Scroll variables
   var sections = [];
 
+  // Update price variables
+  var packagePrice  = 0;
+  var familyPrice   = 0;
+  var familyCount  = 0;
+  var donationPrice = 0;
+  var totalPrice    = packagePrice + familyPrice + donationPrice;
+
+  // Price sections
+  var $priceWithoutPromo    = $('.total-price--withoutPromo');
+  var $priceWithPromo       = $('.total-price--withPromo');
+  var $subscriptionPrice    = $('.adhesion-price');
+  var $familyPriceContainer = $('.family-price');
+  var $familyCountContainer = $('.family-count');
+
   var init = function () {
 
     _initEvents();
@@ -185,10 +199,37 @@ var App = function () {
 
   };
 
+  var updateTotalPrice = function (option, price) {
+    if (option === 'package') {
+      packagePrice = price;
+      totalPrice = packagePrice + donationPrice + familyPrice;
+    }
+
+    if (option === 'addFamily') {
+      familyPrice = price;
+      totalPrice = packagePrice + donationPrice + familyPrice;
+      familyCount = familyPrice / 12;
+    }
+
+    if (option === 'removeFamily') {
+      familyPrice = price;
+      totalPrice = packagePrice + donationPrice + familyPrice;
+      familyCount = familyPrice / 12;
+    }
+
+    // update all prices
+    $subscriptionPrice.html(packagePrice);
+    $priceWithoutPromo.html(totalPrice);
+    $priceWithPromo.html(totalPrice - (totalPrice * 66/100));
+    $familyPriceContainer.html(familyPrice);
+    $familyCountContainer.html(familyCount);
+  };
+
   init();
 
   return {
-    init: init
+    init: init,
+    updateTotalPrice: updateTotalPrice
   };
 
 };

@@ -1,4 +1,4 @@
-var FamilyMember = function () {
+var FamilyMember = function (app) {
 
   'use strict';
 
@@ -7,6 +7,9 @@ var FamilyMember = function () {
   var $membersContainer = $('.members ul');
   var $nameInput        = $('#family-name');
   var $mailInput        = $('#family-mail');
+
+  // Keep track of the total price of subscriptions for family members
+  var familyTotal       = 0;
 
   var init = function () {
 
@@ -23,6 +26,10 @@ var FamilyMember = function () {
   var _deleteRow = function () {
 
     $(this).parent().remove();
+
+    familyTotal -= 12;
+
+    app.updateTotalPrice('removeFamily', familyTotal);
   }
 
   var _addRow = function () {
@@ -59,6 +66,10 @@ var FamilyMember = function () {
         $deleteButton.unbind('click');
 
         $deleteButton.on('click', _deleteRow);
+
+        familyTotal += 12;
+
+        app.updateTotalPrice('addFamily', familyTotal);
     }
   };
 
