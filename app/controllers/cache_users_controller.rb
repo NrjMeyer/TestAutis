@@ -22,6 +22,9 @@ class CacheUsersController < ApplicationController
     offer = Offer.find(params[:formule])
     @user.offer_id = offer.id
 
+    side_users = JSON.parse(params[:family_members])
+    puts side_users
+
     payment_option = params[:payment_option]
     monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
     puts monthly
