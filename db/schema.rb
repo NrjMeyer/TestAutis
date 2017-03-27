@@ -22,10 +22,10 @@ ActiveRecord::Schema.define(version: 20170319171151) do
   end
 
   create_table "advantages_offers", id: false, force: :cascade do |t|
-    t.integer "advantages_id"
-    t.integer "offers_id"
-    t.index ["advantages_id"], name: "index_advantages_offers_on_advantages_id", using: :btree
-    t.index ["offers_id"], name: "index_advantages_offers_on_offers_id", using: :btree
+    t.integer "advantage_id"
+    t.integer "offer_id"
+    t.index ["advantage_id"], name: "index_advantages_offers_on_advantage_id", using: :btree
+    t.index ["offer_id"], name: "index_advantages_offers_on_offer_id", using: :btree
   end
 
   create_table "cache_users", force: :cascade do |t|

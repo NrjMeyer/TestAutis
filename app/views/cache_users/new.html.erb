@@ -123,7 +123,6 @@
             </ul>
             <div>
               <input type="radio" id="formule-1" name="<%= offer.id %>" class="formule-input input-desktop" required>
-              <label class="btn btn__choose" for="formule-1">choisir cette formule</label>
               <%= content_tag :label, "choisir cette formule", class: ['btn', 'btn__choose'], :for => 'formule-1', :data => {:price => offer.amount} %>
             </div>
           </div>
