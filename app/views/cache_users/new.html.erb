@@ -22,28 +22,28 @@
         <ul class="menu">
 
           <li class="menu__item menu__item--border">
-            <a href="#">
+            <a href="http://vaincrelautisme.org/sites/default/files/bulletin%202017.pdf" target="_blank">
               <%= embedded_svg "icons/download.svg", class: "icon-download" %>
               <span>Formulaire papier</span>
             </a>
           </li>
 
           <li class="menu__item menu__item--border">
-            <a href="#">
+            <a href="http://vaincrelautisme.org/" target="_blank">
               <%= embedded_svg "icons/link.svg", class: "icon-link" %>
               <span>Site principal</span>
             </a>
           </li>
 
-          <li class="menu__item">
+      <!--<li class="menu__item">
             <a href="#">
               <%= embedded_svg "icons/login.svg", class: "icon-login" %>
               <span>Se connecter</span>
             </a>
-          </li>
+          </li> -->
 
           <li class="menu__item menu__item--highlighted">
-            <a href="#">
+            <a href="http://vaincrelautisme.org/donate" target="_blank">
               <%= embedded_svg "icons/donate.svg", class: "icon-donate" %>
               <span>Faire un don</span>
             </a>
@@ -425,63 +425,20 @@
         </div>
 
         <div class="payment__section payment__card no-mobile" data-option="card">
-          <div class="cards">
-            <label class="cards__input cards__input--visa">
-              VISA
-              <input type="radio" id="visa" name="card-option">
-              <span></span>
-            </label>
-            <label class="cards__input cards__input--mc">
-              MasterCard
-              <input type="radio" id="mastercard" name="card-option">
-              <span></span>
-            </label>
-            <label class="cards__input cards__input--amex">
-              American Express
-              <input type="radio" id="amex" name="card-option">
-              <span></span>
-            </label>
-          </div>
-
-          <div class="input-row">
-            <div class="input-single">
-              <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte">
-            </div>
-            <div class="input-single">
-              <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte">
-            </div>
-          </div>
-          <div class="input-row">
-            <div class="input-single">
-              <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)">
-            </div>
-            <div class="input-single">
-              <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="4">
-            </div>
-          </div>
-          <div class="btn-container">
-            <%= f.submit %>
-          </div>
-
+          <p class="phone-tip">Ce moyen de paiement n'est pas encore disponible.</p>
         </div>
 
         <div class="payment__section payment__section--small payment__paypal no-mobile" data-option="paypal">
-          <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
+          <p>Vous aller être redirigé vers l'interface de paiement PayPal afin de finaliser votre paiement.</p>
           <div class="btn-container">
-            <%= f.submit %>
+            <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
           </div>
         </div>
 
         <div class="payment__section payment__section--small payment__debit no-mobile" data-option="debit">
-          <div class="input-row">
-            <input type="text" class="input__classic input__payment input__payment--big" name="iban" placeholder="Votre IBAN">
-          </div>
-          <div class="input-row">
-            <input type="phone" class="input__classic input__payment" name="phone" placeholder="Numéro de téléphone mobile">
-          </div>
-          <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
+          <p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
           <div class="btn-container">
-            <%= f.submit %>
+            <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
           </div>
         </div>
 
@@ -494,7 +451,7 @@
           </p>
           <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent.</p>
           <div class="btn-container">
-            <%= f.submit %>
+            <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
           </div>
         </div>
       </div>
