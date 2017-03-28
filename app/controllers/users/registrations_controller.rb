@@ -9,7 +9,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   def new
-    if CacheUser.find_by(payment_id: params[:paymentId]) != nil
+    # Use Paypal
+    if CacheUser.find_by(payment_id: params[:paymentId]) != nil && params.has_key?(:paymentId)
 
       @user = createUserPaypal(params)
 
@@ -29,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         puts @user.errors.inspect
       end
 
-
+    # Use Slimpay
     elsif cookies.signed.encrypted[:id] != nil
 
       @user = createUserSlimpay(cookies.signed.encrypted[:id])
@@ -45,18 +46,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def payment
-    if params[:payment_option] == 'paypal'
 
-      if params[:monthly_payment] == 'true'
-        @payment = PaypalPayment.where(token: params[:payment_token]).last
+    @user = User.find(cookies.signed.encrypted[:id])
+    cookies.delete :id
+
+    if @user.payment_option == 'paypal'
+
+      if @user.monthly_payment == true
+        @payment = PaypalPayment.where(token: @user.paypal_payments.last.token).last
         puts @payment.inspect
-        @user = User.find(@payment.user_id)
 
         payment = validePaymentPaypal(@payment, true)
         puts payment
       else
-        @payment = PaypalPayment.where(payment: params[:payment_id]).last
-        @user = User.find(@payment.user_id)
+        @payment = PaypalPayment.where(payment: @user.paypal_payments.last.payment).last
 
         payment = validePaymentPaypal(@payment)
       end
@@ -64,12 +67,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
       
       if payment['state'] == 'approved' || payment['state'] == 'Active'
         render 'users/confirmations/confirm'
+      else
+        redirect_to root_path
       end
       
-    elsif params[:payment_option] == 'slimpay'
+    elsif @user.payment_option == 'slimpay'
 
-      @payment = SlimpayPayment.where(payment_reference: params[:reference]).last
-      @user = User.find(@payment.user_id)
+      @payment = SlimpayPayment.where(payment_reference: @user.slimpay_payments.last.payment_reference).last
       
       payment = JSON.parse(validePaymentSlimpay(@payment, @user))
       
@@ -81,10 +85,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         redirect_to root_path
       end
     
-    elsif params[:payment_option] == 'cheque'
+    elsif @user.payment_option == 'cheque'
 
-      @payment = PaymentCheque.where(user_id: params[:id])
-      @user = User.find(params[:id])
+      @payment = PaymentCheque.where(user_id: @user.id).last
       
       render 'user/confirmations/confirm'
     end
@@ -168,6 +171,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def validePaymentPaypal(payment, reccuring = false)
+    puts payment.inspect
     if reccuring == true
       HTTParty.post('https://api.sandbox.paypal.com/v1/payments/billing-agreements/'+payment.token+'/agreement-execute',
         headers: {
@@ -182,7 +186,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           'Authorization' => 'Bearer ' + Paypal.get_token,
         },
         body: {
-          :payer_id => params[:payer_id]
+          :payer_id => payment.payer
         }.to_json
       )
     end
