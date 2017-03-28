@@ -15,7 +15,8 @@ fr:
               confirmation: "Les deux mots de passes ne correspondent pas."
   datetime:
     distance_in_words:
-      about_x_hours: ""
+      about_x_hours: "Dernier insérée il y a quelques heures"
+      x_minutes: "Dernier insérée il y a quelques minutes"
   admin:
     js:
       true: Vrai
