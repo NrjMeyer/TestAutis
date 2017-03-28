@@ -2,10 +2,11 @@ class ConfirmationsController < Devise::ConfirmationsController
   private
   def after_confirmation_path_for(resource_name, resource)
     if resource.payment_option == 'paypal'
+      payment = PaypalPayment.where(user_id: resource.id).last
       execute_payment_path(payment_option: 'paypal',
-      payment_id: resource.paypal_payment.payment,
-      payer_id: resource.paypal_payment.payer,
-      payment_token: resource.paypal_payment.token,
+      payment_id: payment.payment,
+      payer_id: payment.payer,
+      payment_token: payment.token,
       monthly_payment: resource.monthly_payment
     )
     elsif resource.payment_option == 'slimpay'

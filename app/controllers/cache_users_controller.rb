@@ -23,8 +23,12 @@ class CacheUsersController < ApplicationController
     offer = Offer.find(params[:formule])
     @user.offer_id = offer.id
 
-    # side_users = JSON.parse(params[:family_members])
-    # puts side_users
+
+    # Parsing family members and link them to cache user
+    if params[:family_members] != ""
+      side_users = JSON.parse(params[:family_members])
+    end
+
     # Find if payment is monthly and which one to use
     payment_option = params[:payment_option]
     monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
@@ -89,8 +93,10 @@ class CacheUsersController < ApplicationController
     if @user.save
 
       # Saving side user
-      side_users['members'].each do |member|
-        SideUser.create(name: member['name'], email: member['mail'], cache_user_id: @user.id)
+      if side_users
+        side_users['members'].each do |member|
+          SideUser.create(name: member['name'], email: member['mail'], cache_user_id: @user.id)
+        end
       end
 
       puts payment_option
@@ -106,10 +112,6 @@ class CacheUsersController < ApplicationController
         cookies.signed.encrypted[:id] = payment_json['reference']
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
       end
-<<<<<<< HEAD
-=======
-    # If user not saved, display errors
->>>>>>> f0a1756223c25fa5f6ed3a092e376810214bfaaa
     else
       puts @user.errors.inspect
     end

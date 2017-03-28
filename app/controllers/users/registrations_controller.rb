@@ -207,8 +207,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       payment_option: 'slimpay'
     )
 
-    @user.slimpay_payment.user_id = @user.id
     @user.save
+    @slimpay_payment.user_id = @user.id
+    @slimpay_payment.save
 
     side_users = SideUser.where(cache_user_id: @cache_user.id)
 
@@ -258,8 +259,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       payment_option: 'paypal'
     )
 
-    @user.paypal_payment = @paypal_payment
     @user.save
+    @paypal_payment.user_id = @user.id
+    @paypal_payment.save
+
+    side_users = SideUser.where(cache_user_id: @cache_user.id)
 
     side_users.each do |side_user|
       side_user.user_id = @user.id
