@@ -4,7 +4,6 @@ class CreateSideUsers < ActiveRecord::Migration[5.0]
       t.string :user_id
       t.string :cache_user_id
       t.string :name
-      t.string :surname
       t.string :email
 
       t.timestamps
