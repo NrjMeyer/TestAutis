@@ -1,19 +1,19 @@
 <%= form_for CacheUser.new, url: {action: "create"}, :html => {:class => "main-form"} do |f| %>
 
-<% flash.each do |name, msg| %>
+<%#flash.each do |name, msg| %>
 
-  # New code (allow for flash elements to be arrays)
-  <% if msg.class == Array %>
-    <% msg.each do |message| %>
-      <%= content_tag :div, message, :id => "flash_#{name}" %>
-    <% end %>
-  <% else %>
+  <!-- # New code (allow for flash elements to be arrays) -->
+  <%#if msg.class == Array %>
+    <%# msg.each do |message| %>
+      <%#content_tag :div, message, :id => "flash_#{name}" %>
+    <%#end %>
+  <%# else %>
 
-    # old code
-    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <!-- # old code -->
+    <%#content_tag :div, msg, :id => "flash_#{name}" %>
 
-  <% end %> #don't forget the extra end
-<% end %>
+  <!-- <%# end %> #don't forget the extra end -->
+<%# end %>
 
 <header class="header">
     <div class="container header__container">

@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20170319171151) do
     t.string   "payment_id"
     t.string   "password"
     t.string   "offer_id"
+    t.integer  "payment_amount"
+    t.boolean  "monthly"
   end
 
   create_table "offers", force: :cascade do |t|
@@ -82,7 +84,6 @@ ActiveRecord::Schema.define(version: 20170319171151) do
     t.string   "user_id"
     t.string   "cache_user_id"
     t.string   "name"
-    t.string   "surname"
     t.string   "email"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
