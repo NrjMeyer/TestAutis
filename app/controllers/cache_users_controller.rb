@@ -22,8 +22,8 @@ class CacheUsersController < ApplicationController
     offer = Offer.find(params[:formule])
     @user.offer_id = offer.id
 
-    side_users = JSON.parse(params[:family_members])
-    puts side_users
+    # side_users = JSON.parse(params[:family_members])
+    # puts side_users
 
     payment_option = params[:payment_option]
     monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
@@ -94,7 +94,7 @@ class CacheUsersController < ApplicationController
       elsif payment_option == 'debit' || payment_option == 'card'
         cookies.signed.encrypted[:id] = payment_json['reference']
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
-      end  
+      end
     else
       puts @user.errors.inspect
     end
