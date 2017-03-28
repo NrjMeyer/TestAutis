@@ -7,6 +7,8 @@ var FamilyMember = function (app) {
   var $membersContainer = $('.members ul');
   var $nameInput        = $('#family-name');
   var $mailInput        = $('#family-mail');
+  var $hiddenInput      = $('#family-members');
+  var familyJSON        = {members: []};
 
   // Keep track of the total price of subscriptions for family members
   var familyTotal       = 0;
@@ -57,6 +59,15 @@ var FamilyMember = function (app) {
             <span>Supprimer</span>\
           </div>\
         </li>');
+
+      familyJSON.members.push({
+        name: name,
+        mail: mail
+      });
+
+      $hiddenInput.val(JSON.stringify(familyJSON));
+
+      console.log(familyJSON);
 
         $nameInput.val('');
         $mailInput.val('');
