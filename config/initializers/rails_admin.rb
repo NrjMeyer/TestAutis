@@ -23,7 +23,7 @@ RailsAdmin.config do |config|
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar true
   config.included_models = ["SideUser", "User", "Offer", "SlimpayPayment",
-    "PaypalPayment", "Role", "Advantages"]
+    "PaypalPayment", "Role", "Advantage"]
 
   config.actions do
     dashboard                     # mandatory
