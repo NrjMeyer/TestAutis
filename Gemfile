@@ -14,6 +14,8 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+# Use Bourbon for Sass mixins
+gem 'bourbon'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -36,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'pry'
 end
 
 group :development do
@@ -50,4 +53,11 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
-gem 'delayed_job_active_record'
+gem 'rails_admin', '~> 1.1.1'
+gem 'cancancan'
+gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
+gem 'draper', github: 'audionerd/draper', branch: 'rails5'
+gem 'pundit'
+gem 'httparty'
+gem 'config'
+gem 'json'

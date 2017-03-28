@@ -1,0 +1,171 @@
+.form-block {
+
+  width: 100%;
+  font-size: rem(14px);
+  color: #868686;
+  margin-bottom: rem(20px);
+
+  &__container {
+    @include display(flex);
+    @include align-items(center);
+
+    &--alignedtop {
+      @include align-items(flex-start);
+    }
+
+    @include mobile {
+      @include flex-direction(column);
+      @include align-items(flex-start);
+
+      .special {
+        color: #ABABAB;
+        margin-bottom: rem(14px);
+      }
+    }
+
+  }
+
+  &__top {
+    @extend .roboto--medium;
+    text-transform: uppercase;
+    color: $white;
+    background: $dark-grey;
+    padding: rem(10px);
+
+    @include mobile {
+      background: $white;
+      color: #ABABAB;
+      text-transform: none;
+      font-family: 'Roboto';
+      font-weight: normal;
+      line-height: rem(16px);
+      padding: rem(18px) rem(20px) 0;
+    }
+
+    &--highpadding {
+      padding: rem(10px) rem(6px) rem(10px) rem(30px);
+
+      @include mobile {
+        background: $dark-grey;
+        color: $white;
+        padding: rem(10px) rem(20px);
+
+      }
+    }
+
+    &--mobile {
+
+      @include mobile {
+        background: $dark-grey;
+        color: $white;
+        text-transform: uppercase;
+        text-align: center;
+        padding: rem(12px) 0;
+        font-weight: 500;
+        margin-bottom: rem(15px);
+      }
+
+      &--nomargin {
+        @include mobile {
+          margin-bottom: 0;
+        }
+      }
+
+    }
+  }
+
+  &__bottom {
+    background: $white;
+    padding: rem(18px) rem(10px) rem(18px) rem(30px);
+
+    @include mobile {
+      padding: rem(18px) rem(20px);
+    }
+
+    &--mobile {
+      @include mobile {
+        padding: 0;
+        background: transparent;
+      }
+
+    }
+  }
+
+  .input {
+    border: 1px solid #F6F6F6;
+    color: #BBBBBB;
+
+    @include placeholder {
+      color: #BBBBBB;
+      font-family: 'Roboto';
+    }
+
+    &__donation {
+      width: rem(70px);
+      text-align: center;
+      margin: 0 rem(8px);
+      padding: rem(6px);
+
+      @include mobile {
+        margin: 0;
+        width: 80%;
+        text-align: left;
+      }
+    }
+
+    &__family {
+      width: rem(200px);
+      height: rem(40px);
+      padding-left: rem(10px);
+      font-size: rem(14px);
+
+      @include mobile {
+        width: 100%;
+      }
+
+      &:first-child {
+        margin-right: rem(20px);
+
+        @include mobile {
+          margin-right: 0;
+          margin-bottom: rem(10px);
+        }
+      }
+    }
+  }
+
+  .custom-radio__donate {
+    margin-left: rem(24px);
+
+    @include mobile {
+      margin-left: 0;
+      margin-top: rem(12px);
+
+      .custom-radio:first-child {
+        margin-right: rem(14px);
+      }
+    }
+
+  }
+}
+
+.with-button {
+  @include display(flex);
+  @include align-items(center);
+
+  .btn__download {
+
+    @include mobile {
+      display: none;
+    }
+
+    a {
+      @include display(flex);
+
+      svg {
+        margin-right: rem(10px);
+      }
+    }
+
+  }
+}

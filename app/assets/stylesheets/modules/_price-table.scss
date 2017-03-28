@@ -1,0 +1,54 @@
+.price-table, .price-table--highlighted, .price-table--grey {
+  @include display(flex);
+  @include flex-direction(column);
+  padding: rem(18px) rem(30px) rem(14px);
+  color: #ABABAB;
+
+  @include mobile {
+    padding: rem(18px) rem(20px);
+  }
+
+  .row__content {
+    @include display(flex);
+    margin-bottom: rem(14px);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .content__amount {
+      margin-left: auto;
+    }
+  }
+
+  .row__total {
+    color: #7C7C7C;
+  }
+}
+
+.price-table--grey {
+  background: #EAEAEA;
+  padding: rem(10px) rem(30px);
+
+  @include mobile {
+    padding: rem(10px) rem(20px);
+  }
+}
+
+.price-table--highlighted {
+  background: $pink;
+  padding: rem(10px) rem(30px);
+  color: $white;
+
+  @include mobile {
+    padding: rem(10px) rem(20px);
+  }
+}
+
+.monthly-payment, .monthly-donation {
+  display: none;
+
+  &.active {
+    display: inline;
+  }
+}
