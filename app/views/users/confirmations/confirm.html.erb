@@ -132,9 +132,9 @@
           <div class="row__content row__taxes">
             <p class="content__listing">Coût après réduction fiscale</p>
             <% if @user.monthly_payment == false %>
-              <p class="content__amount"><%= @payment.amount.to_i * 0.33 %>€</p>
+              <p class="content__amount"><%= @payment.amount.to_i * 0.34 %>€</p>
             <% else %>
-              <p class="content__amount"><%= (@payment.amount.to_i * 0.33) / 12 %>€/mois</p>
+              <p class="content__amount"><%= (@payment.amount.to_i * 0.34) / 12 %>€/mois</p>
             <% end %>
           </div>
         </div>
