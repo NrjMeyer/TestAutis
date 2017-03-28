@@ -12,7 +12,7 @@ paypal:
     get_token: /oauth2/token
   callback_url_failure: https://vaincre-l-autisme.herokuapp.com/anulation
   callback_url_success: https://vaincre-l-autisme.herokuapp.com/validation
-    key: 'QVIyZzROSVBzZHpRUi1pZDUxS19hVWdsbnI5bHZDcDludHU0b1VNMTA5eHVDTUVzNTktNklKd3ZXVEtiQm9Qa3VkTE4zTGFLRnpQLWJBMFE6RUF2RXA5OUhUWmlXMzhsMGFIRFRyUmNMSURTQVp3X2VZdlRVU25seXRUYkhHU214SVVvUEl6eU5qUkJhNmVVMFZORWRQUWpvM0hOQ0I4cVY'
+  key: 'QVIyZzROSVBzZHpRUi1pZDUxS19hVWdsbnI5bHZDcDludHU0b1VNMTA5eHVDTUVzNTktNklKd3ZXVEtiQm9Qa3VkTE4zTGFLRnpQLWJBMFE6RUF2RXA5OUhUWmlXMzhsMGFIRFRyUmNMSURTQVp3X2VZdlRVU25seXRUYkhHU214SVVvUEl6eU5qUkJhNmVVMFZORWRQUWpvM0hOQ0I4cVY'
 encrypt:
   key: 'EncryptDecryptGurudathBN'
   algorithme: 'AES-128-ECB'
