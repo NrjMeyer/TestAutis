@@ -141,11 +141,11 @@
             <div class="special">Je veux payer mon adhésion :</div>
             <div class="custom-radio__container">
               <label for="once" class="custom-radio">
-                <input type="radio" id="once" name="monthly" class="option-input" value="true">
+                <input type="radio" id="once" name="monthly" class="option-input" value="false">
                 <span>en une seule fois</span>
               </label>
               <label for="monthly" class="custom-radio">
-                <input type="radio" id="monthly" name="monthly" class="option-input" value="false">
+                <input type="radio" id="monthly" name="monthly" class="option-input" value="true">
                 <span>mensuellement</span>
               </label>
             </div>
@@ -325,7 +325,7 @@
                 Carte bancaire
               </label>
             </div>
-            <input type="radio" id="card" name="payment-option" value="card"required>
+            <input type="radio" id="card" name="payment_option" value="card"required>
             <div class="payment__section--mobile payment__card" data-option="card">
               <div class="cards">
                 <label class="cards__input cards__input--visa">
@@ -372,7 +372,7 @@
                 Paypal
               </label>
             </div>
-            <input type="radio" id="paypal" name="payment-option" value="paypal" required>
+            <input type="radio" id="paypal" name="payment_option" value="paypal" required>
             <div class="payment__section--mobile payment__paypal" data-option="paypal">
               <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
               <div class="btn-container">
@@ -387,7 +387,7 @@
                 Prélèvement automatique
               </label>
             </div>
-            <input type="radio" id="debit" name="payment-option" value="debit" required>
+            <input type="radio" id="debit" name="payment_option" value="debit" required>
             <div class="payment__section--mobile payment__debit" data-option="debit">
               <div class="input-row">
                 <input type="text" class="input__classic input__payment input__payment--big" name="iban" placeholder="Votre IBAN">
@@ -408,7 +408,7 @@
                 Paiement par chèque
               </label>
             </div>
-            <input type="radio" id="cheque" name="payment-option" value="cheque" required>
+            <input type="radio" id="cheque" name="payment_option" value="cheque" required>
             <div class="payment__section--mobile payment__cheque" data-option="cheque">
               <p class="content">Votre adhésion sera prise en compte dès réception de votre chèque et de votre récapitulatif à l'ordre de <span>VAINCRE L'AUTISME</span> et imprimé à l'adresse :</p>
               <p class="adress">
