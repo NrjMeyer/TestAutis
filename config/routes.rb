@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   get '/inscription', to: 'cache_users#new'
+  get '/recu', to: 'recu#index'
+  get '/recu/show', to: 'recu#show'
   post '/inscription_payment', to: 'cache_users#create'
 
   devise_scope :user do

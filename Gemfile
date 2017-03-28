@@ -61,3 +61,6 @@ gem 'pundit'
 gem 'httparty'
 gem 'config'
 gem 'json'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
