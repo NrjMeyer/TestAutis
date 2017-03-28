@@ -47,6 +47,10 @@
     cursor: pointer;
     height: 75px;
 
+    &.cheque {
+      border-right: none;
+    }
+
     @include mobile {
       border-right: none;
       height: initial;
