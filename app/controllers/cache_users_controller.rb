@@ -24,7 +24,7 @@ class CacheUsersController < ApplicationController
     @user.offer_id = offer.id
 
     # Parsing family members and link them to cache user
-    if params[:family_members] != nil
+    if params[:family_members] != ""
       side_users = JSON.parse(params[:family_members])
     end
 
