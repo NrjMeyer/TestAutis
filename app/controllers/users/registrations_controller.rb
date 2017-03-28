@@ -191,25 +191,32 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def createUserSlimpay(cookie_id)
     @cache_user = CacheUser.find_by(payment_id: cookie_id)
       
-      password = Encrypt.decryption(@cache_user.password)
-      @user = User.create(
-        email: @cache_user.email,
-        password: password,
-        name: @cache_user.name,
-        surname: @cache_user.surname,
-        phone_number: @cache_user.phone_number,
-        address: @cache_user.address,
-        address_extend: @cache_user.address_extend,
-        post_code: @cache_user.post_code,
-        city: @cache_user.city,
-        tax_receipt: @cache_user.tax_receipt,
-        sub_newsletter: @cache_user.sub_newsletter,
-        payment_option: 'slimpay'
-      )
+    password = Encrypt.decryption(@cache_user.password)
+    @user = User.create(
+      email: @cache_user.email,
+      password: password,
+      name: @cache_user.name,
+      surname: @cache_user.surname,
+      phone_number: @cache_user.phone_number,
+      address: @cache_user.address,
+      address_extend: @cache_user.address_extend,
+      post_code: @cache_user.post_code,
+      city: @cache_user.city,
+      tax_receipt: @cache_user.tax_receipt,
+      sub_newsletter: @cache_user.sub_newsletter,
+      payment_option: 'slimpay'
+    )
 
-      @cache_user.slimpay_payment.user_id = @user.id
-      @cache_user.save
-      return @user
+    @user.slimpay_payment.user_id = @user.id
+    @user.save
+
+    side_users = SideUser.where(cache_user_id: @cache_user.id)
+
+    side_users.each do |side_user|
+      side_user.user_id = @user.id
+    end
+
+    return @user
   end
 
   def createUserPaypal(params, reccuring = false)
@@ -252,6 +259,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     )
 
     @user.paypal_payment = @paypal_payment
+    @user.save
+
+    side_users.each do |side_user|
+      side_user.user_id = @user.id
+    end
 
     return @user
   end

@@ -11,7 +11,7 @@ class CacheUsersController < ApplicationController
   end
 
   def create
-
+    # Creating cache user
     @user = CacheUser.new(params.require(:cache_user).permit(:password,
       :password_confirmation, :name, :surname, :phone_number, :address,
       :address_extend, :post_code, :city, :email))
@@ -19,16 +19,17 @@ class CacheUsersController < ApplicationController
     @user.password = Encrypt.encryption(params.require(:cache_user).require(:password))
     @user.password_confirmation = Encrypt.encryption(params.require(:cache_user).require(:password_confirmation))
 
+    # Link selected formule to cache user
     offer = Offer.find(params[:formule])
     @user.offer_id = offer.id
 
     # side_users = JSON.parse(params[:family_members])
     # puts side_users
-
+    # Find if payment is monthly and which one to use
     payment_option = params[:payment_option]
     monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
-    puts monthly
 
+    # Create payment, link it with the cache user and make api call
     if !monthly
       if payment_option == "paypal"
         token = Paypal.get_token
@@ -84,7 +85,17 @@ class CacheUsersController < ApplicationController
       end
     end
 
+    # If user saved, redirect to payment validation
     if @user.save
+
+      # Saving side user
+      side_users['members'].each do |member|
+        SideUser.create(name: member['name'], email: member['mail'], cache_user_id: @user.id)
+      end
+
+      puts payment_option
+      puts monthly
+
       if payment_option == 'paypal'
         if !monthly
           redirect_to payment_data['links'][1]['href']
@@ -95,6 +106,10 @@ class CacheUsersController < ApplicationController
         cookies.signed.encrypted[:id] = payment_json['reference']
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
       end
+<<<<<<< HEAD
+=======
+    # If user not saved, display errors
+>>>>>>> f0a1756223c25fa5f6ed3a092e376810214bfaaa
     else
       puts @user.errors.inspect
     end
