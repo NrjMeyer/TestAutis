@@ -1,0 +1,10 @@
+<svg width="19" height="10" viewBox="0 0 19 10" xmlns="http://www.w3.org/2000/svg">
+  <title>
+    Group
+  </title>
+  <g fill="none" fill-rule="evenodd">
+    <path d="M4-1h12v12H4"/>
+    <path fill="#9B9B9B" d="M9.5 4.5H2.415l1.79-1.795L3.5 2l-3 3 3 3 .705-.705L2.415 5.5H9.5"/>
+    <path d="M17.112 0h-10C6.5 0 6 .5 6 1.11V3.33h1.11V1.1h10.002v7.795h-10V6.662H6V8.89c0 .61.5 1.1 1.11 1.1h10.002c.612 0 1.112-.49 1.112-1.1V1.11c0-.616-.5-1.11-1.112-1.11z" fill="#9B9B9B"/>
+  </g>
+</svg>

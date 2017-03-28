@@ -1,0 +1,151 @@
+.recu__fiscal {
+  background-color: white;
+  font-family: 'Roboto', Helvetica, sans-serif;
+  
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 25px 30px 0;
+    position: relative;
+  }
+
+  .logo-top {
+    display: block;
+    margin: 0 auto 30px;
+  }
+
+  .header {
+    background-color: #4A4A4A;
+    text-align: center;
+    padding: 10px 0;
+    color: #fff;
+  }
+
+  .header__title {
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .header__subtitle {
+    font-size: 10px;
+  }
+
+  .grey-block {
+    background-color: #F8F8F8;
+    padding: 20px 18px;
+  }
+
+  .grey-block__row {
+    margin-bottom: 14px;
+    color: #303030;
+    font-size: 14px;
+  }
+
+  .grey-block__title {
+    font-style: italic;
+  }
+
+  .grey-block__disclaimer {
+    font-style: italic;
+    width: 397px;
+    line-height: 1.2
+  }
+
+  .grey-block__content--bold {
+    font-weight: 500;
+  }
+
+  .grey-block__row p > span:first-child {
+    margin-right: 16px;
+  }
+
+  .pink-block {
+    background-color: #E41370;
+    padding: 6px 18px;
+  }
+
+  .pink-block p {
+    font-style: italic;
+    font-size: 11px;
+    color: #fff;
+    width: 400px;
+    line-height: 12px;
+  }
+
+  .signature {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 10px;
+    color: #303030;
+    font-size: 12px;
+  }
+
+  .signature .first {
+    margin-bottom: 4px;
+  }
+
+  .bottom {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+  }
+
+  .bottom img {
+    margin-bottom: 22px;
+  }
+
+  .thanks {
+    font-weight: 500;
+    color: #E41370;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .footer:before {
+    content: '';
+    display: block;
+    margin: 0 auto 10px;
+    width: 126px;
+    height: 1px;
+    background-color: #4A4A4A;
+  }
+
+  .footer {
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 10px;
+    color: #000;
+    margin-bottom: 4px;
+  }
+
+
+  /** BACK PAGE **/
+
+  .title {
+    text-align: center;
+    font-size: 12px;
+    margin: 12px 0;
+    color: #000;
+  }
+
+  .action-content {
+    padding: 0 20px;
+  }
+
+  .action-content p {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: justify;
+  }
+
+  .action-content p span {
+    font-weight: 500;
+  } 
+}
