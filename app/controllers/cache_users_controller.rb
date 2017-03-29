@@ -124,10 +124,6 @@ class CacheUsersController < ApplicationController
         end
       end
       
-      puts '----------------------------'
-      puts payment_data.inspect
-      puts '----------------------------'
-
       if payment_option == 'paypal'
         if !monthly
           redirect_to payment_data['links'][1]['href']

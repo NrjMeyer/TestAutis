@@ -219,7 +219,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       payment_option: 'slimpay'
     )
 
-    if @cache_user.don
+    if @cache_user.dons
       @user.dons << @cache_user.dons
     end
 
@@ -280,7 +280,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       payment_option: 'paypal',
     )
 
-    if @cache_user.don
+    if @cache_user.dons
       @user.dons << @cache_user.dons
     end
 
