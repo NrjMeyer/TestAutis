@@ -124,14 +124,7 @@ class CacheUsersController < ApplicationController
           SideUser.create(name: member['name'], email: member['mail'], cache_user_id: @user.id)
         end
       end
-<<<<<<< HEAD
-      
-=======
 
-      puts payment_option
-      puts monthly
-
->>>>>>> pdf
       if payment_option == 'paypal'
         if !monthly
           redirect_to payment_data['links'][1]['href']
