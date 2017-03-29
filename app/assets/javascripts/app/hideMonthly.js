@@ -1,10 +1,11 @@
-var HideMonthly = function () {
+var HideMonthly = function (app) {
 
     'use strict';
 
-    var $packageLabels = $('.btn__choose');
-    var $monthlyOption = $('.monthly-offer');
-    var $onceOption    = $('.option-input.once');
+    var $packageLabels       = $('.btn__choose');
+    var $monthlyOption       = $('.monthly-offer');
+    var $onceOption          = $('.option-input.once');
+    var $informationsSection = $('.informations');
 
     var init = function () {
         _initEvents();
@@ -20,6 +21,9 @@ var HideMonthly = function () {
         if ($(this).hasClass('no-monthly-offer')) {
             $monthlyOption.hide();
             $onceOption.prop('checked', true);
+            setTimeout(function () {
+                $informationsSection.addClass('visible fadeInUp');
+            }, 1750);
         }
 
         else {

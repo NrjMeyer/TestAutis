@@ -7,11 +7,11 @@ var Donation = function () {
     _initEvents();
   };
 
-  var _initEvents = function() {
+  var _initEvents = function () {
     $donateRate.on('change', _bindDonateChange);
   };
 
-  var _bindDonateChange = function() {
+  var _bindDonateChange = function () {
     var val = $('input[name="donate-rate"]:checked').val();
     $('input[name="monthly"][value="'+val+'"]').prop('checked',true);
   };
