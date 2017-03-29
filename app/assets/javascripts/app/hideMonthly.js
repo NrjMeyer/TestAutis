@@ -23,6 +23,8 @@ var HideMonthly = function (app) {
             $onceOption.prop('checked', true);
             setTimeout(function () {
                 $informationsSection.addClass('visible fadeInUp');
+                $('.sidebar__item').eq(2).removeClass('sidebar__item--disabled');
+                app.sections.push($informationsSection);
             }, 1750);
         }
 
