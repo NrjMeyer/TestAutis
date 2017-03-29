@@ -82,7 +82,6 @@ ActiveRecord::Schema.define(version: 20170319171151) do
     t.string   "user_id"
     t.string   "cache_user_id"
     t.string   "name"
-    t.string   "surname"
     t.string   "email"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get '/inscription', to: 'cache_users#new'
   get '/recu', to: 'recu#index'
-  get '/recu/show', to: 'recu#show'
+  get '/recu/:id', to: 'recu#show'
   post '/inscription_payment', to: 'cache_users#create'
 
   devise_scope :user do

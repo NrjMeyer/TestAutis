@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
 
     elsif CacheUser.find_by(payment_id: params[:token]) != nil
-      
+
       @user = createUserPaypal(params, true)
 
       if @user.save
@@ -61,87 +61,63 @@ class Users::RegistrationsController < Devise::RegistrationsController
         payment = validePaymentPaypal(@payment)
       end
 
-      
+
       if payment['state'] == 'approved' || payment['state'] == 'Active'
+        generate_pdf(@payment, "paypal", Digest::SHA1.hexdigest("p" + @payment.id.to_s)[0..7])
         render 'users/confirmations/confirm'
       end
-      
-    elsif params[:payment_option] == 'slimpay'
 
+    elsif params[:payment_option] == 'slimpay'
       @payment = SlimpayPayment.where(payment_reference: params[:reference]).last
       @user = User.find(@payment.user_id)
-      
+
       payment = JSON.parse(validePaymentSlimpay(@payment, @user))
-      
+
       puts payment
 
       if payment['executionStatus'] == 'toprocess'
+        generate_pdf(@payment, "slimpay", Digest::SHA1.hexdigest("s" + @payment.id.to_s)[0..7])
         render 'users/confirmations/confirm'
       else
         redirect_to root_path
       end
-    
+
     elsif params[:payment_option] == 'cheque'
 
       @payment = PaymentCheque.where(user_id: params[:id])
       @user = User.find(params[:id])
-      
+
+      generate_pdf(@payment, "cheque", Digest::SHA1.hexdigest("c" + @payment.id.to_s)[0..7])
       render 'user/confirmations/confirm'
     end
-  
   end
 
-  # POST /resource
-  # def create
-  #   super
-  # end
+  def generate_pdf(payment, method, id)
+    receipt_id = id
+    amount = payment.amount
+    payment_method = method
+    adress = payment.user.address + payment.user.address_extend + payment.user.post_code.to_s + payment.user.city
+    name = payment.user.name
+    date = payment.created_at
 
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
+    @id = id
+    @pdf = WickedPdf.new.pdf_from_string(
+      render_to_string("recu/index.html.erb", :locals => {
+        :receipt_id => receipt_id,
+        :amount => amount,
+        :payment_method => payment_method,
+        :adress => adress,
+        :date => date,
+        :name => name })
+    )
+    @filename ||= "#{Rails.root}/public/pdfs/#{id}.pdf"
+    @save_path ||= Rails.root.join('public/pdfs', id + '.pdf')
+    @access_path ||= "pdfs/#{id}.pdf"
 
-  # PUT /resource
-  # def update
-  #   super
-  # end
-
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
-
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
-
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :surname,
-  #     :phone_number, :address, :address_extend, :post_code, :city, :payment_id])
-  # end
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
-
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   redirect_to new_user_session_path
-  # end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+    File.open(@save_path, 'wb') do |file|
+      file << @pdf
+    end
+  end
 
   def validePaymentSlimpay(payment, user)
     payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
@@ -190,7 +166,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def createUserSlimpay(cookie_id)
     @cache_user = CacheUser.find_by(payment_id: cookie_id)
-      
+
     password = Encrypt.decryption(@cache_user.password)
     @user = User.create(
       email: @cache_user.email,
@@ -231,7 +207,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         payer: params[:PayerID],
         token: params[:token],
       )
-    
+
     else
 
       @cache_user = CacheUser.find_by(payment_id: params[:token])
@@ -239,7 +215,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @paypal_payment = PaypalPayment.create(
         token: params[:token],
       )
-  
+
     end
 
     password = Encrypt.decryption(@cache_user.password)
