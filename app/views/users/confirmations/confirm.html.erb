@@ -93,10 +93,10 @@
           <div class="row__content row__subscription">
             <% if @user.monthly_payment == false %>
               <p class="content__listing">Votre adhésion</p>
-              <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12) %>€</p>
+              <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12 + @user.dons.last.amount) %>€</p>
             <% else %>
               <p class="content__listing">Votre adhésion </p>
-              <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i %>€/mois</p>
+              <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i - (@user.dons.last.amount / 12 )%>€/mois</p>
             <% end %>
           </div>
           <% if @user.side_user_number > 0 %>
@@ -112,11 +112,16 @@
               </div>
             <% end %>
           <% end %>
-<!--           <div class="row__content row__donation">
-            <p class="content__listing">Votre don</p>
-            <p class="content__amount">-</p>
-          </div>
- -->        
+          <% if @user.dons.count > 0 %>
+              <div class="row__content row__donation">
+                <p class="content__listing">Votre don</p>
+                <% if @user.monthly_payment == false %>
+                  <p class="content__amount"><%= @user.dons.last.amount %>€</p>
+                <% else %>
+                  <p class="content__amount"><%= @user.dons.last.amount / 12 %>€/mois</p>
+                <% end %>
+              </div>
+          <% end %>
         </div>
         <div class="price-table--grey">
           <div class="row__content row__total">
@@ -132,9 +137,9 @@
           <div class="row__content row__taxes">
             <p class="content__listing">Coût après réduction fiscale</p>
             <% if @user.monthly_payment == false %>
-              <p class="content__amount"><%= @payment.amount.to_i * 0.34 %>€</p>
+              <p class="content__amount"><%= (@payment.amount.to_i * 0.34).round(2) %>€</p>
             <% else %>
-              <p class="content__amount"><%= (@payment.amount.to_i * 0.34) / 12 %>€/mois</p>
+              <p class="content__amount"><%= ((@payment.amount.to_i * 0.34) / 12).round(2) %>€/mois</p>
             <% end %>
           </div>
         </div>
