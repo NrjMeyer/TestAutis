@@ -6,6 +6,7 @@ class CacheUsersController < ApplicationController
   def new
     @offers = Offer.all
     @roles = Role.all
+    @cache_user = CacheUser.new
 
     render 'cache_users/new'
   end
@@ -18,6 +19,7 @@ class CacheUsersController < ApplicationController
 
     @user.password = Encrypt.encryption(params.require(:cache_user).require(:password))
     @user.password_confirmation = Encrypt.encryption(params.require(:cache_user).require(:password_confirmation))
+
 
     # Link selected formule to cache user
     offer = Offer.find(params[:formule])
@@ -40,7 +42,17 @@ class CacheUsersController < ApplicationController
     monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
     @user.monthly = monthly
 
+    # Create total amount of the payment from offer price and number of side users
     total_payment_amount = offer.amount + side_user_amount
+
+    # Get donation and add it to total amount
+    don = params.require(:cache_user).permit(dons: :amount)
+
+    # Add donation to total price if exist
+    if don[:dons][:amount] != ""
+      @user.dons << Don.create(amount: don[:dons][:amount])
+      total_payment_amount = total_payment_amount + don[:dons][:amount].to_i
+    end
 
     # Create payment, link it with the cache user and make api call
     if !monthly
@@ -112,8 +124,9 @@ class CacheUsersController < ApplicationController
         end
       end
       
-      puts payment_option
-      puts monthly
+      puts '----------------------------'
+      puts payment_data.inspect
+      puts '----------------------------'
 
       if payment_option == 'paypal'
         if !monthly

@@ -219,6 +219,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       payment_option: 'slimpay'
     )
 
+    if @cache_user.don
+      @user.dons << @cache_user.dons
+    end
+
     @user.save
 
     slimpay_payment = SlimpayPayment.where(cache_user_id: @cache_user.id).last
@@ -273,8 +277,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       tax_receipt: @cache_user.tax_receipt,
       sub_newsletter: @cache_user.sub_newsletter,
       monthly_payment: reccuring,
-      payment_option: 'paypal'
+      payment_option: 'paypal',
     )
+
+    if @cache_user.don
+      @user.dons << @cache_user.dons
+    end
 
     @user.save
     @paypal_payment.user_id = @user.id
