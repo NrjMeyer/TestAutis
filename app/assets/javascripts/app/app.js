@@ -303,7 +303,8 @@ var App = function () {
 
   return {
     init: init,
-    updateTotalPrice: updateTotalPrice
+    updateTotalPrice: updateTotalPrice,
+    sections: sections
   };
 
 };
