@@ -311,42 +311,7 @@
             </div>
             <input type="radio" id="card" name="payment_option" value="card"required>
             <div class="payment__section--mobile payment__card" data-option="card">
-              <div class="cards">
-                <label class="cards__input cards__input--visa">
-                  VISA
-                  <input type="radio" id="visa" name="card-option">
-                  <span></span>
-                </label>
-                <label class="cards__input cards__input--mc">
-                  MasterCard
-                  <input type="radio" id="mastercard" name="card-option">
-                  <span></span>
-                </label>
-                <label class="cards__input cards__input--amex">
-                  American Express
-                  <input type="radio" id="amex" name="card-option">
-                  <span></span>
-                </label>
-              </div>
-              <div class="input-row">
-                <div class="input-single">
-                  <input type="text" class="input__classic input__payment" name="name-card" placeholder="Nom du titulaire de la carte" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout">
-                </div>
-                <div class="input-single">
-                  <input type="text" class="input__classic input__payment" name="number-card" placeholder="Numéro de la carte" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="focusout" data-parsley-type="number">
-                </div>
-              </div>
-              <div class="input-row">
-                <div class="input-single">
-                  <input type="text" class="input__classic input__payment" name="expiration" placeholder="Date d'expiration (mm/aa)" data-parsley-error-message="Ce champ est invalide" data-parsley-trigger="change focusout" data-parsley-pattern="/^(0[1-9]|1[0-2])\/\d{2}$/">
-                </div>
-                <div class="input-single">
-                  <input type="text" class="input__classic input__payment input__payment--small" name="crypto" placeholder="Cryptogramme" maxlength="3" data-parsley-error-message="Ce champ est invalide">
-                </div>
-              </div>
-              <div class="btn-container">
-                <%= f.submit %>
-              </div>
+              <p class="phone-tip">Ce moyen de paiement n'est pas encore disponible.</p>
             </div>
           </div>
           <div class="payment__container">
@@ -358,9 +323,9 @@
             </div>
             <input type="radio" id="paypal" name="payment_option" value="paypal" required>
             <div class="payment__section--mobile payment__paypal" data-option="paypal">
-              <p>Texte à définir pour expliquer que l'utilisateur sera rediriger vers PayPal etc etc lorem ipsum dolor sit amet.</p>
+              <p>Vous aller être redirigé vers l'interface de paiement PayPal afin de finaliser votre paiement.</p>
               <div class="btn-container">
-                <%= f.submit %>
+                <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
               </div>
             </div>
           </div>
@@ -373,15 +338,9 @@
             </div>
             <input type="radio" id="debit" name="payment_option" value="debit" required>
             <div class="payment__section--mobile payment__debit" data-option="debit">
-              <div class="input-row">
-                <input type="text" class="input__classic input__payment input__payment--big" name="iban" placeholder="Votre IBAN">
-              </div>
-              <div class="input-row">
-                <input type="phone" class="input__classic input__payment" name="phone" placeholder="Numéro de téléphone mobile">
-              </div>
-              <p class="phone-tip">Obligatoire pour recevoir le code SMS qui vous permettra de signer votre mandat</p>
+              <p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
               <div class="btn-container">
-                <%= f.submit %>
+                <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
               </div>
             </div>
           </div>
@@ -402,9 +361,8 @@
               </p>
               <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent.</p>
               <div class="btn-container">
-                <%= f.submit %>
+                <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
               </div>
-            </div>
           </div>
         </div>
 

@@ -3,7 +3,7 @@
 // @include font-face($din, "dinbold-webfont", $file-formats: woff ttf svg eot);
 // @include font-face($lucida, "lucida_grande_bold-webfont", $file-formats: woff ttf svg eot);
 @font-face {
-	font-family: 'dinbold-webfont';
+	font-family: $din;
 	src: font-url('dinbold-webfont.eot');
 	src: font-url('dinbold-webfont.woff') format('woff'), 
         font-url('dinbold-webfont.ttf') format('truetype'), 
@@ -13,7 +13,7 @@
 }
 
 @font-face {
-  font-family: 'lucida_grande_bold-webfont';
+  font-family: $lucida;
   src: font-url('lucida_grande_bold-webfont.eot');
   src: font-url('lucida_grande_bold-webfont.woff') format('woff'), 
         font-url('lucida_grande_bold-webfont.ttf') format('truetype'), 
