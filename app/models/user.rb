@@ -9,7 +9,8 @@ class User < ApplicationRecord
   has_many :paypal_payments
   has_many :slimpay_payments
   has_many :side_users
-  has_many :payment_cheques
+  has_many :cheque_payments
+  has_many :dons
 
   def side_user_number
     side_users.count
