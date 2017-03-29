@@ -108,7 +108,12 @@
             </ul>
             <div>
               <%= radio_button_tag(:formule, offer.id, false,  class: 'formule-input input-desktop', :required => true) %>
-              <%= label_tag('formule_'+offer.id.to_s, "choisir cette formule", {class: ['btn', 'btn__choose'], :data => {:price => offer.amount}}) %>
+              <% if offer.mensualisable == false %>
+                <%= label_tag('formule_'+offer.id.to_s, "choisir cette formule", {class: ['btn', 'btn__choose', 'no-monthly-offer'], :data => {:price => offer.amount}}) %>
+              <% else %>
+                <%= label_tag('formule_'+offer.id.to_s, "choisir cette formule", {class: ['btn', 'btn__choose'], :data => {:price => offer.amount}}) %>
+              <% end %>
+              
             </div>
           </div>
         </div>
@@ -129,7 +134,7 @@
                 <input type="radio" id="once" name="monthly" class="option-input once" value="false">
                 <span>en une seule fois</span>
               </label>
-              <label for="monthly" class="custom-radio">
+              <label for="monthly" class="custom-radio monthly-offer">
                 <input type="radio" id="monthly" name="monthly" class="option-input monthly" value="true">
                 <span>mensuellement</span>
               </label>
@@ -151,7 +156,7 @@
                 <input type="radio" id="donate-once" name="donate-rate" data-parsley-required="false" class="donation-options donation-once" value="false">
                 <span>don ponctuel</span>
               </label>
-              <label for="donate-monthly" class="custom-radio">
+              <label for="donate-monthly" class="custom-radio monthly-offer">
                 <input type="radio" id="donate-monthly" name="donate-rate" data-parsley-required="false" class="donation-options donation-monthly" value="true">
                 <span>don mensuel</span>
               </label>

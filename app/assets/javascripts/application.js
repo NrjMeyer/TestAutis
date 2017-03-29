@@ -24,5 +24,6 @@ $(document).on('turbolinks:load', function () {
   var donation = new Donation();
   var packages = new Packages(app);
   var addMember = new FamilyMember(app);
+  var hideMonthly = new HideMonthly();
 
 });
