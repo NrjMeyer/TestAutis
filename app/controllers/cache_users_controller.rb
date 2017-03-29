@@ -15,7 +15,7 @@ class CacheUsersController < ApplicationController
     # Creating cache user
     @user = CacheUser.new(params.require(:cache_user).permit(:password,
       :password_confirmation, :name, :surname, :phone_number, :address,
-      :address_extend, :post_code, :city, :email))
+      :address_extend, :post_code, :city, :email, :newsletter))
 
     @user.password = Encrypt.encryption(params.require(:cache_user).require(:password))
     @user.password_confirmation = Encrypt.encryption(params.require(:cache_user).require(:password_confirmation))

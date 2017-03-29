@@ -252,7 +252,7 @@
             <span>Recevoir par mail mon reçu fiscal</span>
           </label>
           <label class="custom-radio custom-radio--block">
-            <input type="checkbox" id="newsletter" name="newsletter">
+            <%= f.check_box :newsletter, class: "newsletter", id: 'newsletter' %>
             <span>S'inscrire à la newsletter</span>
           </label>
         </div>

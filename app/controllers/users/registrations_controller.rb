@@ -164,7 +164,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           creditor: {
               reference: Settings.slimpay.creditor_reference
           },
-          subscriber: {
+          criber: {
               reference: user.email
           },
           reference: nil,
@@ -214,7 +214,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       post_code: @cache_user.post_code,
       city: @cache_user.city,
       tax_receipt: @cache_user.tax_receipt,
-      sub_newsletter: @cache_user.sub_newsletter,
+      newsletter: @cache_user.newsletter,
       monthly_payment: @cache_user.monthly,
       payment_option: 'slimpay'
     )
@@ -275,7 +275,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       post_code: @cache_user.post_code,
       city: @cache_user.city,
       tax_receipt: @cache_user.tax_receipt,
-      sub_newsletter: @cache_user.sub_newsletter,
+      newsletter: @cache_user.newsletter,
       monthly_payment: reccuring,
       payment_option: 'paypal',
     )
