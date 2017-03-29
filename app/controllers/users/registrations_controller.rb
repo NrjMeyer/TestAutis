@@ -89,14 +89,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
           payment = JSON.parse(validePaymentSlimpay(@payment, @user))
           puts payment
         end
-
+        
+        generate_pdf(@payment, "paypal", Digest::SHA1.hexdigest("p" + @payment.id.to_s)[0..7])
         render 'users/confirmations/confirm'
 
       elsif @user.payment_option == 'cheque'
 
         @payment = PaymentCheque.where(user_id: @user.id).last
         generate_pdf(@payment, "cheque", Digest::SHA1.hexdigest("c" + @payment.id.to_s)[0..7])
-
         render 'user/confirmations/confirm'
       end
     end
