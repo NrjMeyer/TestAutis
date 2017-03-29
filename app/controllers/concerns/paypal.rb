@@ -25,8 +25,8 @@ module Paypal
       body: {
         "intent": "sale",
         "redirect_urls": {
-          "return_url": "http://127.0.0.1:3000/validation",
-          "cancel_url": "http://127.0.0.1:3000/anulation"
+          "return_url": Settings.paypal.callback_url_success,
+          "cancel_url": Settings.paypal.callback_url_failure
         },
         "payer": {
           "payment_method": "paypal"
@@ -87,7 +87,7 @@ module Paypal
         'Content-Type' => 'application/json',
         'Authorization' => 'Bearer ' + token,
       },
-      body: 
+      body:
           [{
             "op": "replace",
             "path": "/",

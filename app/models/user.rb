@@ -10,5 +10,9 @@ class User < ApplicationRecord
   has_many :slimpay_payments
   has_many :side_users
   has_many :payment_cheques
+
+  def side_user_number
+    side_users.count
+  end
  
 end

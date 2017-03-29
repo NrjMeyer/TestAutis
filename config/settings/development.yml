@@ -10,6 +10,7 @@ paypal:
   server: 'https://api.sandbox.paypal.com/v1'
   url: 
     get_token: /oauth2/token
+  callback_url: http://localhost:3000/validation
   key: 'QVIyZzROSVBzZHpRUi1pZDUxS19hVWdsbnI5bHZDcDludHU0b1VNMTA5eHVDTUVzNTktNklKd3ZXVEtiQm9Qa3VkTE4zTGFLRnpQLWJBMFE6RUF2RXA5OUhUWmlXMzhsMGFIRFRyUmNMSURTQVp3X2VZdlRVU25seXRUYkhHU214SVVvUEl6eU5qUkJhNmVVMFZORWRQUWpvM0hOQ0I4cVY'
 encrypt:
   key: 'EncryptDecryptGurudathBN'

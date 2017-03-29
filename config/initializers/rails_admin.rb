@@ -1,5 +1,12 @@
 RailsAdmin.config do |config|
 
+  config.authorize_with do
+    authenticate_or_request_with_http_basic('Login required') do |username, password|
+      username == Rails.application.secrets.user &&
+      password == Rails.application.secrets.password
+    end
+  end
+
   ### Popular gems integration
 
   ## == Devise ==
@@ -23,7 +30,7 @@ RailsAdmin.config do |config|
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar true
   config.included_models = ["SideUser", "User", "Offer", "SlimpayPayment",
-    "PaypalPayment", "Role", "Advantages"]
+    "PaypalPayment", "Role", "Advantage"]
 
   config.actions do
     dashboard                     # mandatory

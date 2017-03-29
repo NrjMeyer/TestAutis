@@ -1,20 +1,5 @@
 <%= form_for CacheUser.new, url: {action: "create"}, :html => {:class => "main-form"} do |f| %>
 
-<% flash.each do |name, msg| %>
-
-  # New code (allow for flash elements to be arrays)
-  <% if msg.class == Array %>
-    <% msg.each do |message| %>
-      <%= content_tag :div, message, :id => "flash_#{name}" %>
-    <% end %>
-  <% else %>
-
-    # old code
-    <%= content_tag :div, msg, :id => "flash_#{name}" %>
-
-  <% end %> #don't forget the extra end
-<% end %>
-
 <header class="header">
     <div class="container header__container">
       <img class="header__logo" src="img/logo.png" alt="Logo Vaincre l'autisme">
@@ -76,7 +61,7 @@
     <div class="price-table--highlighted price-table--fixed">
       <div class="row__content row__taxes">
         <p class="content__listing">Coût après réduction fiscale</p>
-        <p class="content__amount"><span class="total-price--withPromo">0</span>€</p>
+        <p class="content__amount"><span class="total-price--withPromo">0</span>€<span class="monthly-payment">/mois</span></p>
       </div>
     </div>
 
@@ -105,7 +90,7 @@
             </div>
           </div>
           <div class="choice__info">
-            soit <span class="big white"><%= (offer.amount  * 0.33).round(2) %>€</span> après réduction fiscale
+            soit <span class="big white"><%= (offer.amount  * 0.34).round(2) %>€</span> après réduction fiscale
             <span class="infobox">
               <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
               <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
@@ -141,18 +126,18 @@
             <div class="special">Je veux payer mon adhésion :</div>
             <div class="custom-radio__container">
               <label for="once" class="custom-radio">
-                <input type="radio" id="once" name="monthly" class="option-input" value="false">
+                <input type="radio" id="once" name="monthly" class="option-input once" value="false">
                 <span>en une seule fois</span>
               </label>
               <label for="monthly" class="custom-radio">
-                <input type="radio" id="monthly" name="monthly" class="option-input" value="true">
+                <input type="radio" id="monthly" name="monthly" class="option-input monthly" value="true">
                 <span>mensuellement</span>
               </label>
             </div>
           </div>
         </div>
       </div>
-      <div class="form-block">
+<!--       <div class="form-block">
         <div class="form-block__top">Faire un don complémentaire</div>
         <div class="form-block__bottom">
           <div class="form-block__container">
@@ -160,18 +145,17 @@
             <input class="input input__donation" type="number" id="donation" placeholder="5 euros"> <div class="no-mobile">euros.</div>
             <div class="custom-radio__donate">
               <label for="donate-once" class="custom-radio">
-                <input type="radio" id="donate-once" name="donate-rate" data-parsley-required="false">
+                <input type="radio" id="donate-once" name="donate-rate" data-parsley-required="false" class="donation-options donation-once">
                 <span>don ponctuel</span>
               </label>
               <label for="donate-monthly" class="custom-radio">
-                <input type="radio" id="donate-monthly" name="donate-rate" data-parsley-required="false">
+                <input type="radio" id="donate-monthly" name="donate-rate" data-parsley-required="false" class="donation-options donation-monthly">
                 <span>don mensuel</span>
               </label>
             </div>
-            <button class="btn btn__add">Ajouter</button>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="form-block">
         <div class="form-block__top">Faire adhérer un membre de ma famille (1€/mois seulement)</div>
         <div class="form-block__bottom">
@@ -274,7 +258,7 @@
         <div class="form-block__top form-block__top--mobile">Conditions générales de vente</div>
         <div class="form-block__bottom form-block__bottom--mobile">
           <label class="custom-radio custom-radio--single">
-            <input type="checkbox" id="cgv" name="cgv" required>
+            <input type="checkbox" id="cgv" name="cgv" required data-parsley-group="block-3" class="info-input">
             <span>J'accepte les <a href="#">conditions générales de ventes</a></span>
           </label>
         </div>
@@ -288,27 +272,27 @@
         <div class="form-block__bottom price-table">
           <div class="row__content row__subscription">
             <p class="content__listing">Votre adhésion (<span class="adhesion-price">0</span>)</p>
-            <p class="content__amount"><span class="adhesion-price">0</span>€</p>
+            <p class="content__amount"><span class="adhesion-price">0</span>€<span class="monthly-payment">/mois</span></p>
           </div>
           <div class="row__content row__family">
             <p class="content__listing">Vos proches (<span class="family-count">0</span>)</p>
-            <p class="content__amount"><span class="family-price">0</span>€</p>
+            <p class="content__amount"><span class="family-price">0</span>€<span class="monthly-payment">/mois</span></p>
           </div>
           <div class="row__content row__donation">
             <p class="content__listing">Votre don</p>
-            <p class="content__amount">-</p>
+            <p class="content__amount"><span class="donation-price">0</span>€<span class="monthly-donation">/mois</span></p>
           </div>
         </div>
         <div class="price-table--grey">
           <div class="row__content row__total">
             <p class="content__listing">Total à payer</p>
-            <p class="content__amount"><span class="total-price--withoutPromo">0</span>€</p>
+            <p class="content__amount"><span class="total-price--withoutPromo">0</span>€<span class="monthly-payment">/mois</span></p>
           </div>
         </div>
         <div class="price-table--highlighted js-sticky">
           <div class="row__content row__taxes">
             <p class="content__listing">Coût après réduction fiscale</p>
-            <p class="content__amount"><span class="total-price--withPromo">0</span>€</p>
+            <p class="content__amount"><span class="total-price--withPromo">0</span>€<span class="monthly-payment">/mois</span></p>
           </div>
         </div>
       </div>
@@ -402,7 +386,7 @@
             </div>
           </div>
           <div class="payment__container">
-            <div class="payment__option" data-option="cheque">
+            <div class="payment__option cheque" data-option="cheque">
               <%= embedded_svg "icons/cheque.svg", class: "icon-cheque" %>
               <label for="cheque" class="label">
                 Paiement par chèque

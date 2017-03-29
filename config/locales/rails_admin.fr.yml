@@ -1,22 +1,4 @@
 fr:
-  submit: "submit"
-  activerecord:
-    errors:
-      models:
-        cache_user:
-          attributes:
-            email:
-              blank: "Email manquant"
-            password:
-              blank: "Mot de passe manquant"
-              too_short: "Mot de passe trop court"
-            password_confirmation:
-              blank: "Confirmation de mot de passe manquant."
-              confirmation: "Les deux mots de passes ne correspondent pas."
-  datetime:
-    distance_in_words:
-      about_x_hours: "Dernier insérée il y a quelques heures"
-      x_minutes: "Dernier insérée il y a quelques minutes"
   admin:
     js:
       true: Vrai
