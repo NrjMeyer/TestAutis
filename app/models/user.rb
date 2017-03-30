@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
 
-  has_one :offer
-  has_one :role
+  belongs_to :offer
+  belongs_to :role
   has_many :paypal_payments
   has_many :slimpay_payments
   has_many :side_users
@@ -15,5 +15,5 @@ class User < ApplicationRecord
   def side_user_number
     side_users.count
   end
- 
+
 end
