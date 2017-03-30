@@ -41,7 +41,7 @@ module Paypal
       }.to_json)
   end
 
-  def self.reccurringPayment(token, amount)
+  def self.reccurringPayment(token, amount, user)
 
     monthly_amount = amount / 12
 
@@ -72,8 +72,8 @@ module Paypal
         }],
         "merchant_preferences":
         {
-          "return_url": "http://127.0.0.1:3000/validation",
-          "cancel_url": "http://127.0.0.1:3000/anulation",
+          "return_url": Settings.paypal.callback_url_success,
+          "cancel_url": Settings.paypal.callback_url_failure,
           "auto_bill_amount": "YES",
           "initial_fail_amount_action": "CONTINUE",
           "max_fail_attempts": "0"
@@ -97,7 +97,7 @@ module Paypal
           }].to_json
     )
 
-    yolo = HTTParty.post('https://api.sandbox.paypal.com/v1/payments/billing-agreements/',
+    HTTParty.post('https://api.sandbox.paypal.com/v1/payments/billing-agreements/',
       headers: {
         'Content-Type' => 'application/json',
         'Authorization' => 'Bearer ' + token,
@@ -116,17 +116,14 @@ module Paypal
         },
         "shipping_address":
         {
-          "line1": "751235 Stout Drive",
-          "line2": "0976249 Elizabeth Court",
-          "city": "Quimby",
-          "state": "IA",
-          "postal_code": "51049",
-          "country_code": "FR"
+          "line1": @user.address,
+          "line2": @user.address_extend,
+          "city": @user.city,
+          "postal_code": @user.post_code,
+          "country_code": "FR",
         }
       }.to_json
     )
-    puts yolo
-    return yolo
   end
 
 end

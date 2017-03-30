@@ -15,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user = createUserPaypal(params) or return
 
       if @user.save
-        CacheUser.where(email: @cache_user.email).destroy_all
+        CacheUser.where(email: @user.email).destroy_all
       else
         puts @user.errors.inspect
       end
@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user = createUserPaypal(params, true) or return
 
       if @user.save
-        CacheUser.where(email: @cache_user.email).destroy_all
+        CacheUser.where(email: @user.email).destroy_all
       else
         puts @user.errors.inspect
       end
@@ -37,7 +37,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       if @user.save
         cookies.delete :id
-        CacheUser.where(email: @cache_user.email).destroy_all
+        CacheUser.where(email: @user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
+
+    elsif params.has_key?(:payment_key)
+      @user = createUserCheque(params[:payment_key]) or return
+      
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
       else
         puts @user.errors.inspect
       end
@@ -74,6 +83,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
         if payment['state'] == 'approved' || payment['state'] == 'Active'
+          ConfirmMailer.success_subscription(@user).deliver_now
           generate_pdf(@payment, "paypal")
           render 'users/confirmations/confirm'
         else
@@ -87,15 +97,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
           payment = JSON.parse(validePaymentSlimpay(@payment, @user))
           puts payment
         end
-
+        ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "paypal")
         render 'users/confirmations/confirm'
 
       elsif @user.payment_option == 'cheque'
 
         @payment = ChequePayment.where(user_id: @user.id).last
+        ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "cheque")
-        render 'user/confirmations/confirm'
+        render 'users/confirmations/confirm'
       end
     end
   end
@@ -117,9 +128,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :date => date,
         :name => name })
     )
-    @filename ||= "#{Rails.root}/public/pdfs/#{payment.hash}.pdf"
-    @save_path ||= Rails.root.join('public/pdfs', payment.hash + '.pdf')
-    @access_path ||= "pdfs/#{payment.hash}.pdf"
+    @filename ||= "#{Rails.root}/public/pdfs/#{receipt_id}.pdf"
+    @save_path ||= Rails.root.join('public/pdfs', receipt_id.to_s + '.pdf')
+    @access_path ||= "pdfs/#{receipt_id}.pdf"
 
     File.open(@save_path, 'wb') do |file|
       file << @pdf
@@ -127,8 +138,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def validePaymentSlimpay(payment, user)
-    generate_pdf(payment, "slimpay", Digest::SHA1.hexdigest("s" + payment.id.to_s))
-
     payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
       headers: {
         'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -173,6 +182,48 @@ class Users::RegistrationsController < Devise::RegistrationsController
         }.to_json
       )
     end
+  end
+
+  def createUserCheque(key)
+    @cache_user = CacheUser.find_by(payment_id: key)
+
+    if user_already_exist(@cache_user.email)
+      CacheUser.where(email: @cache_user.email).destroy_all
+      redirect_to erreur_path and return
+    end
+
+    password = Encrypt.decryption(@cache_user.password)
+    @user = User.create(
+      email: @cache_user.email,
+      password: password,
+      name: @cache_user.name,
+      surname: @cache_user.surname,
+      phone_number: @cache_user.phone_number,
+      address: @cache_user.address,
+      address_extend: @cache_user.address_extend,
+      post_code: @cache_user.post_code,
+      city: @cache_user.city,
+      tax_receipt: @cache_user.tax_receipt,
+      newsletter: @cache_user.newsletter,
+      monthly_payment: @cache_user.monthly,
+      payment_option: 'cheque',
+    )
+
+    if @cache_user.dons
+      @user.dons << @cache_user.dons
+    end
+
+    @user.cheque_payments << @cache_user.cheque_payment
+    @user.save
+
+    side_users = SideUser.where(cache_user_id: @cache_user.id)
+
+    side_users.each do |side_user|
+      side_user.user_id = @user.id
+      side_user.save
+    end
+
+    return @user
   end
 
   def createUserSlimpay(cookie_id)

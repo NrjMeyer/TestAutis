@@ -31,6 +31,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Mail sender
+  config.mailer_sender = 'donateur@vaincrelautisme.org'
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
