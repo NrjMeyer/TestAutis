@@ -25,6 +25,7 @@ class CacheUsersController < ApplicationController
     offer = Offer.find(params[:formule])
     @user.offer_id = offer.id
 
+
     # Amount of side_users
     side_user_amount = 0
 
@@ -123,7 +124,7 @@ class CacheUsersController < ApplicationController
           SideUser.create(name: member['name'], email: member['mail'], cache_user_id: @user.id)
         end
       end
-      
+
       if payment_option == 'paypal'
         if !monthly
           redirect_to payment_data['links'][1]['href']
@@ -134,7 +135,6 @@ class CacheUsersController < ApplicationController
         cookies.signed.encrypted[:id] = payment_json['reference']
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
       end
-    # If user not saved, display errors
     else
       puts @user.errors.inspect
     end

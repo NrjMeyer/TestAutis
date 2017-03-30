@@ -1,6 +1,0 @@
-<svg width="17" height="14" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
-  <title>
-    Shape
-  </title>
-  <path d="M15.3 0H1.7C.756 0 .01.743.01 1.67L0 11.688c0 .926.756 1.67 1.7 1.67h13.6c.943 0 1.7-.744 1.7-1.67V1.67C17 .743 16.243 0 15.3 0zm0 11.688H1.7v-5.01h13.6v5.01zm0-8.35H1.7V1.67h13.6v1.67z" fill="#FFF" fill-rule="evenodd"/>
-</svg>

@@ -93,10 +93,18 @@
           <div class="row__content row__subscription">
             <% if @user.monthly_payment == false %>
               <p class="content__listing">Votre adhésion</p>
-              <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12 + @user.dons.last.amount) %>€</p>
+              <% if @user.dons.count > 0 %>
+                <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12 + @user.dons.last.amount) %>€</p>
+              <% else %>
+                <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12) %>€</p>
+              <% end %>
             <% else %>
               <p class="content__listing">Votre adhésion </p>
-              <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i - (@user.dons.last.amount / 12 )%>€/mois</p>
+              <% if @user.dons.count > 0 %>
+                <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i - (@user.dons.last.amount / 12 )%>€/mois</p>
+              <% else %>
+                <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i %>€/mois</p>
+              <% end %>
             <% end %>
           </div>
           <% if @user.side_user_number > 0 %>

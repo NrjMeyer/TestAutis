@@ -84,8 +84,16 @@
               <% end %>
             </div>
             <div class="price__right">
-              <input type="radio" id="formule-1" name="formule" class="formule-input input-mobile" required>
+<!--               <input type="radio" id="formule-1" name="formule" class="formule-input input-mobile" required>
               <label class="btn btn__choose" for="formule-1" data-price="50">choisir cette formule</label>
+ -->
+              <%= radio_button_tag(:formule, offer.id, false,  class: 'formule-input input-mobile', :required => true) %>
+              <% if offer.mensualisable == false %>
+                <%= label_tag('formule_'+offer.id.to_s, "choisir cette formule", {class: ['btn', 'btn__choose', 'no-monthly-offer'], :data => {:price => offer.amount}}) %>
+              <% else %>
+                <%= label_tag('formule_'+offer.id.to_s, "choisir cette formule", {class: ['btn', 'btn__choose'], :data => {:price => offer.amount}}) %>
+              <% end %>
+
               <div class="btn btn__perks" data-perks="1">voir les avantages</div>
             </div>
           </div>
@@ -252,10 +260,10 @@
 
           </div>
 
-          <label class="custom-radio custom-radio--block">
-            <input type="checkbox" id="fiscal-mail" name="fiscal-mail">
-            <span>Recevoir par mail mon reçu fiscal</span>
-          </label>
+<!--           <label class="custom-radio custom-radio--block"> -->
+<!--             <input type="checkbox" id="fiscal-mail" name="fiscal-mail"> -->
+<!--             <span>Recevoir par mail mon reçu fiscal</span> -->
+<!--           </label> -->
           <label class="custom-radio custom-radio--block">
             <%= f.check_box :newsletter, class: "newsletter", id: 'newsletter' %>
             <span>S'inscrire à la newsletter</span>
