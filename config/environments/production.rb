@@ -82,7 +82,7 @@ Rails.application.configure do
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
-  config.action_mailer.default_url_options = { :host => 'https://vaincre-l-autisme.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'https://vaincrelautisme.herokuapp.com' }
 
 
   ActionMailer::Base.delivery_method = :smtp
