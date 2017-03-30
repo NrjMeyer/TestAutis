@@ -58,7 +58,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @user
 
-        if @user.payment_option == 'paypal'
+      if @user.payment_option == 'paypal'
 
         if @user.monthly_payment == true
           @payment = PaypalPayment.where(token: @user.paypal_payments.last.token).last
@@ -104,7 +104,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     receipt_id = method + payment.id.to_s + "/" + Time.current.year.to_s
     amount = payment.amount
     payment_method = method
-    adress = payment.user.address + payment.user.address_extend + payment.user.post_code.to_s + payment.user.city
+    adress = payment.user.address + " " + payment.user.address_extend + " " + payment.user.post_code.to_s + " " + payment.user.city
     name = payment.user.name
     date = payment.created_at
 
