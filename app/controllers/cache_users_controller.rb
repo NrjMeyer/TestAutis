@@ -83,12 +83,11 @@ class CacheUsersController < ApplicationController
         )
         @user.payment_id = payment_json['reference']
       elsif payment_option == 'cheque'
-        cheque = ChequePayment.create(amount: total_payment_amount, validated: false)
-        @user.cheque_payment = cheque
         payment_key = (0...8).map { (65 + rand(26)).chr }.join
         @user.payment_id = payment_key
 
         if @user.save
+          ChequePayment.create(amount: total_payment_amount, validated: false, cache_user_id: @user.id)
           redirect_to validation_path(payment_key: payment_key)
         end
       end
