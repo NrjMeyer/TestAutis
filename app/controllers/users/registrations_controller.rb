@@ -129,8 +129,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def validePaymentSlimpay(payment, user)
-    generate_pdf(payment, "slimpay", Digest::SHA1.hexdigest("s" + payment.id.to_s))
-
     payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
       headers: {
         'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
