@@ -83,7 +83,8 @@ class CacheUsersController < ApplicationController
         )
         @user.payment_id = payment_json['reference']
       elsif payment_option == 'cheque'
-        @user.cheque_payment = ChequePayment.create(amount: total_payment_amount, validated: false)
+        cheque = ChequePayment.create(amount: total_payment_amount, validated: false)
+        @user.cheque_payment = cheque
         payment_key = (0...8).map { (65 + rand(26)).chr }.join
         @user.payment_id = payment_key
 
