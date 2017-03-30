@@ -25,8 +25,8 @@ module Paypal
       body: {
         "intent": "sale",
         "redirect_urls": {
-          "return_url": Settings.paypal.callback_url_success,
-          "cancel_url": Settings.paypal.callback_url_failure
+          "return_url": "http://adhesion.vaincrelautisme.org/validation",
+          "cancel_url": "http://adhesion.vaincrelautisme.org/annulation"
         },
         "payer": {
           "payment_method": "paypal"
@@ -72,8 +72,8 @@ module Paypal
         }],
         "merchant_preferences":
         {
-          "return_url": Settings.paypal.callback_url_success,
-          "cancel_url": Settings.paypal.callback_url_failure,
+          "return_url": "http://adhesion.vaincrelautisme.org/validation",
+          "cancel_url": "http://adhesion.vaincrelautisme.org/annulation",
           "auto_bill_amount": "YES",
           "initial_fail_amount_action": "CONTINUE",
           "max_fail_attempts": "0"
