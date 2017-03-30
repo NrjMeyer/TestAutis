@@ -49,11 +49,12 @@ ActiveRecord::Schema.define(version: 20170329121058) do
   end
 
   create_table "cheque_payments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "amount"
     t.boolean  "validated"
     t.string   "user_id"
+    t.string   "cache_user_id"
   end
 
   create_table "dons", force: :cascade do |t|

@@ -43,7 +43,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
 
     elsif params.has_key?(:payment_key)
-      @user = createUserCheque(key) or return
+      @user = createUserCheque(params[:payment_key]) or return
       
       if @user.save
         CacheUser.where(email: @user.email).destroy_all
@@ -103,7 +103,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       elsif @user.payment_option == 'cheque'
 
-        @payment = PaymentCheque.where(user_id: @user.id).last
+        @payment = ChequePayment.where(user_id: @user.id).last
+        puts '----------------------'
+        puts @payment
+        puts '----------------------'
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "cheque")
         render 'user/confirmations/confirm'
@@ -213,7 +216,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user.dons << @cache_user.dons
     end
 
-    @user.cheque_payments << ChequePayment.find(@cache_user.cheque_payment.id)
+    @user.cheque_payments << @cache_user.cheque_payment
     @user.save
 
     side_users = SideUser.where(cache_user_id: @cache_user.id)
