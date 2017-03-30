@@ -1,5 +1,5 @@
 class ConfirmMailer < ApplicationMailer
-  default from: 'notifications@example.com'
+  default from: 'donateur@vaincrelautisme.org'
 
   def success_subscription(user)
     @user = user
