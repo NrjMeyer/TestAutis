@@ -104,7 +104,7 @@ class CacheUsersController < ApplicationController
         @user.payment_id = payment_json['reference']
       elsif payment_option == 'paypal'
         token = Paypal.get_token
-        payment_data = Paypal.reccurringPayment(token, total_payment_amount)
+        payment_data = Paypal.reccurringPayment(token, total_payment_amount, @user)
         token = payment_data['links'][0]['href'].scan(/token=(.*)/)[0][0]
         @user.payment_id = token
         @user.payment_amount = total_payment_amount
