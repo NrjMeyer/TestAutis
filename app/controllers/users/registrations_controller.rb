@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # Use Paypal
     if params.has_key?(:paymentId)
 
-      @user = createUserPaypal(params)
+      @user = createUserPaypal(params) or return
 
       if @user.save
         CacheUser.where(email: @cache_user.email).destroy_all
@@ -22,7 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     elsif CacheUser.find_by(payment_id: params[:token]) != nil
 
-      @user = createUserPaypal(params, true)
+      @user = createUserPaypal(params, true) or return
 
       if @user.save
         CacheUser.where(email: @cache_user.email).destroy_all
@@ -33,7 +33,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # Use Slimpay
     elsif cookies.signed.encrypted[:id] != nil
 
-      @user = createUserSlimpay(cookies.signed.encrypted[:id])
+      @user = createUserSlimpay(cookies.signed.encrypted[:id]) or return
 
       if @user.save
         cookies.delete :id
@@ -48,19 +48,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def payment
 
     if cookies.signed.encrypted[:user_id]
-      puts 'cookes'
       @user = User.find(cookies.signed.encrypted[:user_id])
       cookies.delete :user_id
     elsif current_user
-      puts 'current user'
       @user = current_user
     else
-      puts 'nope'
       redirect_to root_path
     end
 
     if @user
-      if @user.payment_option == 'paypal'
+
+        if @user.payment_option == 'paypal'
 
         if @user.monthly_payment == true
           @payment = PaypalPayment.where(token: @user.paypal_payments.last.token).last
@@ -182,6 +180,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def createUserSlimpay(cookie_id)
     @cache_user = CacheUser.find_by(payment_id: cookie_id)
 
+    if user_already_exist(@cache_user.email)
+      CacheUser.where(email: @cache_user.email).destroy_all
+      redirect_to erreur_path and return
+    end
+
     password = Encrypt.decryption(@cache_user.password)
     @user = User.create(
       email: @cache_user.email,
@@ -196,7 +199,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       tax_receipt: @cache_user.tax_receipt,
       newsletter: @cache_user.newsletter,
       monthly_payment: @cache_user.monthly,
-      payment_option: 'slimpay'
+      payment_option: 'slimpay',
     )
 
     if @cache_user.dons
@@ -224,6 +227,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if reccuring == false
 
       @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
+  
+      if user_already_exist(@cache_user.email)
+        CacheUser.where(email: @cache_user.email).destroy_all
+        redirect_to erreur_path and return
+      end
 
       @paypal_payment = PaypalPayment.create(
         payment: params[:paymentId],
@@ -236,6 +244,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       @cache_user = CacheUser.find_by(payment_id: params[:token])
 
+      if user_already_exist(@cache_user.email)
+        CacheUser.where(email: @cache_user.email).destroy_all
+        redirect_to erreur_path and return
+      end
+      
       @paypal_payment = PaypalPayment.create(
         token: params[:token],
         amount: @cache_user.payment_amount
@@ -244,6 +257,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     password = Encrypt.decryption(@cache_user.password)
+
     @user = User.create(
       email: @cache_user.email,
       password: password,
@@ -276,6 +290,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     return @user
+  end
+
+  def user_already_exist(email)
+    user = User.where(email: email).last
+    puts "----------------------------"
+    puts user.inspect
+    puts "----------------------------"
+    if user. != nil
+      return true
+    else
+      return false
+    end
   end
 
 end

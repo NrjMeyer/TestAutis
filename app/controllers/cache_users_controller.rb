@@ -139,4 +139,9 @@ class CacheUsersController < ApplicationController
       puts @user.errors.inspect
     end
   end
+
+  def error
+    
+  end
+
 end

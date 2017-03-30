@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, :path => 'users', :controllers => {:registrations => "registrations", confirmations: 'confirmations'}
   root to: "home#index"
 
+  get '/erreur', to: 'cache_users#error'
   get '/inscription', to: 'cache_users#new'
   get '/annulation', to: 'cache_users#cancel'
   post '/inscription_payment', to: 'cache_users#create'
