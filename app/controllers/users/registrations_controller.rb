@@ -101,7 +101,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def generate_pdf(payment, method)
-    receipt_id = payment.hash
+    receipt_id = "method" + payment.id.to_s + "/" + Time.current.year
     amount = payment.amount
     payment_method = method
     adress = payment.user.address + payment.user.address_extend + payment.user.post_code.to_s + payment.user.city
