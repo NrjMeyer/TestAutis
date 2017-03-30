@@ -105,7 +105,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     amount = payment.amount
     payment_method = method
     adress = payment.user.address + " " + payment.user.address_extend + " " + payment.user.post_code.to_s + " " + payment.user.city
-    name = payment.user.name
+    name = payment.user.name + " " + payment.user.surname
     date = payment.created_at
 
     @pdf = WickedPdf.new.pdf_from_string(
