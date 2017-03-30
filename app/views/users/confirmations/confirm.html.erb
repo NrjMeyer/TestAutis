@@ -83,12 +83,14 @@
       </div>
 
       <div class="form-block">
-        <div class="form-block__top form-block__top--highpadding with-button">
-          Récapitulatif
-          <div class="btn btn__download">
-            <a href="<%= asset_path(@payment.access_path) %>"><%= embedded_svg "icons/print.svg", class: "icon-print" %> Imprimer le reçu fiscal</a>
+        <% unless @payment.class.to_s == "ChequePayment" %>
+          <div class="form-block__top form-block__top--highpadding with-button">
+            Récapitulatif
+            <div class="btn btn__download">
+              <a href="<%= asset_path(@payment.access_path) %>"><%= embedded_svg "icons/print.svg", class: "icon-print" %> Imprimer le reçu fiscal</a>
+            </div>
           </div>
-        </div>
+        <% end %>
         <div class="form-block__bottom price-table">
           <div class="row__content row__subscription">
             <% if @user.monthly_payment == false %>
