@@ -104,12 +104,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       elsif @user.payment_option == 'cheque'
 
         @payment = ChequePayment.where(user_id: @user.id).last
-        puts '----------------------'
-        puts @payment
-        puts '----------------------'
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "cheque")
-        render 'user/confirmations/confirm'
+        render 'users/confirmations/confirm'
       end
     end
   end
@@ -132,7 +129,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :name => name })
     )
     @filename ||= "#{Rails.root}/public/pdfs/#{receipt_id}.pdf"
-    @save_path ||= Rails.root.join('public/pdfs', receipt_id + '.pdf')
+    @save_path ||= Rails.root.join('public/pdfs', receipt_id.to_s + '.pdf')
     @access_path ||= "pdfs/#{receipt_id}.pdf"
 
     File.open(@save_path, 'wb') do |file|
