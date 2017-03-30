@@ -117,9 +117,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :date => date,
         :name => name })
     )
-    @filename ||= "#{Rails.root}/public/pdfs/#{receipt_id}.pdf"
-    @save_path ||= Rails.root.join('public/pdfs', receipt_id + '.pdf')
-    @access_path ||= "pdfs/#{receipt_id}.pdf"
+    @filename ||= "#{Rails.root}/public/pdfs/#{payment.hash}.pdf"
+    @save_path ||= Rails.root.join('public/pdfs', payment.hash + '.pdf')
+    @access_path ||= "pdfs/#{payment.hash}.pdf"
 
     File.open(@save_path, 'wb') do |file|
       file << @pdf
