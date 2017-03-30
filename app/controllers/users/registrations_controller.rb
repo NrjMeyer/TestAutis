@@ -74,8 +74,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
         if payment['state'] == 'approved' || payment['state'] == 'Active'
-          generate_pdf(@payment, "paypal", Digest::SHA1.hexdigest("p" + @payment.id.to_s)[0..7])
           ConfirmMailer.success_subscription(@user).deliver_now
+          generate_pdf(@payment, "paypal")
           render 'users/confirmations/confirm'
         else
           redirect_to root_path
@@ -88,30 +88,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
           payment = JSON.parse(validePaymentSlimpay(@payment, @user))
           puts payment
         end
-        
-        generate_pdf(@payment, "paypal", Digest::SHA1.hexdigest("p" + @payment.id.to_s)[0..7])
         ConfirmMailer.success_subscription(@user).deliver_now
+        generate_pdf(@payment, "paypal")
         render 'users/confirmations/confirm'
 
       elsif @user.payment_option == 'cheque'
 
         @payment = PaymentCheque.where(user_id: @user.id).last
-        generate_pdf(@payment, "cheque", Digest::SHA1.hexdigest("c" + @payment.id.to_s)[0..7])
         ConfirmMailer.success_subscription(@user).deliver_now
+        generate_pdf(@payment, "cheque")
         render 'user/confirmations/confirm'
       end
     end
   end
 
-  def generate_pdf(payment, method, id)
-    receipt_id = id
+  def generate_pdf(payment, method)
+    receipt_id = payment.hash
     amount = payment.amount
     payment_method = method
     adress = payment.user.address + payment.user.address_extend + payment.user.post_code.to_s + payment.user.city
     name = payment.user.name
     date = payment.created_at
 
-    @id = id
     @pdf = WickedPdf.new.pdf_from_string(
       render_to_string("recu/index.html.erb", :locals => {
         :receipt_id => receipt_id,
@@ -121,9 +119,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         :date => date,
         :name => name })
     )
-    @filename ||= "#{Rails.root}/public/pdfs/#{id}.pdf"
-    @save_path ||= Rails.root.join('public/pdfs', id + '.pdf')
-    @access_path ||= "pdfs/#{id}.pdf"
+    @filename ||= "#{Rails.root}/public/pdfs/#{receipt_id}.pdf"
+    @save_path ||= Rails.root.join('public/pdfs', receipt_id + '.pdf')
+    @access_path ||= "pdfs/#{receipt_id}.pdf"
 
     File.open(@save_path, 'wb') do |file|
       file << @pdf
@@ -143,7 +141,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           creditor: {
               reference: Settings.slimpay.creditor_reference
           },
-          criber: {
+          subscriber: {
               reference: user.email
           },
           reference: nil,
@@ -157,7 +155,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def validePaymentPaypal(payment, reccuring = false)
-    generate_pdf(payment, "paypal", Digest::SHA1.hexdigest("c" + payment.id.to_s))
 
     puts payment.inspect
     if reccuring == true
@@ -230,7 +227,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if reccuring == false
 
       @cache_user = CacheUser.find_by(payment_id: params[:paymentId])
-  
+
       if user_already_exist(@cache_user.email)
         CacheUser.where(email: @cache_user.email).destroy_all
         redirect_to erreur_path and return
@@ -251,7 +248,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         CacheUser.where(email: @cache_user.email).destroy_all
         redirect_to erreur_path and return
       end
-      
+
       @paypal_payment = PaypalPayment.create(
         token: params[:token],
         amount: @cache_user.payment_amount
@@ -297,9 +294,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def user_already_exist(email)
     user = User.where(email: email).last
-    puts "----------------------------"
-    puts user.inspect
-    puts "----------------------------"
     if user. != nil
       return true
     else
