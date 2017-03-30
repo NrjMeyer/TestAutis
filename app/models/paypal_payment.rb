@@ -11,4 +11,8 @@ class PaypalPayment < ApplicationRecord
      "pdfs/" + hash + ".pdf"
   end
 
+  def reduction
+    (amount.to_i * 0.34).round(2)
+  end
+
 end
