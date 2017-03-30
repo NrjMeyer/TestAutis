@@ -116,10 +116,10 @@ module Paypal
         },
         "shipping_address":
         {
-          "line1": @user.address,
-          "line2": @user.address_extend,
-          "city": @user.city,
-          "postal_code": @user.post_code,
+          "line1": user.address,
+          "line2": user.address_extend,
+          "city": user.city,
+          "postal_code": user.post_code,
           "country_code": "FR",
         }
       }.to_json
