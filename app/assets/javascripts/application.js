@@ -21,7 +21,9 @@ $(document).on('turbolinks:load', function () {
   var app = new App();
   var form = new Form();
   var payment = new Payment();
-  var packages = new Packages();
-  var addMember = new FamilyMember();
+  var donation = new Donation();
+  var packages = new Packages(app);
+  var addMember = new FamilyMember(app);
+  var hideMonthly = new HideMonthly(app);
 
 });

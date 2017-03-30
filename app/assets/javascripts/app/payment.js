@@ -48,6 +48,8 @@ var Payment = function () {
     $paymentSections.hide();
     $('.payment__section[data-option='+targetOption+']').show();
 
+    $('input#' + targetOption).prop('checked', true);
+
   };
 
   var _changePaymentMethodMobile = function (e) {

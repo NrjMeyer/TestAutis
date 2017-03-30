@@ -1,4 +1,4 @@
-var Packages = function () {
+var Packages = function (app) {
 
   'use strict';
 
@@ -40,8 +40,9 @@ var Packages = function () {
 
   var _selectPackage = function (e) {
 
-    var target = $(e.target),
-        old    = $('.btn__choose--selected');
+    var target      = $(e.target),
+        targetPrice = target.data('price'),
+        old         = $('.btn__choose--selected');
 
     if (target.hasClass('btn__choose--selected')) return;
 
@@ -50,6 +51,8 @@ var Packages = function () {
     target.addClass('btn__choose--selected');
     target.text('formule sélectionnée');
     old.text('choisir cette formule');
+
+    app.updateTotalPrice('package', targetPrice);
 
   };
 

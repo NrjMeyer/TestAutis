@@ -10,10 +10,104 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218150256) do
+ActiveRecord::Schema.define(version: 20170329121058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "advantages", force: :cascade do |t|
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "advantages_offers", id: false, force: :cascade do |t|
+    t.integer "advantage_id"
+    t.integer "offer_id"
+    t.index ["advantage_id"], name: "index_advantages_offers_on_advantage_id", using: :btree
+    t.index ["offer_id"], name: "index_advantages_offers_on_offer_id", using: :btree
+  end
+
+  create_table "cache_users", force: :cascade do |t|
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "email"
+    t.string   "name"
+    t.string   "surname"
+    t.string   "phone_number"
+    t.text     "address"
+    t.text     "address_extend"
+    t.integer  "post_code"
+    t.string   "city"
+    t.boolean  "tax_receipt"
+    t.boolean  "newsletter"
+    t.string   "payment_id"
+    t.string   "password"
+    t.string   "offer_id"
+    t.integer  "payment_amount"
+    t.boolean  "monthly"
+  end
+
+  create_table "cheque_payments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "amount"
+    t.boolean  "validated"
+    t.string   "user_id"
+  end
+
+  create_table "dons", force: :cascade do |t|
+    t.integer  "amount"
+    t.string   "user_id"
+    t.string   "cache_user_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "slimpay_payment_id"
+    t.string   "paypal_payment_id"
+    t.string   "cheque_payment_id"
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.integer  "amount"
+    t.boolean  "mensualisable"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "role"
+  end
+
+  create_table "paypal_payments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "user_id"
+    t.string   "payment"
+    t.string   "payer"
+    t.string   "token"
+    t.integer  "amount"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "side_users", force: :cascade do |t|
+    t.string   "user_id"
+    t.string   "cache_user_id"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "slimpay_payments", force: :cascade do |t|
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "user_id"
+    t.string   "cache_user_id"
+    t.string   "payment_reference"
+    t.integer  "amount"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -26,6 +120,10 @@ ActiveRecord::Schema.define(version: 20170218150256) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "name"
@@ -36,7 +134,12 @@ ActiveRecord::Schema.define(version: 20170218150256) do
     t.integer  "post_code"
     t.string   "city"
     t.boolean  "tax_receipt"
-    t.boolean  "sub_newsletter"
+    t.boolean  "newsletter"
+    t.datetime "last_payment"
+    t.boolean  "monthly_payment"
+    t.string   "payment_option"
+    t.string   "offer_id"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end

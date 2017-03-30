@@ -1,0 +1,75 @@
+<header class="header">
+    <div class="container header__container">
+      <img class="header__logo" src="img/logo.png" alt="Logo Vaincre l'autisme">
+      <nav>
+        <ul class="menu">
+
+          <li class="menu__item menu__item--border">
+            <a href="http://vaincrelautisme.org/sites/default/files/bulletin%202017.pdf" target="_blank">
+              <%= embedded_svg "icons/download.svg", class: "icon-download" %>
+              <span>Formulaire papier</span>
+            </a>
+          </li>
+
+          <li class="menu__item menu__item--border">
+            <a href="http://vaincrelautisme.org/" target="_blank">
+              <%= embedded_svg "icons/link.svg", class: "icon-link" %>
+              <span>Site principal</span>
+            </a>
+          </li>
+
+			<!--<li class="menu__item">
+            <a href="#">
+              <%= embedded_svg "icons/login.svg", class: "icon-login" %>
+              <span>Se connecter</span>
+            </a>
+          </li> -->
+
+          <li class="menu__item menu__item--highlighted">
+            <a href="http://vaincrelautisme.org/donate" target="_blank">
+              <%= embedded_svg "icons/donate.svg", class: "icon-donate" %>
+              <span>Faire un don</span>
+            </a>
+          </li>
+
+        </ul>
+        <div class="header__burger">
+          <div class="burger"></div>
+        </div>
+      </nav>
+    </div>
+</header>
+
+<div class="sidebar">
+  <nav>
+    <ul>
+      <li class="sidebar__item js-scroll " data-section="#choice">1. Choix</li>
+      <li class="sidebar__item js-scroll" data-section="#options">2. Options</li>
+      <li class="sidebar__item js-scroll" data-section="#infos">3. Informations</li>
+      <li class="sidebar__item js-scroll" data-section="#payment">4. Paiement</li>
+      <li class="sidebar__item sidebar__item--current">5. Validation</li>
+    </ul>
+  </nav>
+</div>
+
+<main class="main__container">
+
+  <div class="container">
+
+    <section class="payment-validation small-section">
+
+      <div class="form-block">
+        <div class="form-block__top form-block__top--highpadding">Confirmation de création de compte</div>
+        <div class="form-block__bottom">
+          <div class="form-block__container form-block__column">
+            <div class="payment-validation__content payment-validation__donation">Un email de confirmation vous a été envoyé afin de valider votre adhésion ! <br> <br> Merci de cliquer sur le lien présent dans cet email.</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>

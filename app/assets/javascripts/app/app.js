@@ -34,8 +34,33 @@ var App = function () {
   var $secondSectionInputs = $('.option-input');
   var $thirdSectionInputs  = $('.info-input');
 
+  // Paying monthly input
+  var $optionsInput  = $('.option-input');
+  var monthlyPayment = false;
+  var $monthlySpans  = $('.monthly-payment');
+
+  // Monthly donation
+  var $donationsOptions = $('.donation-options');
+  var $donationInput    = $('.input__donation');
+  var $donationSpan     = $('.monthly-donation');
+
   // Scroll variables
   var sections = [];
+
+  // Update price variables
+  var packagePrice  = 0;
+  var familyPrice   = 0;
+  var familyCount   = 0;
+  var donationPrice = 0;
+  var totalPrice    = packagePrice + familyPrice + donationPrice;
+
+  // Price sections
+  var $priceWithoutPromo    = $('.total-price--withoutPromo');
+  var $priceWithPromo       = $('.total-price--withPromo');
+  var $subscriptionPrice    = $('.adhesion-price');
+  var $familyPriceContainer = $('.family-price');
+  var $familyCountContainer = $('.family-count');
+  var $donationPrice        = $('.donation-price');
 
   var init = function () {
 
@@ -65,6 +90,42 @@ var App = function () {
     $firstSectionInputs.on('change', function(){_displaySection(1)});
     $secondSectionInputs.on('change', function(){_displaySection(2)});
 
+    $optionsInput.on('change', _showMonthlyPrice);
+    $donationsOptions.on('change', _showMonthlyPrice);
+    $donationInput.on('input', throttle(_updateDonationPrice, 250));
+
+  };
+
+  var _showMonthlyPrice = function () {
+
+    if ($(this).hasClass('once')) {
+      $monthlySpans.removeClass('active');
+      monthlyPayment = false;
+    }
+
+    else if ($(this).hasClass('monthly')) {
+      $monthlySpans.addClass('active');
+      monthlyPayment = true;
+    }
+
+    else if ($(this).hasClass('donation-monthly')) {
+      $donationSpan.addClass('active');
+    }
+
+    else if ($(this).hasClass('donation-once')) {
+      $donationSpan.removeClass('active');
+    }
+
+    updateTotalPrice();
+
+  };
+
+  var _updateDonationPrice = function () {
+
+    var donation = $(this).val();
+    donation = parseInt(donation);
+
+    updateTotalPrice('donation', donation)
   };
 
   var _fixedElement = function () {
@@ -189,10 +250,65 @@ var App = function () {
 
   };
 
+  var updateTotalPrice = function (option, price) {
+    if (option === 'package') {
+      packagePrice = price;
+      totalPrice = packagePrice + donationPrice + familyPrice;
+    }
+
+    if (option === 'donation') {
+      donationPrice = price;
+      totalPrice = packagePrice + donationPrice + familyPrice;
+    }
+
+    if (option === 'addFamily') {
+      familyPrice = price;
+      totalPrice = packagePrice + donationPrice + familyPrice;
+      familyCount = familyPrice / 12;
+    }
+
+    if (option === 'removeFamily') {
+      familyPrice = price;
+      totalPrice = packagePrice + donationPrice + familyPrice;
+      familyCount = familyPrice / 12;
+    }
+
+    if (monthlyPayment) {
+      // update all prices monthly
+      $subscriptionPrice.eq(0).html(packagePrice);
+      $subscriptionPrice.eq(1).html(_toFixed(packagePrice / 12, 2));
+      $priceWithoutPromo.html(_toFixed(totalPrice / 12, 2));
+      $priceWithPromo.html(_toFixed(((totalPrice - (totalPrice * 66/100)) / 12), 2));
+      $familyPriceContainer.html(_toFixed(familyPrice / 12, 2));
+      $familyCountContainer.html(familyCount);
+      $donationPrice.html(donationPrice);
+    }
+
+    else {
+      // update all prices
+      $subscriptionPrice.html(packagePrice);
+      $priceWithoutPromo.html(totalPrice);
+      $priceWithPromo.html(_toFixed(totalPrice - (totalPrice * 66/100), 2));
+      $familyPriceContainer.html(familyPrice);
+      $familyCountContainer.html(familyCount);
+      $donationPrice.html(donationPrice);
+    }
+
+    
+  };
+
+  // Helper function to splice decimals after 2
+  var _toFixed = function (num, fixed) {
+    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+    return num.toString().match(re)[0];
+  };
+
   init();
 
   return {
-    init: init
+    init: init,
+    updateTotalPrice: updateTotalPrice,
+    sections: sections
   };
 
 };

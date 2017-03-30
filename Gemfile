@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby "2.3.1"
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'pry'
 end
 
 group :development do
@@ -49,6 +50,22 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :production do
+  gem 'wkhtmltopdf-heroku'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
+gem 'delayed_job_active_record'
+gem 'rails_admin', '~> 1.1.1'
+gem 'cancancan'
+gem 'activemodel-serializers-xml', git: 'https://github.com/rails/activemodel-serializers-xml'
+gem 'draper', github: 'audionerd/draper', branch: 'rails5'
+gem 'pundit'
+gem 'httparty'
+gem 'config'
+gem 'json'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+

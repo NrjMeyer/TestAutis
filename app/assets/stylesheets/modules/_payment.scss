@@ -47,6 +47,10 @@
     cursor: pointer;
     height: 75px;
 
+    &.cheque {
+      border-right: none;
+    }
+
     @include mobile {
       border-right: none;
       height: initial;
@@ -86,6 +90,7 @@
     display: none;
     background: $white;
     padding: rem(30px) rem(76px);
+    width: 100%;
 
     &--small {
       padding: rem(30px) rem(112px);
@@ -96,21 +101,6 @@
     background: $white;
     padding: rem(20px);
     display: none;
-  }
-
-  &__card, &__debit {
-
-    .custom-radio--block {
-      margin-top: rem(20px);
-    }
-    .custom-radio--block span {
-      color: #BBBBBB;
-    }
-
-    .custom-radio--block span a {
-      color: inherit;
-      margin-left: rem(4px);
-    }
   }
 
   &__paypal {

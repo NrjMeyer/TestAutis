@@ -6,6 +6,7 @@ capybara-*.html
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /public/system
+/public/pdfs
 /coverage/
 /spec/tmp
 **.orig
@@ -46,3 +47,14 @@ bower.json
 # Ignore node_module for mail template
 /app/front-mail/node_modules
 /app/front-mail/dist
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
+# Ignore node_module for mail template
+/app/front-mail/node_modules
+/app/front-mail/dist
+
+app/assets/\.DS_Store

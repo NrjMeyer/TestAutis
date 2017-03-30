@@ -44,3 +44,11 @@
     padding: rem(10px) rem(20px);
   }
 }
+
+.monthly-payment, .monthly-donation {
+  display: none;
+
+  &.active {
+    display: inline;
+  }
+}
