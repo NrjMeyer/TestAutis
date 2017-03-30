@@ -75,6 +75,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         if payment['state'] == 'approved' || payment['state'] == 'Active'
           generate_pdf(@payment, "paypal", Digest::SHA1.hexdigest("p" + @payment.id.to_s)[0..7])
+          ConfirmMailer.success_subscription(@user).deliver_now
           render 'users/confirmations/confirm'
         else
           redirect_to root_path
@@ -89,12 +90,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
         
         generate_pdf(@payment, "paypal", Digest::SHA1.hexdigest("p" + @payment.id.to_s)[0..7])
+        ConfirmMailer.success_subscription(@user).deliver_now
         render 'users/confirmations/confirm'
 
       elsif @user.payment_option == 'cheque'
 
         @payment = PaymentCheque.where(user_id: @user.id).last
         generate_pdf(@payment, "cheque", Digest::SHA1.hexdigest("c" + @payment.id.to_s)[0..7])
+        ConfirmMailer.success_subscription(@user).deliver_now
         render 'user/confirmations/confirm'
       end
     end

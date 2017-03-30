@@ -26,10 +26,22 @@
   <spacer size="40"></spacer>
   <row class="va-content">
     <columns large="12">
-      <p class="va-content__text">Bonjour <%= @email %>!</p>
-      <p class="va-content__text">Vous pouvez confirmer votre inscription en cliquant sur le lien ci dessous :</p>
-      <p class="va-content__text"><%= link_to 'Confirmer mon compte', confirmation_url(@resource, confirmation_token: @token) %></p>
+      <p class="va-content__text">Madame/Monsieur,</p>
+      <p class="va-content__text">Au nom de toute l'association Vaincre l'Autisme : <span class="primary">merci !</span></p>
+      <p class="va-content__text">VAINCRE L'AUTISME vous remercie chaleureusement pour votre adhésion ! Vous pourrez très bientôt obtenir votre carte d'adhérent via l'espace adhérent qui vous sera dédié. Votre soutien permet à VAINCRE L’AUTISME de poursuivre son action contre l’autisme : défendre les droits des enfants qui en sont affectés, agir pour faire connaître et reconnaître cette maladie, innover en matière de droit et de prise en charge.
+      Votre engagement à nos côtés constitue votre pierre à l’édifice d’un avenir meilleur pour les personnes autistes, vous pouvez en être fier !</p>
     </columns>
+  </row>
+  <row class="va-content">
+    <columns>
+      <img src="assets/img/main-picture.png" alt="Photo d'enfant autiste" class="va-content__picture">
+      <p class="va-content__text">Nous restons à votre disposition pour toute information complémentaire.
+      <br>
+
+      En vous remerciant une nouvelle fois pour votre générosité et votre engagement, je vous prie de croire, Madame/Monsieur, à l’expression de mes sentiments les meilleurs.</p>
+    </columns>
+  </row>
+  <row>
   </row>
   <spacer size="50"></spacer>
   <row>
