@@ -354,7 +354,7 @@
             </div>
             <input type="radio" id="debit" name="payment_option" value="debit" required>
             <div class="payment__section--mobile payment__debit" data-option="debit">
-              <p class="phone-tip">Ce moyen de paiement n'est pas encore disponible.</p>
+              <p>Ce moyen de paiement n'est pas encore disponible.</p>
 
               <!-- UNCOMMENT THIS WHEN OKAY -->
 
@@ -390,15 +390,15 @@
           <p class="phone-tip">Ce moyen de paiement n'est pas encore disponible.</p>
         </div>
 
-        <div class="payment__section payment__section--small payment__paypal no-mobile" data-option="paypal">
+        <div class="payment__section payment__paypal no-mobile" data-option="paypal">
           <p>Vous aller être redirigé vers l'interface de paiement PayPal afin de finaliser votre paiement.</p>
           <div class="btn-container">
             <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
           </div>
         </div>
 
-        <div class="payment__section payment__section--small payment__debit no-mobile" data-option="debit">
-          <p class="phone-tip">Ce moyen de paiement n'est pas encore disponible.</p>
+        <div class="payment__section payment__debit no-mobile" data-option="debit">
+          <p>Ce moyen de paiement n'est pas encore disponible.</p>
           <!-- UNCOMMENT THIS WHEN OKAY -->
           <!--<p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
           <div class="btn-container">
