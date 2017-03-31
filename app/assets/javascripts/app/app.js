@@ -206,7 +206,7 @@ var App = function () {
 
     $thirdSectionInputs.on('change input', throttle(function () {
       var empty = $thirdSectionInputs.filter(function () {
-        return this.value === "";
+        return this.value === "" || this.value === false;
       });
 
       if (empty.length === 0 && $paymentSection.hasClass('hidden')) {
