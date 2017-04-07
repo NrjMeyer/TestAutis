@@ -156,7 +156,7 @@
           <div class="form-block__container">
             <div class="no-mobile">Je veux donner</div>
             <%= f.fields_for :dons, Don.new do |don| %>
-              <%= don.number_field :amount, :class => "input input__donation", :id => "donation", :placeholder => "5 euros" %>
+              <%= don.number_field :amount, :class => "input input__donation", :id => "donation", :placeholder => "5 euros", :min => "0" %>
             <% end %>
             <div class="no-mobile">euros.</div>
             <div class="custom-radio__donate">
