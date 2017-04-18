@@ -68,4 +68,5 @@ gem 'config'
 gem 'json'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'mailgun-ruby', '~>1.1.4'
 

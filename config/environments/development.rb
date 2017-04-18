@@ -60,15 +60,31 @@ Rails.application.configure do
   config.const_name = 'Settings'
   config.use_env = true
 
+  # config.action_mailer.delivery_method = :mailgun
+  # config.action_mailer.mailgun_settings = {
+  #     api_key: 'key-6ed71e42f2d66d7283c17ce77adf28f3',
+  #     domain: 'http://sandbox60e12fa4a97f409181ee5fab200bae13.mailgun.org'
+  # }
+
+
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.gmail.com',
-    :domain         => 'mail.google.com',
+    :address        => 'smtp.mailgun.org',
+    :domain         => 'sandbox60e12fa4a97f409181ee5fab200bae13',
     :port           => 587,
-    :user_name      => 'vaincrelautisme17@gmail.com',
-    :password       => 'vaincrelautisme',
-    :authentication => :plain,
+    :user_name      => 'postmaster@mg.vaincrelautisme.org',
+    :password       => '8c8d3f1b76e908579a24973f87dfc8e7',
   }
+
+  # ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.smtp_settings = {
+  #   :address        => 'smtp.gmail.com',
+  #   :domain         => 'mail.google.com',
+  #   :port           => 587,
+  #   :user_name      => 'vaincrelautisme17@gmail.com',
+  #   :password       => 'vaincrelautisme',
+  #   :authentication => :plain,
+  # }
 
 
 end
