@@ -25,5 +25,6 @@ $(document).on('turbolinks:load', function () {
   var packages = new Packages(app);
   var addMember = new FamilyMember(app);
   var hideMonthly = new HideMonthly(app);
+  var toggleCheque = new ToggleCheque();
 
 });

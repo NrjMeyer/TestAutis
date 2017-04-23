@@ -156,7 +156,7 @@
           <div class="form-block__container">
             <div class="no-mobile">Je veux donner</div>
             <%= f.fields_for :dons, Don.new do |don| %>
-              <%= don.number_field :amount, :class => "input input__donation", :id => "donation", :placeholder => "5 euros" %>
+              <%= don.number_field :amount, :class => "input input__donation", :id => "donation", :placeholder => "5 euros", :min => "0" %>
             <% end %>
             <div class="no-mobile">euros.</div>
             <div class="custom-radio__donate">
@@ -354,10 +354,14 @@
             </div>
             <input type="radio" id="debit" name="payment_option" value="debit" required>
             <div class="payment__section--mobile payment__debit" data-option="debit">
-              <p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
+              <p>Ce moyen de paiement n'est pas encore disponible.</p>
+
+              <!-- UNCOMMENT THIS WHEN OKAY -->
+
+              <!--<p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
               <div class="btn-container">
                 <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
-              </div>
+              </div>-->
             </div>
           </div>
           <div class="payment__container">
@@ -386,18 +390,20 @@
           <p class="phone-tip">Ce moyen de paiement n'est pas encore disponible.</p>
         </div>
 
-        <div class="payment__section payment__section--small payment__paypal no-mobile" data-option="paypal">
+        <div class="payment__section payment__paypal no-mobile" data-option="paypal">
           <p>Vous aller être redirigé vers l'interface de paiement PayPal afin de finaliser votre paiement.</p>
           <div class="btn-container">
             <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
           </div>
         </div>
 
-        <div class="payment__section payment__section--small payment__debit no-mobile" data-option="debit">
-          <p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
+        <div class="payment__section payment__debit no-mobile" data-option="debit">
+          <p>Ce moyen de paiement n'est pas encore disponible.</p>
+          <!-- UNCOMMENT THIS WHEN OKAY -->
+          <!--<p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
           <div class="btn-container">
             <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
-          </div>
+          </div>-->
         </div>
 
         <div class="payment__section payment__cheque no-mobile" data-option="cheque">

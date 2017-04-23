@@ -109,11 +109,19 @@ var App = function () {
     }
 
     else if ($(this).hasClass('donation-monthly')) {
+      if (!$monthlySpans.hasClass('active')) {
+        $monthlySpans.addClass('active');
+      };
       $donationSpan.addClass('active');
+      monthlyPayment = true;
     }
 
     else if ($(this).hasClass('donation-once')) {
+      if ($monthlySpans.hasClass('active')) {
+        $monthlySpans.removeClass('active');
+      };
       $donationSpan.removeClass('active');
+      monthlyPayment = false;
     }
 
     updateTotalPrice();
@@ -206,7 +214,7 @@ var App = function () {
 
     $thirdSectionInputs.on('change input', throttle(function () {
       var empty = $thirdSectionInputs.filter(function () {
-        return this.value === "";
+        return this.value === "" || this.value === false;
       });
 
       if (empty.length === 0 && $paymentSection.hasClass('hidden')) {
