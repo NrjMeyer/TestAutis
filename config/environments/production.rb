@@ -85,15 +85,26 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'http://adhesion.vaincrelautisme.org/' }
 
 
+  config.mailer_sender = 'donateur@vaincrelautisme.org'
+
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
-    :address        => 'smtp.gmail.com',
-    :domain         => 'mail.google.com',
+    :address        => 'smtp.mailgun.org',
+    :domain         => 'sandbox60e12fa4a97f409181ee5fab200bae13',
     :port           => 587,
-    :user_name      => 'vaincrelautisme17@gmail.com',
-    :password       => 'vaincrelautisme',
-    :authentication => :plain,
+    :user_name      => 'postmaster@mg.vaincrelautisme.org',
+    :password       => '8c8d3f1b76e908579a24973f87dfc8e7',
   }
+
+  # ActionMailer::Base.delivery_method = :smtp
+  # ActionMailer::Base.smtp_settings = {
+  #   :address        => 'smtp.gmail.com',
+  #   :domain         => 'mail.google.com',
+  #   :port           => 587,
+  #   :user_name      => 'vaincrelautisme17@gmail.com',
+  #   :password       => 'vaincrelautisme',
+  #   :authentication => :plain,
+  # }
 
 
   # Do not dump schema after migrations.
