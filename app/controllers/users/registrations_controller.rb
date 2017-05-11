@@ -2,6 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   include Encrypt
   include Paypal
   include Slimpay
+  include Cb
 
   before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
@@ -9,7 +10,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   def new_cb
-    render plain: 'ok'
+
+    if params[:DATA] != nil
+      Cb.response(params[:DATA])
+      render plain: 'ok'
+    else
+      render plain: 'non'
+    end
+
   end
 
   def new

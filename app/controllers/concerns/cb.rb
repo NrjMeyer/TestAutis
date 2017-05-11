@@ -25,7 +25,21 @@ module Cb
 
   end
 
-  def self.response
+  def self.response(data)
+
+    file = File.join(Rails.root, 'bin')
+
+    message = "message=#{data}"
+
+    pathfile = "pathfile='#{file}/cb_payment/param/pathfile'"
+
+    pathbin = "#{file}/cb_payment/response"
+
+    cmd = "#{pathbin} #{pathfile} #{message}"
+
+    stdin, stdout, stderr = Open3.popen3(cmd)
+    out = stdout.read
+    return result = out.split('!')
   end
 
 end
