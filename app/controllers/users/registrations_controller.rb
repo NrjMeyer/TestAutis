@@ -8,6 +8,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
 
+  def new_cb
+    render plain: 'ok'
+  end
+
   def new
     # Use Paypal
     if params.has_key?(:paymentId)

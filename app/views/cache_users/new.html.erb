@@ -327,7 +327,8 @@
             </div>
             <input type="radio" id="card" name="payment_option" value="card"required>
             <div class="payment__section--mobile payment__card" data-option="card">
-              <p class="phone-tip">Ce moyen de paiement n'est pas encore disponible.</p>
+              <p class="phone-tip">Payez par carte</p>
+              <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
             </div>
           </div>
           <div class="payment__container">
@@ -387,7 +388,8 @@
         </div>
 
         <div class="payment__section payment__card no-mobile" data-option="card">
-          <p class="phone-tip">Ce moyen de paiement n'est pas encore disponible.</p>
+          <p class="phone-tip">Payez par carte</p>
+          <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
         </div>
 
         <div class="payment__section payment__paypal no-mobile" data-option="paypal">
@@ -398,12 +400,11 @@
         </div>
 
         <div class="payment__section payment__debit no-mobile" data-option="debit">
-          <p>Ce moyen de paiement n'est pas encore disponible.</p>
-          <!-- UNCOMMENT THIS WHEN OKAY -->
-          <!--<p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
+          <!-- <p>Ce moyen de paiement n'est pas encore disponible.</p> -->
+          <p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
           <div class="btn-container">
             <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
-          </div>-->
+          </div>
         </div>
 
         <div class="payment__section payment__cheque no-mobile" data-option="cheque">
