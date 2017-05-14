@@ -2,11 +2,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
   include Encrypt
   include Paypal
   include Slimpay
+  include Cb
 
   before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
+
+  def new_cb
+    result = Cb.response(params[:DATA])
+    createUserCard(result, cookies.signed.encrypted[:id])
+    cookies.delete :amount
+    cookies.delete :id
+  end
 
   def new
     # Use Paypal
@@ -107,13 +115,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "cheque")
         render 'users/confirmations/confirm'
+      elsif @user.payment_option == "card"
+
+        @payment = CardPayment.where(user_id: @user.id).last
+        ConfirmMailer.success_subscription(@user).deliver_now
+        # generate_pdf(@payment, "carte")
+        render 'users/confirmations/confirm'
       end
     end
   end
 
   def generate_pdf(payment, method)
     receipt_id = method + payment.id.to_s + "/" + Time.current.year.to_s
-    amount = payment.reduction
+    amount = payment.amount
     payment_method = method
     adress = payment.user.address + " " + payment.user.address_extend + " " + payment.user.post_code.to_s + " " + payment.user.city
     name = payment.user.name + " " + payment.user.surname
@@ -182,6 +196,53 @@ class Users::RegistrationsController < Devise::RegistrationsController
         }.to_json
       )
     end
+  end
+
+  def createUserCard(param, cookie_id)
+    @cache_user = CacheUser.find_by(payment_id: cookie_id)
+
+    if user_already_exist(@cache_user.email)
+      CacheUser.where(email: @cache_user.email).destroy_all
+      redirect_to erreur_path and return
+    end
+
+    password = Encrypt.decryption(@cache_user.password)
+    @user = User.create(
+      email: @cache_user.email,
+      password: password,
+      name: @cache_user.name,
+      surname: @cache_user.surname,
+      phone_number: @cache_user.phone_number,
+      address: @cache_user.address,
+      address_extend: @cache_user.address_extend,
+      post_code: @cache_user.post_code,
+      city: @cache_user.city,
+      tax_receipt: @cache_user.tax_receipt,
+      newsletter: @cache_user.newsletter,
+      monthly_payment: @cache_user.monthly,
+      payment_option: 'card',
+    )
+
+    if @cache_user.dons
+      @user.dons << @cache_user.dons
+    end
+
+    @user.save
+
+    # Le montant du payement passé à l'api est sans virgule, on divise donc par 100
+    # => 4000 de l'api ==> 4000 / 100 = 40
+    converted_amount = param[5].to_i / 100
+
+    CardPayment.create(user_id: @user.id, amount: converted_amount, payment_reference: param[6])
+
+    side_users = SideUser.where(cache_user_id: @cache_user.id)
+
+    side_users.each do |side_user|
+      side_user.user_id = @user.id
+      side_user.save
+    end
+
+    return @user
   end
 
   def createUserCheque(key)

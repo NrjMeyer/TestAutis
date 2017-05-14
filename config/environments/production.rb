@@ -85,7 +85,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => 'http://adhesion.vaincrelautisme.org/' }
 
 
-  config.mailer_sender = 'donateur@vaincrelautisme.org'
+  config.mailer_sender = 'dons-adhesions@vaincrelautisme.org'
 
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {

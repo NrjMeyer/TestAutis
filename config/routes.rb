@@ -9,7 +9,12 @@ Rails.application.routes.draw do
   get '/annulation', to: 'cache_users#cancel'
   post '/inscription_payment', to: 'cache_users#create'
 
+  get '/cb', to: 'cache_users#payment'
+
   devise_scope :user do
+    # CB payment route
+    post '/cb_validation', to: 'users/registrations#new_cb'
+  
     get '/validation', to: 'users/registrations#new'
     get '/execute_payment', to: 'users/registrations#payment'
   end

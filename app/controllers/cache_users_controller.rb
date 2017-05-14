@@ -2,6 +2,7 @@ class CacheUsersController < ApplicationController
   include Paypal
   include Slimpay
   include Encrypt
+  include Cb
 
   def new
     @offers = Offer.all
@@ -73,15 +74,6 @@ class CacheUsersController < ApplicationController
           cache_user_id: @user.id
         )
         @user.slimpay_payment = slimpay_payment
-      elsif payment_option == 'card'
-        token = Slimpay.get_token
-        payment_data = Slimpay.simpleCardPayment(token, total_payment_amount, @user.email)
-        payment_json = JSON.parse(payment_data)
-        slimpay_payment = SlimpayPayment.create(
-          payment_reference: payment_json['reference'],
-          amount: total_payment_amount
-        )
-        @user.payment_id = payment_json['reference']
       elsif payment_option == 'cheque'
         payment_key = (0...8).map { (65 + rand(26)).chr }.join
         @user.payment_id = payment_key
@@ -127,9 +119,13 @@ class CacheUsersController < ApplicationController
         else
           redirect_to payment_data['links'][0]['href']
         end
-      elsif payment_option == 'debit' || payment_option == 'card'
+      elsif payment_option == 'debit' 
         cookies.signed.encrypted[:id] = payment_json['reference']
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
+      elsif payment_option == 'card'
+        cookies.signed.encrypted[:id] = @user.id
+        cookies.signed.encrypted[:amount] = total_payment_amount.to_s + "00"
+        redirect_to '/cb'
       end
     else
       puts @user.errors.inspect
@@ -140,4 +136,7 @@ class CacheUsersController < ApplicationController
     
   end
 
+  def payment
+    render :text => Cb.request(cookies.signed.encrypted[:amount])
+  end
 end
