@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
-    createUserCard(result, cookies.signed.encrypted[:id], cookies.signed.encrypted[:amount])
+    createUserCard(result, cookies.signed.encrypted[:id])
     cookies.delete :amount
     cookies.delete :id
   end
@@ -115,13 +115,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "cheque")
         render 'users/confirmations/confirm'
+      elsif @user.payment_option == "card"
+
+        @payment = CardPayment.where(user_id: @user.id).last
+        ConfirmMailer.success_subscription(@user).deliver_now
+        # generate_pdf(@payment, "carte")
+        render 'users/confirmations/confirm'
       end
     end
   end
 
   def generate_pdf(payment, method)
     receipt_id = method + payment.id.to_s + "/" + Time.current.year.to_s
-    amount = payment.reduction
+    amount = payment.amount
     payment_method = method
     adress = payment.user.address + " " + payment.user.address_extend + " " + payment.user.post_code.to_s + " " + payment.user.city
     name = payment.user.name + " " + payment.user.surname
@@ -169,7 +175,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
     )
   end
 
-  def createUserCard(param, cookie_id, amount)
+  def validePaymentPaypal(payment, reccuring = false)
+
+    puts payment.inspect
+    if reccuring == true
+      HTTParty.post('https://api.sandbox.paypal.com/v1/payments/billing-agreements/'+payment.token+'/agreement-execute',
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => 'Bearer ' + Paypal.get_token,
+        }
+      )
+    else
+      HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/"+payment.payment+"/execute",
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => 'Bearer ' + Paypal.get_token,
+        },
+        body: {
+          :payer_id => payment.payer
+        }.to_json
+      )
+    end
+  end
+
+  def createUserCard(param, cookie_id)
     @cache_user = CacheUser.find_by(payment_id: cookie_id)
 
     if user_already_exist(@cache_user.email)
@@ -202,9 +231,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     # Le montant du payement passé à l'api est sans virgule, on divise donc par 100
     # => 4000 de l'api ==> 4000 / 100 = 40
-    converted_amount = amount.to_i / 100
-
-    puts param[6]
+    converted_amount = param[5].to_i / 100
 
     CardPayment.create(user_id: @user.id, amount: converted_amount, payment_reference: param[6])
 
@@ -216,30 +243,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     return @user
-  end
-
-
-  def validePaymentPaypal(payment, reccuring = false)
-
-    puts payment.inspect
-    if reccuring == true
-      HTTParty.post('https://api.sandbox.paypal.com/v1/payments/billing-agreements/'+payment.token+'/agreement-execute',
-        headers: {
-          'Content-Type' => 'application/json',
-          'Authorization' => 'Bearer ' + Paypal.get_token,
-        }
-      )
-    else
-      HTTParty.post("https://api.sandbox.paypal.com/v1/payments/payment/"+payment.payment+"/execute",
-        headers: {
-          'Content-Type' => 'application/json',
-          'Authorization' => 'Bearer ' + Paypal.get_token,
-        },
-        body: {
-          :payer_id => payment.payer
-        }.to_json
-      )
-    end
   end
 
   def createUserCheque(key)
