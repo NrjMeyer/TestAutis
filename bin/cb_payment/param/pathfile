@@ -22,7 +22,7 @@ DEBUG!NO!
 F_PATH!/home/thomas/Bureau/Ruby/vaincrelautisme/!
 #
 #
-D_LOGO!http://127.0.0.1:3000/assets/logo/!
+D_LOGO!https://vaincre-l-autisme.herokuapp.com/assets/logo/!
 #
 # --------------------------------------------------------------------------
 #  Fichiers paramètres liés a l'api sogenactif paiement	
