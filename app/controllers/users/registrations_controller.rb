@@ -10,14 +10,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   def new_cb
-
-    if params[:DATA] != nil
-      Cb.response(params[:DATA])
-      render plain: 'ok'
-    else
-      render plain: 'non'
-    end
-
+    result = Cb.response(params[:DATA])
+    createUserCard(result, cookies.signed.encrypted[:id], cookies.signed.encrypted[:amount])
+    cookies.delete :amount
+    cookies.delete :id
   end
 
   def new
@@ -172,6 +168,56 @@ class Users::RegistrationsController < Devise::RegistrationsController
       }.to_json
     )
   end
+
+  def createUserCard(param, cookie_id, amount)
+    @cache_user = CacheUser.find_by(payment_id: cookie_id)
+
+    if user_already_exist(@cache_user.email)
+      CacheUser.where(email: @cache_user.email).destroy_all
+      redirect_to erreur_path and return
+    end
+
+    password = Encrypt.decryption(@cache_user.password)
+    @user = User.create(
+      email: @cache_user.email,
+      password: password,
+      name: @cache_user.name,
+      surname: @cache_user.surname,
+      phone_number: @cache_user.phone_number,
+      address: @cache_user.address,
+      address_extend: @cache_user.address_extend,
+      post_code: @cache_user.post_code,
+      city: @cache_user.city,
+      tax_receipt: @cache_user.tax_receipt,
+      newsletter: @cache_user.newsletter,
+      monthly_payment: @cache_user.monthly,
+      payment_option: 'card',
+    )
+
+    if @cache_user.dons
+      @user.dons << @cache_user.dons
+    end
+
+    @user.save
+
+    # Le montant du payement passé à l'api est sans virgule, on divise donc par 100
+    # => 4000 de l'api ==> 4000 / 100 = 40
+    converted_amount = amount.to_i / 100
+
+    puts param[6]
+
+    CardPayment.create(user_id: @user.id, amount: converted_amount, payment_reference: param[6])
+
+    side_users = SideUser.where(cache_user_id: @cache_user.id)
+
+    side_users.each do |side_user|
+      side_user.user_id = @user.id
+      side_user.save
+    end
+
+    return @user
+  end
+
 
   def validePaymentPaypal(payment, reccuring = false)
 
