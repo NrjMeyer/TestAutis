@@ -119,7 +119,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         @payment = CardPayment.where(user_id: @user.id).last
         ConfirmMailer.success_subscription(@user).deliver_now
-        # generate_pdf(@payment, "carte")
+        generate_pdf(@payment, "carte")
         render 'users/confirmations/confirm'
       end
     end
