@@ -15,6 +15,10 @@ module Cb
     param = "#{param} normal_return_url="+Settings.cb.callback_url_success
     param = "#{param} cancel_return_url="+Settings.cb.callback_url_failure
 
+    puts '---------------------'
+    puts file
+    puts '---------------------'
+
     pathfile = "#{file}/cb_payment/request"
 
     cmd = pathfile + " " + param
