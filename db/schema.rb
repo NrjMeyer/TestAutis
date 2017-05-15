@@ -49,9 +49,11 @@ ActiveRecord::Schema.define(version: 20170512145454) do
   end
 
   create_table "card_payments", force: :cascade do |t|
-    t.string  "user_id"
-    t.string  "payment_reference"
-    t.integer "amount"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "user_id"
+    t.string   "payment_reference"
+    t.integer  "amount"
   end
 
   create_table "cheque_payments", force: :cascade do |t|
