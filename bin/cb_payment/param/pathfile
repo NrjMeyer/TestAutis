@@ -22,7 +22,7 @@ DEBUG!NO!
 F_PATH!/app/!
 #
 #
-D_LOGO!http://adhesion.vaincrelautisme.org/assets/logo/!
+D_LOGO!/app/assets/images/logo/!
 #
 # --------------------------------------------------------------------------
 #  Fichiers paramètres liés a l'api sogenactif paiement	
