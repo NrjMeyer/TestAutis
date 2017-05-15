@@ -11,6 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
+    Cb.autoresponse(params[:DATA])
     createUserCard(result, cookies.signed.encrypted[:id])
     cookies.delete :amount
     cookies.delete :id
