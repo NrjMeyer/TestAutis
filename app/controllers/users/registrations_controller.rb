@@ -17,6 +17,47 @@ class Users::RegistrationsController < Devise::RegistrationsController
     cookies.delete :id
   end
 
+  def new_paypal
+    if CacheUser.find_by(payment_id: params[:token]) != nil
+      @user = createUserPaypal(params, true) or return
+
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
+    else
+      @user = createUserPaypal(params) or return
+
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
+    end
+  end
+
+  def new_slimpay
+    @user = createUserSlimpay(cookies.signed.encrypted[:id]) or return
+
+    if @user.save
+      cookies.delete :id
+      CacheUser.where(email: @user.email).destroy_all
+    else
+      puts @user.errors.inspect
+    end
+  end
+
+  def new_cheque
+    @user = createUserCheque(params[:payment_key]) or return
+
+    if @user.save
+      CacheUser.where(email: @user.email).destroy_all
+    else
+      puts @user.errors.inspect
+    end
+  end
+
   def new
     # Use Paypal
     if params.has_key?(:paymentId)
@@ -80,10 +121,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         if @user.monthly_payment == true
           @payment = PaypalPayment.where(token: @user.paypal_payments.last.token).last
-          puts @payment.inspect
 
           payment = validePaymentPaypal(@payment, true)
-          puts payment
         else
           @payment = PaypalPayment.where(payment: @user.paypal_payments.last.payment).last
 
@@ -100,11 +139,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
         end
 
       elsif @user.payment_option == 'slimpay'
-          @payment = SlimpayPayment.where(payment_reference: @user.slimpay_payments.last.payment_reference).last
+        @payment = SlimpayPayment.where(payment_reference: @user.slimpay_payments.last.payment_reference).last
 
         if @user.monthly_payment == false
           payment = JSON.parse(validePaymentSlimpay(@payment, @user))
-          puts payment
         end
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "paypal")
@@ -177,8 +215,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def validePaymentPaypal(payment, reccuring = false)
-
-    puts payment.inspect
     if reccuring == true
       HTTParty.post('https://api.sandbox.paypal.com/v1/payments/billing-agreements/'+payment.token+'/agreement-execute',
         headers: {

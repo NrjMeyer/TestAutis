@@ -1,3 +1,5 @@
+base:
+  url: 'http://localhost:3000'
 slimpay:
   app_id: 'vaincrelautisme01'
   app_secret: 'Dm29jZbhQjGrdMNeY6ifyayU6qqBggSWTIEO8G8N'

@@ -25,8 +25,8 @@ module Paypal
       body: {
         "intent": "sale",
         "redirect_urls": {
-          "return_url": "http://adhesion.vaincrelautisme.org/validation",
-          "cancel_url": "http://adhesion.vaincrelautisme.org/annulation"
+          "return_url": Settings.base.url + "/validation",
+          "cancel_url": Settings.base.url + "/annulation"
         },
         "payer": {
           "payment_method": "paypal"

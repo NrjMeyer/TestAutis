@@ -1,4 +1,6 @@
-slimpay:
+base:
+  url: 'http://adhesion.vaincrelautisme.org'
+slimpay:  
   app_id: 'vaincrelautisme01'
   app_secret: 'Dm29jZbhQjGrdMNeY6ifyayU6qqBggSWTIEO8G8N'
   encoded_key: 'dmFpbmNyZWxhdXRpc21lMDE6RG0yOWpaYmhRakdyZE1OZVk2aWZ5YXlVNnFxQmdnU1dUSUVPOEc4Tg=='
