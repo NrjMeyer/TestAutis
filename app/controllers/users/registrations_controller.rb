@@ -18,6 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     createUserCard(result, cookies.signed.encrypted[:id])
     cookies.delete :amount
     cookies.delete :id
+    render 'users/registrations/new'
   end
 
   def new_paypal
