@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   devise_scope :user do
     # CB payment route
     post '/cb_validation', to: 'users/registrations#new_cb'
-  
+    get '/cheque_validation', to: 'users/registrations#new_cheque'
+    get '/slimpay_validation', to: 'users/registrations#new_slimpay'
+    get '/paypal_validation', to: 'users/registrations#new_paypal'
+
     get '/validation', to: 'users/registrations#new'
     get '/execute_payment', to: 'users/registrations#payment'
   end
