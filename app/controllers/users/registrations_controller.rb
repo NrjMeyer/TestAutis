@@ -9,9 +9,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
 
+  def auto_response
+    Cb.autoresponse(params[:DATA])
+  end
+
   def new_cb
     result = Cb.response(params[:DATA])
-    Cb.autoresponse(params[:DATA])
+    puts '------------------'
+    puts result
+    puts '------------------'
     createUserCard(result, cookies.signed.encrypted[:id])
     cookies.delete :amount
     cookies.delete :id
@@ -157,6 +163,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
       elsif @user.payment_option == "card"
 
         @payment = CardPayment.where(user_id: @user.id).last
+        puts '---------------------'
+        puts @payment
+        puts '---------------------'
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "carte")
         render 'users/confirmations/confirm'

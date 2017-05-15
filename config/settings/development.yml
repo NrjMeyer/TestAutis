@@ -21,3 +21,4 @@ encrypt:
 cb:
   callback_url_success: http://127.0.0.1:3000/cb_validation
   callback_url_failure: http://127.0.0.1:3000/annulation
+  automatic_response_url: http://127.0.0.1:3000/cb_autoresponse
