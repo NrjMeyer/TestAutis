@@ -15,10 +15,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
-    createUserCard(result, cookies.signed.encrypted[:id])
-    cookies.delete :amount
-    cookies.delete :id
-    render 'users/registrations/new'
+    @user = createUserCard(result, cookies.signed.encrypted[:id])
+    
+    if @user.save
+      CacheUser.where(email: @user.email).destroy_all
+      cookies.delete :amount
+      cookies.delete :id
+      render 'users/registrations/new'
+    else
+      render 'cache_users/error'
+    end
   end
 
   def new_paypal
