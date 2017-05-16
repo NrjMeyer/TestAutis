@@ -274,13 +274,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user.dons << @cache_user.dons
     end
 
-    @user.save
-
     # Le montant du payement passé à l'api est sans virgule, on divise donc par 100
     # => 4000 de l'api ==> 4000 / 100 = 40
     converted_amount = param[5].to_i / 100
 
-    CardPayment.create(user_id: @user.id, amount: converted_amount, payment_reference: param[6])
+    payment = CardPayment.create(user_id: @user.id, amount: converted_amount, payment_reference: param[6])
+
+    @user.offer_id = payment.id
+    @user.save
 
     side_users = SideUser.where(cache_user_id: @cache_user.id)
 
