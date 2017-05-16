@@ -14,6 +14,7 @@ module Cb
     param = "#{param} pathfile='#{file}/cb_payment/param/pathfile'"
     param = "#{param} normal_return_url="+Settings.cb.callback_url_success
     param = "#{param} cancel_return_url="+Settings.cb.callback_url_failure
+    param = "#{param} automatic_response_url="+Settings.cb.automatic_response_url
 
     pathfile = "#{file}/cb_payment/request"
 
@@ -105,6 +106,7 @@ module Cb
         File.write(logpath, "-------------------------------------------\n");
     end
 
+    return result
   end
 
 end

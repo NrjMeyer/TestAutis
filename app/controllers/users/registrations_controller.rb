@@ -10,14 +10,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
 
   def auto_response
-    Cb.autoresponse(params[:DATA])
+    result = Cb.autoresponse(params[:DATA])
+    createUserCard(result, cookies.signed.encrypted[:id])
+    cookies.delete :amount
+    cookies.delete :id
   end
 
   def new_cb
     result = Cb.response(params[:DATA])
-    createUserCard(result, cookies.signed.encrypted[:id])
-    cookies.delete :amount
-    cookies.delete :id
     render 'users/registrations/new'
   end
 
