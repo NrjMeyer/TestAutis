@@ -43,7 +43,7 @@ var App = function (isSubscription) {
   var $thirdSectionInputs  = $('.info-input');
 
   // Paying monthly input
-  var $optionsInput  = $('.option-input');
+  var $optionsInput = $('.option-input');
   var monthlyPayment = false;
   var $monthlySpans  = $('.monthly-payment');
 
@@ -322,19 +322,10 @@ var App = function (isSubscription) {
         $donationPrice.html(donationPrice);
       }
     } else {
-      if (monthlyPayment) {
-        // update all prices monthly
-        $priceWithoutPromo.html(_toFixed(totalPrice / 12, 2));
-        $priceWithPromo.html(_toFixed(((totalPrice - (totalPrice * 66/100)) / 12), 2));
-        $donationPrice.html(packagePrice);
-      }
-
-      else {
         // update all prices
         $priceWithoutPromo.html(totalPrice);
         $priceWithPromo.html(_toFixed(totalPrice - (totalPrice * 66/100), 2));
         $donationPrice.html(packagePrice);
-      }
     }
 
     

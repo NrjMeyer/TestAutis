@@ -196,6 +196,19 @@
       <div class="form-block">
         <div class="form-block__top form-block__top--mobile">Je crée mon compte</div>
         <div class="form-block__bottom form-block__bottom--mobile">
+          <div class="form-block__container form-block__container--donation">
+            <div class="special">Je souhaite :</div>
+            <div class="custom-radio__container">
+              <label for="create" class="custom-radio">
+                <input type="radio" id="create" name="create-account" class="option-input create">
+                <span>créer un compte</span>
+              </label>
+              <label for="goto-payment" class="custom-radio">
+                <input type="radio" id="goto-payment" name="create-account" class="option-input goto-payment">
+                <span>passer directement à l'étape de paiement</span>
+              </label>
+            </div>
+          </div>
           <div class="input-row">
             <input type="mail" class="input__classic info-input" placeholder="Adresse e-mail" required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
           </div>
