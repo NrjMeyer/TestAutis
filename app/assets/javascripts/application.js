@@ -18,11 +18,17 @@
 
 $(document).on('turbolinks:load', function () {
 
-  var app = new App();
+  var isSubscription = false;
+
+  if ($('.main__container').hasClass('is-subscription')) {
+    isSubscription = true;
+  }
+
+  var app = new App(isSubscription);
   var form = new Form();
   var payment = new Payment();
   var donation = new Donation();
-  var packages = new Packages(app);
+  var packages = new Packages(app, isSubscription);
   var addMember = new FamilyMember(app);
   var hideMonthly = new HideMonthly(app);
   var toggleCheque = new ToggleCheque();

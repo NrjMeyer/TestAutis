@@ -1,4 +1,4 @@
-var Packages = function (app) {
+var Packages = function (app, isSubscription) {
 
   'use strict';
 
@@ -49,10 +49,17 @@ var Packages = function (app) {
     $chooseButtons.removeClass('btn__choose--selected');
 
     target.addClass('btn__choose--selected');
-    target.text('formule sélectionnée');
-    old.text('choisir cette formule');
 
+    if (isSubscription) {
+      target.text('formule sélectionnée');
+      old.text('choisir cette formule');
+    } else {
+      target.text('sélectionné');
+      old.text('choisir');
+    }
+    
     app.updateTotalPrice('package', targetPrice);
+    
 
   };
 

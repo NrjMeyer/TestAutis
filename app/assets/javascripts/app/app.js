@@ -1,4 +1,4 @@
-var App = function () {
+var App = function (isSubscription) {
 
   'use strict';
 
@@ -22,12 +22,20 @@ var App = function () {
 
   if ($('.main__container').hasClass('js-variables')) {
     offsetChoice  = $choiceSection.offset().top;
-    offsetOptions = $optionsSection.offset().top;
     offsetInfos   = $infosSection.offset().top;
     offsetPayment = $paymentSection.offset().top;
+
+    if (isSubscription) {
+      offsetOptions = $optionsSection.offset().top;
+    }
   }
 
-  var offsets = [offsetChoice, offsetOptions, offsetInfos, offsetPayment];
+  var offsets;
+  if (isSubscription) {
+    offsets = [offsetChoice, offsetOptions, offsetInfos, offsetPayment];
+  } else {
+    offsets = [offsetChoice, offsetInfos, offsetPayment];
+  }
 
   // Display sections variables
   var $firstSectionInputs  = $('.formule-input');
@@ -99,12 +107,23 @@ var App = function () {
   var _showMonthlyPrice = function () {
 
     if ($(this).hasClass('once')) {
-      $monthlySpans.removeClass('active');
+      if (isSubscription) {
+        $monthlySpans.removeClass('active');
+      } else {
+        $monthlySpans.removeClass('active');
+        $donationSpan.removeClass('active');
+      }
       monthlyPayment = false;
     }
 
     else if ($(this).hasClass('monthly')) {
-      $monthlySpans.addClass('active');
+      if (isSubscription) {
+        $monthlySpans.addClass('active');
+      } else {
+        $monthlySpans.addClass('active');
+        $donationSpan.addClass('active');
+      }
+      
       monthlyPayment = true;
     }
 
@@ -138,7 +157,7 @@ var App = function () {
 
   var _fixedElement = function () {
 
-    var sectionWidth = $('.options').outerWidth();
+    var sectionWidth = $('.payment').outerWidth();
 
     if ($(window).width() > 1149) {
       $fixedBar.css({
@@ -281,26 +300,44 @@ var App = function () {
       familyCount = familyPrice / 12;
     }
 
-    if (monthlyPayment) {
-      // update all prices monthly
-      $subscriptionPrice.eq(0).html(packagePrice);
-      $subscriptionPrice.eq(1).html(_toFixed(packagePrice / 12, 2));
-      $priceWithoutPromo.html(_toFixed(totalPrice / 12, 2));
-      $priceWithPromo.html(_toFixed(((totalPrice - (totalPrice * 66/100)) / 12), 2));
-      $familyPriceContainer.html(_toFixed(familyPrice / 12, 2));
-      $familyCountContainer.html(familyCount);
-      $donationPrice.html(donationPrice);
+    if (isSubscription) {
+      if (monthlyPayment) {
+        // update all prices monthly
+        $subscriptionPrice.eq(0).html(packagePrice);
+        $subscriptionPrice.eq(1).html(_toFixed(packagePrice / 12, 2));
+        $priceWithoutPromo.html(_toFixed(totalPrice / 12, 2));
+        $priceWithPromo.html(_toFixed(((totalPrice - (totalPrice * 66/100)) / 12), 2));
+        $familyPriceContainer.html(_toFixed(familyPrice / 12, 2));
+        $familyCountContainer.html(familyCount);
+        $donationPrice.html(donationPrice);
+      }
+
+      else {
+        // update all prices
+        $subscriptionPrice.html(packagePrice);
+        $priceWithoutPromo.html(totalPrice);
+        $priceWithPromo.html(_toFixed(totalPrice - (totalPrice * 66/100), 2));
+        $familyPriceContainer.html(familyPrice);
+        $familyCountContainer.html(familyCount);
+        $donationPrice.html(donationPrice);
+      }
+    } else {
+      if (monthlyPayment) {
+        // update all prices monthly
+        $priceWithoutPromo.html(_toFixed(totalPrice / 12, 2));
+        $priceWithPromo.html(_toFixed(((totalPrice - (totalPrice * 66/100)) / 12), 2));
+        $donationPrice.html(packagePrice);
+      }
+
+      else {
+        // update all prices
+        $priceWithoutPromo.html(totalPrice);
+        $priceWithPromo.html(_toFixed(totalPrice - (totalPrice * 66/100), 2));
+        $donationPrice.html(packagePrice);
+      }
     }
 
-    else {
-      // update all prices
-      $subscriptionPrice.html(packagePrice);
-      $priceWithoutPromo.html(totalPrice);
-      $priceWithPromo.html(_toFixed(totalPrice - (totalPrice * 66/100), 2));
-      $familyPriceContainer.html(familyPrice);
-      $familyCountContainer.html(familyCount);
-      $donationPrice.html(donationPrice);
-    }
+    
 
     
   };

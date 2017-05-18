@@ -16,6 +16,14 @@
       background: $pink;
     }
 
+    &--donation {
+      width: 112px;
+
+      &.btn__choose--selected {
+        background: $green;
+      }
+    }
+
     @include mobile {
       width: 100%;
       padding: rem(12px) rem(10px);

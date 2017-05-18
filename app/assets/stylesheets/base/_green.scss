@@ -1,0 +1,37 @@
+.is-donation {
+  .btn {
+    &__payment, &__contact, &__download {
+      background-color: $green;
+    }
+  }
+
+  .custom-radio {
+    input:checked + span:before {
+      background: $green;
+      border: 1px solid $green;
+    }
+  }
+
+  .cards__input {
+    span:before {
+      background: $green;
+      border: 1px solid $green;
+    }
+  }
+
+  .payment__option--selected {
+    background: $green;
+  }
+
+  .price-table--highlighted {
+    background: $green;
+  }
+}
+
+.sidebar--donation .sidebar__item--current {
+  color: $green;
+}
+
+.header--donation .menu__item--highlighted {
+  background: $green;
+}

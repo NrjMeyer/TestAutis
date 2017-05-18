@@ -10,12 +10,11 @@
   display: inline-block;
   vertical-align: top;
 
-  &:first-child {
-    margin-bottom: rem(10px);
-  }
-
   @include mobile {
     display: block;
+    &:first-child {
+      margin-bottom: rem(10px);
+    }
   }
 }
 
