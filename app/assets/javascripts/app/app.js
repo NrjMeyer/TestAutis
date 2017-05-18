@@ -75,7 +75,10 @@ var App = function (isSubscription) {
     _initEvents();
     _fixedElement();
     _initSelects();
-    _checkThirdSection();
+    
+    if (isSubscription) {
+      _checkThirdSection();
+    }
 
     if ($(window).width() > 1149) {
       _highlightSection();
@@ -95,8 +98,8 @@ var App = function (isSubscription) {
     $(window).on('resize', _fixedElement);
 
     $sidebarItems.on('click', _goToSection);
-    $firstSectionInputs.on('change', function(){_displaySection(1)});
-    $secondSectionInputs.on('change', function(){_displaySection(2)});
+    $firstSectionInputs.on('change', function(){displaySection(1)});
+    $secondSectionInputs.on('change', function(){displaySection(2)});
 
     $optionsInput.on('change', _showMonthlyPrice);
     $donationsOptions.on('change', _showMonthlyPrice);
@@ -238,21 +241,21 @@ var App = function (isSubscription) {
 
       if (empty.length === 0 && $paymentSection.hasClass('hidden')) {
         if ($('.main-form').parsley().validate({group: 'block-3'})) {
-          _displaySection(3);
-          $(window).on('scroll', throttle(_removeFixedElement, 250));
+          displaySection(3);
+          $(window).on('scroll', throttle(removeFixedElement, 250));
         }
       }
     }, 500));
 
   };
 
-  var _removeFixedElement = function () {
+  var removeFixedElement = function () {
     if ($fixedBar.offset().top > $('.js-sticky').offset().top) {
       $fixedBar.hide();
     }
   };
 
-  var _displaySection = function (number) {
+  var displaySection = function (number) {
 
     var current = $allSections[number];
 
@@ -343,6 +346,8 @@ var App = function (isSubscription) {
 
   return {
     init: init,
+    displaySection: displaySection,
+    removeFixedElement: removeFixedElement,
     updateTotalPrice: updateTotalPrice,
     sections: sections
   };

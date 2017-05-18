@@ -33,4 +33,8 @@ $(document).on('turbolinks:load', function () {
   var hideMonthly = new HideMonthly(app);
   var toggleCheque = new ToggleCheque();
 
+  if (!isSubscription) {
+    var showForm = new ShowForm(app);
+  }
+
 });

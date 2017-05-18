@@ -79,11 +79,11 @@
             <div class="special">Je veux payer mon don :</div>
             <div class="custom-radio__container">
               <label for="once" class="custom-radio">
-                <input type="radio" id="once" name="monthly" class="option-input once" value="false">
+                <input type="radio" id="once" name="monthly" class="recurring-input once" value="false">
                 <span>en une seule fois</span>
               </label>
               <label for="monthly" class="custom-radio monthly-offer">
-                <input type="radio" id="monthly" name="monthly" class="option-input monthly" value="true">
+                <input type="radio" id="monthly" name="monthly" class="recurring-input monthly" value="true">
                 <span>mensuellement</span>
               </label>
             </div>
@@ -200,51 +200,53 @@
             <div class="special">Je souhaite :</div>
             <div class="custom-radio__container">
               <label for="create" class="custom-radio">
-                <input type="radio" id="create" name="create-account" class="option-input create">
+                <input type="radio" id="create" name="create-account" class="create-input create">
                 <span>créer un compte</span>
               </label>
               <label for="goto-payment" class="custom-radio">
-                <input type="radio" id="goto-payment" name="create-account" class="option-input goto-payment">
+                <input type="radio" id="goto-payment" name="create-account" class="create-input goto-payment">
                 <span>passer directement à l'étape de paiement</span>
               </label>
             </div>
           </div>
-          <div class="input-row">
-            <input type="mail" class="input__classic info-input" placeholder="Adresse e-mail" required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
-          </div>
-          <div class="input-row">
-            <div class="input-single">
-              <input type="password" class="input__classic info-input" placeholder="Mot de passe" autocomplete="off" required="true" data-parsley-trigger="focusout" data-parsley-error-message="Les mots de passe ne correspondent pas" data-parsley-minlength="6" data-parsley-equalto="#cache_user_password" data-parsley-group="block-3">
+          <div class="account-form">
+            <div class="input-row">
+              <input type="mail" class="input__classic info-input" placeholder="Adresse e-mail" data-parsley-required="false" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
             </div>
-            <div class="input-single">
-              <input type="password" class="input__classic info-input" placeholder="Répéter mot de passe" autocomplete="off" required="true" data-parsley-trigger="focusout" data-parsley-error-message="Les mots de passe ne correspondent pas" data-parsley-minlength="6" data-parsley-equalto="#cache_user_password" data-parsley-group="block-3">
+            <div class="input-row">
+              <div class="input-single">
+                <input type="password" class="input__classic info-input" id="account_password" placeholder="Mot de passe" autocomplete="off" data-parsley-required="false" data-parsley-trigger="focusout" data-parsley-error-message="Les mots de passe ne correspondent pas" data-parsley-minlength="6" data-parsley-equalto="#account_password" data-parsley-group="block-3">
+              </div>
+              <div class="input-single">
+                <input type="password" class="input__classic info-input" id="account_password" placeholder="Répéter mot de passe" autocomplete="off" data-parsley-required="false" data-parsley-trigger="focusout" data-parsley-error-message="Les mots de passe ne correspondent pas" data-parsley-minlength="6" data-parsley-equalto="#account_password" data-parsley-group="block-3">
+              </div>
             </div>
-          </div>
-          <div class="input-row">
-            <div class="input-single">
-              <input type="text" class="input__classic info-input" placeholder="Nom" required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+            <div class="input-row">
+              <div class="input-single">
+                <input type="text" class="input__classic info-input" placeholder="Nom" data-parsley-required="false" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+              </div>
+              <div class="input-single">
+                <input type="text" class="input__classic info-input" placeholder="Prénom" data-parsley-required="false" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+              </div>
             </div>
-            <div class="input-single">
-              <input type="text" class="input__classic info-input" placeholder="Prénom" required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+            <div class="input-row">
+              <input type="text" class="input__classic info-input" placeholder="Téléphone" data-parsley-required="false" data-parsley-pattern="/0[1-7,9]\d{8}/" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
             </div>
-          </div>
-          <div class="input-row">
-            <input type="text" class="input__classic info-input" placeholder="Téléphone" required="true" data-parsley-pattern="/0[1-7,9]\d{8}/" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
-          </div>
-          <div class="input-row">
-            <div class="input-single">
-              <input type="text" class="input__classic info-input" placeholder="Adresse" required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+            <div class="input-row">
+              <div class="input-single">
+                <input type="text" class="input__classic info-input" placeholder="Adresse" data-parsley-required="false" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+              </div>
+              <div class="input-single">
+                <input type="text" class="input__classic" placeholder="Adresse complémentaire" data-parsley-required="false">
+              </div>
             </div>
-            <div class="input-single">
-              <input type="text" class="input__classic info-input" placeholder="Adresse complémentaire" data-parsley-required="false">
-            </div>
-          </div>
-          <div class="input-row">
-            <div class="input-single">
-              <input type="text" class="input__classic info-input" placeholder="Code Postal" required="true" data-parsley-pattern="/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
-            </div>
-            <div class="input-single">
-              <input type="text" class="input__classic info-input" placeholder="Ville" required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+            <div class="input-row">
+              <div class="input-single">
+                <input type="text" class="input__classic info-input" placeholder="Code Postal" data-parsley-required="false" data-parsley-pattern="/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+              </div>
+              <div class="input-single">
+                <input type="text" class="input__classic info-input" placeholder="Ville" data-parsley-required="false" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n\'est pas valide" data-parsley-group="block-3">
+              </div>
             </div>
           </div>
         </div>
