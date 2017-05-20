@@ -54,10 +54,7 @@
     text-transform: uppercase;
     color: #9D9D9D;
     margin-bottom: 20px;
-
-    @media (max-width: 910px) {
-      text-align: center;
-    }
+    text-align: center;
   }
 
   &__items {

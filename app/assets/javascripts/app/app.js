@@ -38,7 +38,12 @@ var App = function (isSubscription) {
   }
 
   // Display sections variables
-  var $firstSectionInputs  = $('.formule-input');
+  var $firstSectionInputs;
+  if (isSubscription) {
+    $firstSectionInputs  = $('.formule-input');
+  } else {
+    $firstSectionInputs  = $('.formule-input, .recurring-input');
+  }
   var $secondSectionInputs = $('.option-input');
   var $thirdSectionInputs  = $('.info-input');
 
@@ -98,7 +103,12 @@ var App = function (isSubscription) {
     $(window).on('resize', _fixedElement);
 
     $sidebarItems.on('click', _goToSection);
-    $firstSectionInputs.on('change', function(){displaySection(1)});
+    if (isSubscription) {
+      $firstSectionInputs.on('change', function(){displaySection(1)});
+    } else {
+      $firstSectionInputs.on('change', _checkFirstSection);
+    }
+    
     $secondSectionInputs.on('change', function(){displaySection(2)});
 
     $optionsInput.on('change', _showMonthlyPrice);
@@ -232,6 +242,11 @@ var App = function (isSubscription) {
 
   };
 
+  var _checkFirstSection = function () {
+    if ($("input[name='monthly']:checked").val() && $("input[name='formule']:checked").val()) {
+      displaySection(1);
+    }
+  }
   var _checkThirdSection = function () {
 
     $thirdSectionInputs.on('change input', throttle(function () {
