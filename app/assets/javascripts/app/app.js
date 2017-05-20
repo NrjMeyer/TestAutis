@@ -270,10 +270,16 @@ var App = function (isSubscription) {
       $(current).addClass('fadeInUp');
     }
 
-    if (!$(current).hasClass('informations')) {
+    if (isSubscription) {
+      if (!$(current).hasClass('informations')) {
         $('html, body').animate({
           scrollTop: $(current).offset().top
         }, 1500);   
+      }
+    } else {
+      $('html, body').animate({
+        scrollTop: $(current).offset().top
+      }, 1500);   
     }
 
     $sidebarItems.eq(number).removeClass('sidebar__item--disabled');
