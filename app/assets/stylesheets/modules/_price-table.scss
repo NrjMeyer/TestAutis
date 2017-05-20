@@ -26,6 +26,12 @@
   }
 }
 
+.price-table--donation {
+  @include mobile {
+    padding: rem(10px) rem(20px);
+  }
+}
+
 .price-table--grey {
   background: #EAEAEA;
   padding: rem(10px) rem(30px);

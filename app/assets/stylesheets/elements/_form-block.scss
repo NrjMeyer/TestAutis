@@ -12,6 +12,14 @@
     &--alignedtop {
       @include align-items(flex-start);
     }
+
+    &--donation {
+      background: $white;
+
+      @include small {
+        padding: 20px;
+      }
+    }
     
     @include mobile {
       @include flex-direction(column);
