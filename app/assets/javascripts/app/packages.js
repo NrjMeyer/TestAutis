@@ -5,6 +5,10 @@ var Packages = function (app, isSubscription) {
   var $chooseButtons = $('.btn__choose');
   var $perksButtons  = $('.btn__perks');
   var $perks         = $('.choice__features');
+  var $donationInput = $('.donation-input');
+  var $donationRadio = $('.donation-radio');
+  var $donationLabel = $('.btn__choose--free');
+  var $promoDonation = $('.free-input');
 
   var init = function () {
 
@@ -15,11 +19,27 @@ var Packages = function (app, isSubscription) {
   var _initEvents = function () {
 
     $chooseButtons.on('click', $.proxy(_selectPackage, this));
+    $donationInput.on('keyup input', throttle(_handleDonationInput, 250));
 
     if ($(window).width() < 768) {
       $perksButtons.on('click', _togglePerks);
     }
 
+  };
+
+  var _handleDonationInput = function () {
+    var inputValue = $donationInput.val();
+
+    if (inputValue.length > 0 && inputValue > 0) {
+      $donationLabel.css('pointer-events', 'initial').removeClass('disabled');
+    } else {
+      $donationRadio.attr('checked', false);
+      $donationLabel.css('pointer-events', 'none').addClass('disabled').removeClass('btn__choose--selected');
+      $donationLabel.html('choisir');
+    }
+
+    $donationLabel.attr('data-price', inputValue);
+    $promoDonation.html(app.toFixed(inputValue * (66 / 100), 2) + '€');
   };
 
   var _togglePerks = function (e) {

@@ -24,6 +24,14 @@
       }
     }
 
+    &--free {
+      pointer-events: none;
+
+      &.disabled {
+        background: #CCCCCC;
+      }
+    }
+
     @include mobile {
       width: 100%;
       padding: rem(12px) rem(10px);

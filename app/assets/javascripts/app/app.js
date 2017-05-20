@@ -307,10 +307,10 @@ var App = function (isSubscription) {
       if (monthlyPayment) {
         // update all prices monthly
         $subscriptionPrice.eq(0).html(packagePrice);
-        $subscriptionPrice.eq(1).html(_toFixed(packagePrice / 12, 2));
-        $priceWithoutPromo.html(_toFixed(totalPrice / 12, 2));
-        $priceWithPromo.html(_toFixed(((totalPrice - (totalPrice * 66/100)) / 12), 2));
-        $familyPriceContainer.html(_toFixed(familyPrice / 12, 2));
+        $subscriptionPrice.eq(1).html(toFixed(packagePrice / 12, 2));
+        $priceWithoutPromo.html(toFixed(totalPrice / 12, 2));
+        $priceWithPromo.html(toFixed(((totalPrice - (totalPrice * 66/100)) / 12), 2));
+        $familyPriceContainer.html(toFixed(familyPrice / 12, 2));
         $familyCountContainer.html(familyCount);
         $donationPrice.html(donationPrice);
       }
@@ -319,7 +319,7 @@ var App = function (isSubscription) {
         // update all prices
         $subscriptionPrice.html(packagePrice);
         $priceWithoutPromo.html(totalPrice);
-        $priceWithPromo.html(_toFixed(totalPrice - (totalPrice * 66/100), 2));
+        $priceWithPromo.html(toFixed(totalPrice - (totalPrice * 66/100), 2));
         $familyPriceContainer.html(familyPrice);
         $familyCountContainer.html(familyCount);
         $donationPrice.html(donationPrice);
@@ -327,7 +327,7 @@ var App = function (isSubscription) {
     } else {
         // update all prices
         $priceWithoutPromo.html(totalPrice);
-        $priceWithPromo.html(_toFixed(totalPrice - (totalPrice * 66/100), 2));
+        $priceWithPromo.html(toFixed(totalPrice - (totalPrice * 66/100), 2));
         $donationPrice.html(packagePrice);
     }
 
@@ -337,7 +337,7 @@ var App = function (isSubscription) {
   };
 
   // Helper function to splice decimals after 2
-  var _toFixed = function (num, fixed) {
+  var toFixed = function (num, fixed) {
     var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
     return num.toString().match(re)[0];
   };
@@ -349,7 +349,8 @@ var App = function (isSubscription) {
     displaySection: displaySection,
     removeFixedElement: removeFixedElement,
     updateTotalPrice: updateTotalPrice,
-    sections: sections
+    sections: sections,
+    toFixed: toFixed
   };
 
 };
