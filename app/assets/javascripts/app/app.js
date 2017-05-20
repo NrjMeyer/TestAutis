@@ -43,7 +43,7 @@ var App = function (isSubscription) {
   var $thirdSectionInputs  = $('.info-input');
 
   // Paying monthly input
-  var $optionsInput = $('.option-input');
+  var $optionsInput = $('.option-input, .recurring-input');
   var monthlyPayment = false;
   var $monthlySpans  = $('.monthly-payment');
 
