@@ -35,6 +35,7 @@ $(document).on('turbolinks:load', function () {
 
   if (!isSubscription) {
     var showForm = new ShowForm(app);
+    var donationPackages = new DonationPackages();
   }
 
 });

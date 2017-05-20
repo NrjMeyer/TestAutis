@@ -15,11 +15,20 @@
   }
 
   &--donation {
-
-    display: initial;
+    width: 90%;
+    margin: auto;
+    display: block;
 
     @include bigdesktop {
-      .section-title, .form-block {
+      width: initial;
+    }
+
+    @include small {
+      width: 100%;
+    }
+
+    .section-title, .form-block {
+      @include bigdesktop {
         width: 60%;
         margin-left: auto;
         margin-right: auto;

@@ -2,14 +2,44 @@
 
   @include display(flex);
   background-color: $white;
-  width: 960px;
+  width: 100%;
   margin: 0 auto;
+
+  @include bigdesktop {
+    width: 960px;
+  }
+
+  @media (max-width: 910px) {
+    @include flex-direction(column);
+  }
   
   &__section {
-    padding: rem(35px) rem(40px);
+    padding: rem(35px) rem(20px);
+
+    @media screen and (min-width: 1275px) {
+      padding: rem(35px) rem(40px);
+    }
 
     &:first-child {
       border-right: 1px solid #F3F3F3;
+
+      @media (max-width: 910px) {
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        border-right: none;
+        padding-bottom: 0;
+
+        &:after {
+          content: '';
+          display: block;
+          margin: 30px auto 0;
+          width: 80%;
+          height: 1px;
+          background-color: #F5F5F5;
+        }
+      }
     }
 
     &:last-child {
@@ -24,16 +54,73 @@
     text-transform: uppercase;
     color: #9D9D9D;
     margin-bottom: 20px;
+
+    @media (max-width: 910px) {
+      text-align: center;
+    }
   }
 
   &__items {
     @include display(flex);
     @include justify-content(space-between);
     width: 100%;
+
+    @include mobile {
+      @include justify-content(center);
+
+      .donation__item:not(:first-child) {
+        display:none;
+      }
+    }
+  }
+
+  &__list {
+    display: none;
+
+    @include mobile {
+      display: block;
+    }
+
+    ul {
+      display: flex;
+      @include justify-content(space-around);
+      margin-bottom: 20px;
+    }
+
+    .list__item {
+      font-family: $din;
+      font-size: rem(15px);
+      color: #C1C1C1;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+
+      &.active {
+        color: #727272;
+        border: 1px solid $green;
+      }
+    }
   }
 
   &__item {
     width: 140px;
+
+    @include mobile {
+      width: 180px;
+
+      .choice__info {
+        background: #4A4A4A;
+
+        .white {
+          color: $white;
+        }
+
+        .infobox {
+          display: inline;
+        }
+      }
+    }
   }
 
   &__price {
@@ -43,6 +130,10 @@
     padding: 20px 18px 12px;
     text-align: center;
     background-color: $green;
+
+    @include small {
+      padding: 20px 10px 12px;
+    }
 
     &--free {
       background-color: $white;
@@ -73,6 +164,11 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     text-align: center;
     line-height: rem(14px);
+
+    @include mobile {
+      font-size: rem(14px);
+      line-height: rem(16px);
+    }
   }
 
   .donation-input {
