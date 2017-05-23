@@ -16,7 +16,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def new_cb
     result = Cb.response(params[:DATA])
     @user = createUserCard(result, cookies.signed.encrypted[:id])
-    
+
     if @user.save
       CacheUser.where(email: @user.email).destroy_all
       cookies.delete :amount
@@ -45,6 +45,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         puts @user.errors.inspect
       end
     end
+    render 'users/registrations/new'
   end
 
   def new_slimpay
@@ -56,6 +57,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       puts @user.errors.inspect
     end
+    render 'users/registrations/new'
   end
 
   def new_cheque
@@ -66,6 +68,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       puts @user.errors.inspect
     end
+    render 'users/registrations/new'
   end
 
   def payment
