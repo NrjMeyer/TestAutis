@@ -25,8 +25,8 @@ module Paypal
       body: {
         "intent": "sale",
         "redirect_urls": {
-          "return_url": Settings.base.url + "/validation",
-          "cancel_url": Settings.base.url + "/annulation"
+          "return_url": Settings.paypal.callback_url_success,
+          "cancel_url": Settings.paypal.callback_url_failure
         },
         "payer": {
           "payment_method": "paypal"
