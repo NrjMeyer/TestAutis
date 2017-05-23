@@ -4,13 +4,14 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   get '/test', to: 'home#test'
-  get '/dons', to: 'home#dons'
   get '/erreur', to: 'cache_users#error'
   get '/inscription', to: 'cache_users#new'
   get '/annulation', to: 'cache_users#cancel'
   post '/inscription_payment', to: 'cache_users#create'
 
   get '/cb', to: 'cache_users#payment'
+  
+  get '/don', to: 'don#new'
 
   devise_scope :user do
     # CB payment route

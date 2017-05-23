@@ -2,10 +2,7 @@ class HomeController < ApplicationController
   def index
     redirect_to inscription_path
   end
-
-  def dons
-  end
-
+  
   def test
     mg_client = Mailgun::Client.new "key-6ed71e42f2d66d7283c17ce77adf28f3"
 
