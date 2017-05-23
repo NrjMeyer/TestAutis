@@ -1,4 +1,4 @@
-<%= form_for @don, :html => {:class => "main-form"} do |f| %>
+<%= form_for :don, :html => {:class => "main-form"} do |f| %>
 
 <header class="header header--donation">
     <div class="container header__container">
@@ -135,7 +135,7 @@
                 <span>
               </div>
               <div class="radio-container">
-                <input type="radio" name="formule" id="formule_2" class="formule-input" required="true" data-parsley-multiple="formule">
+                <%= radio_button_tag(:formule, "formule_2", false,  class: 'formule-input', :required => true) %>
                 <label for="formule_2" class="btn btn__choose btn__choose--donation" data-price="15">choisir</label>
               </div>
             </div>
@@ -153,7 +153,7 @@
                 <span>
               </div>
               <div class="radio-container">
-                <input type="radio" name="formule" id="formule_3" class="formule-input" required="true" data-parsley-multiple="formule">
+               <%= radio_button_tag(:formule, "formule_3", false,  class: 'formule-input', :required => true) %>
                 <label for="formule_3" class="btn btn__choose btn__choose--donation" data-price="30">choisir</label>
               </div>
             </div>
@@ -171,7 +171,7 @@
                 <span>
               </div>
               <div class="radio-container">
-                <input type="radio" name="formule" id="formule_4" class="formule-input" required="true" data-parsley-multiple="formule">
+                <%= radio_button_tag(:formule, "formule_4", false,  class: 'formule-input', :required => true) %>
                 <label for="formule_4" class="btn btn__choose btn__choose--donation" data-price="45">choisir</label>
               </div>
             </div>
@@ -189,7 +189,7 @@
                 <span>
               </div>
               <div class="radio-container">
-                <input type="radio" name="formule" id="formule_5" class="formule-input" required="true" data-parsley-multiple="formule">
+                <%= radio_button_tag(:formule, "formule_5", false,  class: 'formule-input', :required => true) %>
                 <label for="formule_5" class="btn btn__choose btn__choose--donation" data-price="60">choisir</label>
               </div>
             </div>
@@ -208,11 +208,11 @@
             <div class="special">Je souhaite :</div>
             <div class="custom-radio__container">
               <label for="create" class="custom-radio">
-                <input type="radio" id="create" name="create-account" class="create-input create">
+                <input type="radio" id="create" name="create-account" class="create-input create" value="true">
                 <span>créer un compte</span>
               </label>
               <label for="goto-payment" class="custom-radio">
-                <input type="radio" id="goto-payment" name="create-account" class="create-input goto-payment">
+                <input type="radio" id="goto-payment" name="create-account" class="create-input goto-payment" value="false">
                 <span>passer directement à l'étape de paiement</span>
               </label>
             </div>
