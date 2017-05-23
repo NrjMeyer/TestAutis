@@ -1,0 +1,2 @@
+class OfferDon < ApplicationRecord
+end

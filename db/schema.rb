@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170512145454) do
+ActiveRecord::Schema.define(version: 20170523131438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,16 @@ ActiveRecord::Schema.define(version: 20170512145454) do
     t.string   "slimpay_payment_id"
     t.string   "paypal_payment_id"
     t.string   "cheque_payment_id"
+    t.string   "donor_name"
+    t.string   "donor_surname"
+    t.string   "donor_adress"
+  end
+
+  create_table "offer_dons", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "amount"
+    t.string   "story"
   end
 
   create_table "offers", force: :cascade do |t|
