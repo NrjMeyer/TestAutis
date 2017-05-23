@@ -4,6 +4,7 @@ class DonController < ApplicationController
   include Cb
 
   def new
+    @offer_don = OfferDon.all
   end
 
   def create

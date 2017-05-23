@@ -73,10 +73,12 @@ ActiveRecord::Schema.define(version: 20170523131438) do
     t.datetime "updated_at",                         null: false
     t.string   "slimpay_payment_id"
     t.string   "paypal_payment_id"
+    t.string   "card_payment_id"
     t.string   "cheque_payment_id"
     t.boolean  "validated",          default: false
     t.boolean  "recurring"
     t.string   "donor_name"
+    t.string   "donor_mail"
     t.string   "donor_surname"
     t.string   "donor_adress"
   end

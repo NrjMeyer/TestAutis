@@ -121,26 +121,28 @@
               <li class="list__item">60</li>
             </ul>
           </div>
-          <div class="donation__items">
-            <div class="donation__item active">
-              <div class="donation__price">
-                <p class="price">15<span>€</span></p>
-                <p class="donation__catchline">Vous financez une journée de travail d'un spécialiste</p>
+          <% @offer_don.each do |o| %>
+            <div class="donation__items">
+              <div class="donation__item active">
+                <div class="donation__price">
+                  <p class="price"><%= o.amount %><span>€</span></p>
+                  <p class="donation__catchline"><%= o.story %></p>
+                </div>
+                <div class="choice__info">
+                  soit <span class="big white"><%= (o.amount.to_i * 0.34).round(2) %></span> après réduction fiscale
+                  <span class="infobox">
+                    <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
+                    <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
+                  <span>
+                </div>
+                <div class="radio-container">
+                  <%= radio_button_tag(:formule, "formule_"+o.id.to_s, false,  class: 'formule-input', :required => true) %>
+                  <label for="formule_2" class="btn btn__choose btn__choose--donation" data-price="<%= o.amount %>">choisir</label>
+                </div>
               </div>
-              <div class="choice__info">
-                soit <span class="big white">13,6€</span> après réduction fiscale
-                <span class="infobox">
-                  <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
-                  <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
-                <span>
-              </div>
-              <div class="radio-container">
-                <%= radio_button_tag(:formule, "formule_2", false,  class: 'formule-input', :required => true) %>
-                <label for="formule_2" class="btn btn__choose btn__choose--donation" data-price="15">choisir</label>
-              </div>
-            </div>
+            <% end %>
 
-            <div class="donation__item">
+<!--             <div class="donation__item">
               <div class="donation__price">
                 <p class="price">30<span>€</span></p>
                 <p class="donation__catchline">Vous financez une journée de travail d'un spécialiste</p>
@@ -192,7 +194,7 @@
                 <%= radio_button_tag(:formule, "formule_5", false,  class: 'formule-input', :required => true) %>
                 <label for="formule_5" class="btn btn__choose btn__choose--donation" data-price="60">choisir</label>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
