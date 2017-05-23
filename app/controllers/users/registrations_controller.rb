@@ -93,7 +93,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
           payment = validePaymentPaypal(@payment)
         end
 
-
         if payment['state'] == 'approved' || payment['state'] == 'Active'
           ConfirmMailer.success_subscription(@user).deliver_now
           generate_pdf(@payment, "paypal")
