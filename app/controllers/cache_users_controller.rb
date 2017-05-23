@@ -83,7 +83,7 @@ class CacheUsersController < ApplicationController
 
         if @user.save
           ChequePayment.create(amount: total_payment_amount, validated: false, cache_user_id: @user.id)
-          redirect_to validation_path(payment_key: payment_key)
+          redirect_to cheque_validation_path(payment_key: payment_key)
         end
       end
     else

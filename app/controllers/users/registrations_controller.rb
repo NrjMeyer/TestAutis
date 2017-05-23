@@ -70,6 +70,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
         validePaymentSlimpay(don.amount, don.mail)
       end
 
+      don.validated = true
+      don.save
+
       @payment = don.slimpay_payment
 
       cookies.delete :type
@@ -89,12 +92,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def new_cheque
-    @user = createUserCheque(params[:payment_key]) or return
+    if cookies.signed.encrypted[:type] == "don"
+      don = Don.find(cookies.signed.encrypted[:don_id])
 
-    if @user.save
-      CacheUser.where(email: @user.email).destroy_all
-    else
-      puts @user.errors.inspect
+      @payment = valid_don_cheque(don)
+
+      cookies.delete :type
+      cookies.delete :don_id
+      render "users/confirmations/confirm"
+
+    elsif cookies.signed.encrypted[:type] == "adhesion"
+      @user = createUserCheque(params[:payment_key]) or return
+
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
     end
   end
 
@@ -463,6 +477,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     return validePaymentPaypal(paypal_payment, reccuring)
 
+  end
+
+  def valid_don_cheque(don)
+
+    payment =  ChequePayment.create(
+      amount: total_payment_amount,
+      validated: false,
+    )
+
+    don.cheque_payment_id = payment.id
+    don.validated = true
+    don.save
+
+    return payment
   end
 
   def user_already_exist(email)
