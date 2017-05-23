@@ -56,6 +56,9 @@ class CacheUsersController < ApplicationController
       total_payment_amount = total_payment_amount + don[:dons][:amount].to_i
     end
 
+    # Payement type
+    cookies.signed.encrypted[:type] = "adhesion"
+
     # Create payment, link it with the cache user and make api call
     if !monthly
       if payment_option == "paypal"

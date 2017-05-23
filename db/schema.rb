@@ -69,11 +69,13 @@ ActiveRecord::Schema.define(version: 20170523131438) do
     t.integer  "amount"
     t.string   "user_id"
     t.string   "cache_user_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "slimpay_payment_id"
     t.string   "paypal_payment_id"
     t.string   "cheque_payment_id"
+    t.boolean  "validated",          default: false
+    t.boolean  "recurring"
     t.string   "donor_name"
     t.string   "donor_surname"
     t.string   "donor_adress"

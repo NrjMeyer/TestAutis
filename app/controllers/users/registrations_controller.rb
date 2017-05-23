@@ -13,6 +13,34 @@ class Users::RegistrationsController < Devise::RegistrationsController
     Cb.autoresponse(params[:DATA])
   end
 
+  def valid_don_paypal(params, don, reccuring = false)
+
+    if reccuring == false
+
+      paypal_payment = PaypalPayment.create(
+        payment: params[:paymentId],
+        payer: params[:PayerID],
+        token: params[:token],
+        amount: don.amount,
+      )
+
+    else
+
+      paypal_payment = PaypalPayment.create(
+        token: params[:token],
+        amount: don.amount,
+      )
+
+    end
+
+    don.validated = true
+    don.paypal_payment_id = paypal_payment.id
+    don.save
+
+    return validePaymentPaypal(paypal_payment, reccuring)
+
+  end
+
   def new_cb
     result = Cb.response(params[:DATA])
     @user = createUserCard(result, cookies.signed.encrypted[:id])
@@ -28,21 +56,34 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def new_paypal
-    if CacheUser.find_by(payment_id: params[:token]) != nil
-      @user = createUserPaypal(params, true) or return
+    if cookies.signed.encrypted[:type] == "don"
+      don = Don.find(cookies.signed.encrypted[:don_id])
 
-      if @user.save
-        CacheUser.where(email: @user.email).destroy_all
+      if don.reccuring == false
+        @payment = valid_don_paypal(params, don)
       else
-        puts @user.errors.inspect
+        @payment = valid_don_paypal(params, don, true)
       end
-    else
-      @user = createUserPaypal(params) or return
 
-      if @user.save
-        CacheUser.where(email: @user.email).destroy_all
+      render "users/confirmations/confirm"
+
+    elsif cookies.signed.encrypted[:type] == "adhesion"
+      if CacheUser.find_by(payment_id: params[:token]) != nil
+        @user = createUserPaypal(params, true) or return
+
+        if @user.save
+          CacheUser.where(email: @user.email).destroy_all
+        else
+          puts @user.errors.inspect
+        end
       else
-        puts @user.errors.inspect
+        @user = createUserPaypal(params) or return
+
+        if @user.save
+          CacheUser.where(email: @user.email).destroy_all
+        else
+          puts @user.errors.inspect
+        end
       end
     end
   end
@@ -225,6 +266,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @cache_user.dons
       @user.dons << @cache_user.dons
+      @user.dons.map( |d| d.validated = true)
     end
 
     # Le montant du payement passé à l'api est sans virgule, on divise donc par 100
@@ -273,6 +315,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @cache_user.dons
       @user.dons << @cache_user.dons
+      @user.dons.map( |d| d.validated = true)
     end
 
     @user.cheque_payments << @cache_user.cheque_payment
@@ -315,6 +358,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @cache_user.dons
       @user.dons << @cache_user.dons
+      @user.dons.map( |d| d.validated = true)
     end
 
     @user.save
@@ -387,6 +431,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @cache_user.dons
       @user.dons << @cache_user.dons
+      @user.dons.map( |d| d.validated = true)
     end
 
     @user.save
