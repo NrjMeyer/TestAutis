@@ -13,34 +13,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     Cb.autoresponse(params[:DATA])
   end
 
-  def valid_don_paypal(params, don, reccuring = false)
-
-    if reccuring == false
-
-      paypal_payment = PaypalPayment.create(
-        payment: params[:paymentId],
-        payer: params[:PayerID],
-        token: params[:token],
-        amount: don.amount,
-      )
-
-    else
-
-      paypal_payment = PaypalPayment.create(
-        token: params[:token],
-        amount: don.amount,
-      )
-
-    end
-
-    don.validated = true
-    don.paypal_payment_id = paypal_payment.id
-    don.save
-
-    return validePaymentPaypal(paypal_payment, reccuring)
-
-  end
-
   def new_cb
     result = Cb.response(params[:DATA])
     @user = createUserCard(result, cookies.signed.encrypted[:id])
@@ -65,6 +37,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @payment = valid_don_paypal(params, don, true)
       end
 
+      cookies.delete :type
+      cookies.delete :don_id
       render "users/confirmations/confirm"
 
     elsif cookies.signed.encrypted[:type] == "adhesion"
@@ -89,13 +63,28 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def new_slimpay
-    @user = createUserSlimpay(cookies.signed.encrypted[:id]) or return
+    if cookies.signed.encrypted[:type] == "don"
+      don = Don.find(cookies.signed.encrypted[:don_id])
 
-    if @user.save
-      cookies.delete :id
-      CacheUser.where(email: @user.email).destroy_all
-    else
-      puts @user.errors.inspect
+      if don.reccuring == false
+        validePaymentSlimpay(don.amount, don.mail)
+      end
+
+      @payment = don.slimpay_payment
+
+      cookies.delete :type
+      cookies.delete :don_id
+      render "users/confirmations/confirm"
+
+    elsif cookies.signed.encrypted[:type] == "adhesion"
+      @user = createUserSlimpay(cookies.signed.encrypted[:id]) or return
+
+      if @user.save
+        cookies.delete :id
+        CacheUser.where(email: @user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
     end
   end
 
@@ -146,7 +135,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @payment = SlimpayPayment.where(payment_reference: @user.slimpay_payments.last.payment_reference).last
 
         if @user.monthly_payment == false
-          payment = JSON.parse(validePaymentSlimpay(@payment, @user))
+          payment = JSON.parse(validePaymentSlimpay(@payment.amount, @user.email))
         end
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "paypal")
@@ -194,7 +183,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def validePaymentSlimpay(payment, user)
+  def validePaymentSlimpay(amount, email)
     payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
       headers: {
         'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -206,10 +195,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
               reference: Settings.slimpay.creditor_reference
           },
           subscriber: {
-              reference: user.email
+              reference: email
           },
           reference: nil,
-          amount: payment.amount,
+          amount: amount,
           currency: 'EUR',
           scheme: 'SEPA.DIRECT_DEBIT.CORE',
           label: 'Débit pour votre adhésion vaincre l\'autisme',
@@ -446,6 +435,34 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     return @user
+  end
+
+  def valid_don_paypal(params, don, reccuring = false)
+
+    if reccuring == false
+
+      paypal_payment = PaypalPayment.create(
+        payment: params[:paymentId],
+        payer: params[:PayerID],
+        token: params[:token],
+        amount: don.amount,
+      )
+
+    else
+
+      paypal_payment = PaypalPayment.create(
+        token: params[:token],
+        amount: don.amount,
+      )
+
+    end
+
+    don.validated = true
+    don.paypal_payment_id = paypal_payment.id
+    don.save
+
+    return validePaymentPaypal(paypal_payment, reccuring)
+
   end
 
   def user_already_exist(email)
