@@ -15,15 +15,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
-    @user = createUserCard(result, cookies.signed.encrypted[:id])
+    if cookies.signed.encrypted[:type] == "don"
+      don = Don.find(cookies.signed.encrypted[:don_id])
     
-    if @user.save
-      CacheUser.where(email: @user.email).destroy_all
-      cookies.delete :amount
-      cookies.delete :id
-      render 'users/registrations/new'
-    else
-      render 'cache_users/error'
+      @payment = valid_don_cb(result, don)
+
+      cookies.delete :type
+      cookies.delete :don_id
+      render "users/confirmations/confirm"
+
+    elsif cookies.signed.encrypted[:type] == "adhesion"
+      @user = createUserCard(result, cookies.signed.encrypted[:id])
+      
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
+        cookies.delete :amount
+        cookies.delete :id
+        render 'users/registrations/new'
+      else
+        render 'cache_users/error'
+      end
     end
   end
 
@@ -487,6 +498,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
     )
 
     don.cheque_payment_id = payment.id
+    don.validated = true
+    don.save
+
+    return payment
+  end
+
+    def valid_don_cb(param, don)
+
+    converted_amount = param[5].to_i / 100
+
+    payment = CardPayment.create(
+      amount: converted_amount,
+      payment_reference: param[6]
+    )
+
+    don.card_payment_id = payment.id
+    don.amount = converted_amount
     don.validated = true
     don.save
 
