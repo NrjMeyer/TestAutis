@@ -11,12 +11,32 @@ class DonController < ApplicationController
 
     cookies.signed.encrypted[:type] = "don"
 
+    if params[:formule_custom] != nil
+      
+    else
+      amount = OfferDon.find(params[:formule]).amount
+    end
+
+    mail = params.require(:don).permit(:email)
+    address = params.require(:don).permit(:address) + " " + params.require(:don).permit(:address_extend) + " " + params.require(:don).permit(:post_code) + " " + params.require(:don).permit(:city)
+
+    payment_option = params[:payment_option]
+    monthly = ActiveRecord::Type::Boolean.new.cast(params[:monthly])
+
+    if params[:fiscal_mail] != nil
+      fiscal_mail = true
+    else
+      fiscal_mail = false
+    end
+
     don = Don.create(
       amount: amount,
-      donor_name: name,
-      donor_surname: surname,
+      donor_name: params.require(:don).permit(:surname),
+      donor_surname: params.require(:don).permit(:name),
       donor_adress: address,
       donor_mail: mail,
+      donor_phone: params.require(:don).permit(:phone_number),
+      fiscal_mail: fiscal_mail,
     )
 
     if !monthly

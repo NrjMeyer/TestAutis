@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/cb', to: 'cache_users#payment'
   
   get '/don', to: 'don#new'
+  post '/don', to: 'don#create'
 
   devise_scope :user do
     # CB payment route

@@ -10,5 +10,7 @@ class AddColumnsToDon < ActiveRecord::Migration[5.0]
     add_column :dons, :donor_mail, :string
     add_column :dons, :donor_surname, :string
     add_column :dons, :donor_adress, :string
+    add_column :dons, :donor_phone, :string
+    add_column :dons, :fiscal_mail, :boolean
   end
 end

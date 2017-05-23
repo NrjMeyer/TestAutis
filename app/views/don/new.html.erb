@@ -106,8 +106,8 @@
               <span>
             </div>
             <div class="radio-container">
-              <input type="radio" name="formule" id="formule_1" class="formule-input donation-radio" required="true" data-parsley-multiple="formule">
-              <label for="formule_1" class="btn btn__choose btn__choose--donation btn__choose--free disabled" data-price="">choisir</label>
+              <input type="radio" name="formule_custom" id="formule_0" class="formule-input donation-radio" required="true" data-parsley-multiple="formule">
+              <label for="formule_0" class="btn btn__choose btn__choose--donation btn__choose--free disabled" data-price="">choisir</label>
             </div>
           </div>
         </div>
@@ -136,8 +136,8 @@
                   <span>
                 </div>
                 <div class="radio-container">
-                  <%= radio_button_tag(:formule, "formule_"+o.id.to_s, false,  class: 'formule-input', :required => true) %>
-                  <label for="formule_2" class="btn btn__choose btn__choose--donation" data-price="<%= o.amount %>">choisir</label>
+                  <%= radio_button_tag(:formule, o.id.to_s, false,  class: 'formule-input', :required => true) %>
+                  <%= label_tag('formule_'+o.id.to_s, "Choisir", {class: ['btn', 'btn__choose', 'btn__choose--donation'], :data => {:price => o.amount}}) %>
                 </div>
               </div>
             <% end %>
@@ -154,37 +154,37 @@
         <div class="form-block__bottom form-block__bottom--mobile">
           <div class="account-form">
             <div class="input-row">
-              <input type="mail" data-parsley-type="email" class="input__classic info-input" placeholder="Adresse e-mail" data-parsley-required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n'est pas valide" data-parsley-group="block-3">
+              <%= f.email_field :email, :class => 'input__classic info-input', :placeholder => 'Adresse e-mail', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
             </div>
-            <label class="custom-radio custom-radio--block custom-radio--don">
-              <input type="checkbox" id="fiscal-mail" name="fiscal-mail" data-parsley-required="false">
+              <label class="custom-radio custom-radio--block custom-radio--don">
+              <input type="checkbox" id="fiscal_mail" name="fiscal_mail" data-parsley-required="false">
               <span>Recevoir par mail mon reçu fiscal</span>
             </label>
             <div class="input-row">
               <div class="input-single">
-                <input type="text" class="input__classic info-input" placeholder="Nom" data-parsley-required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n'est pas valide" data-parsley-group="block-3">
+                <%= f.text_field :name, :class => 'input__classic info-input', :placeholder => 'Nom', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
               </div>
               <div class="input-single">
-                <input type="text" class="input__classic info-input" placeholder="Prénom" data-parsley-required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n'est pas valide" data-parsley-group="block-3">
-              </div>
-            </div>
-            <div class="input-row">
-              <input type="text" class="input__classic info-input" placeholder="Téléphone" data-parsley-required="true" data-parsley-pattern="/0[1-7,9]\d{8}/" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n'est pas valide" data-parsley-group="block-3">
-            </div>
-            <div class="input-row">
-              <div class="input-single">
-                <input type="text" class="input__classic info-input" placeholder="Adresse" data-parsley-required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n'est pas valide" data-parsley-group="block-3">
-              </div>
-              <div class="input-single">
-                <input type="text" class="input__classic" placeholder="Adresse complémentaire" data-parsley-required="false">
+                <%= f.text_field :surname, :class => 'input__classic info-input', :placeholder => 'Prénom', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
               </div>
             </div>
             <div class="input-row">
+              <%= f.text_field :phone_number, :class => 'input__classic info-input', :placeholder => 'Téléphone', 'required' => 'true', 'data-parsley-pattern' => '/0[1-7,9]\d{8}/', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+            </div>
+            <div class="input-row">
               <div class="input-single">
-                <input type="text" class="input__classic info-input" placeholder="Code Postal" data-parsley-required="true" data-parsley-pattern="/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n'est pas valide" data-parsley-group="block-3">
+                 <%= f.text_field :address, :class => 'input__classic info-input', :placeholder => 'Adresse', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
               </div>
               <div class="input-single">
-                <input type="text" class="input__classic info-input" placeholder="Ville" data-parsley-required="true" data-parsley-trigger="focusout" data-parsley-error-message="Ce champs n'est pas valide" data-parsley-group="block-3">
+                <%= f.text_field :address_extend, :class => 'input__classic', :placeholder => 'Adresse complémentaire', 'data-parsley-required' => 'false' %>
+              </div>
+            </div>
+            <div class="input-row">
+              <div class="input-single">
+                <%= f.text_field :post_code, :class => 'input__classic info-input', :placeholder => 'Code Postal', 'required' => 'true', 'data-parsley-pattern' => '/^((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}$/', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
+              </div>
+              <div class="input-single">
+                <%= f.text_field :city, :class => 'input__classic info-input', :placeholder => 'Ville', 'required' => 'true', 'data-parsley-trigger' => 'focusout', 'data-parsley-error-message' => 'Ce champs n\'est pas valide', 'data-parsley-group' => 'block-3' %>
               </div>
             </div>
           </div>
