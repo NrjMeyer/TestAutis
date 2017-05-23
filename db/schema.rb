@@ -74,6 +74,9 @@ ActiveRecord::Schema.define(version: 20170512145454) do
     t.string   "slimpay_payment_id"
     t.string   "paypal_payment_id"
     t.string   "cheque_payment_id"
+    t.string   "donor_name"
+    t.string   "donor_surname"
+    t.string   "donor_adress"
   end
 
   create_table "offers", force: :cascade do |t|

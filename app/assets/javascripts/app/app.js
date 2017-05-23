@@ -80,7 +80,7 @@ var App = function (isSubscription) {
     _initEvents();
     _fixedElement();
     _initSelects();
-    
+
     if (isSubscription) {
       _checkThirdSection();
     }
@@ -90,7 +90,7 @@ var App = function (isSubscription) {
     }
 
     // hide sections
-    $('.js-hidden').addClass('hidden');
+    //$('.js-hidden').addClass('hidden');
 
   };
 
@@ -108,7 +108,7 @@ var App = function (isSubscription) {
     } else {
       $firstSectionInputs.on('change', _checkFirstSection);
     }
-    
+
     $secondSectionInputs.on('change', function(){displaySection(2)});
 
     $optionsInput.on('change', _showMonthlyPrice);
@@ -136,7 +136,7 @@ var App = function (isSubscription) {
         $monthlySpans.addClass('active');
         $donationSpan.addClass('active');
       }
-      
+
       monthlyPayment = true;
     }
 
@@ -289,12 +289,12 @@ var App = function (isSubscription) {
       if (!$(current).hasClass('informations')) {
         $('html, body').animate({
           scrollTop: $(current).offset().top
-        }, 1500);   
+        }, 1500);
       }
     } else {
       $('html, body').animate({
         scrollTop: $(current).offset().top
-      }, 1500);   
+      }, 1500);
     }
 
     $sidebarItems.eq(number).removeClass('sidebar__item--disabled');
@@ -352,9 +352,9 @@ var App = function (isSubscription) {
         $donationPrice.html(packagePrice);
     }
 
-    
 
-    
+
+
   };
 
   // Helper function to splice decimals after 2
