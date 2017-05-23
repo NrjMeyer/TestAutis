@@ -141,60 +141,6 @@
                 </div>
               </div>
             <% end %>
-
-<!--             <div class="donation__item">
-              <div class="donation__price">
-                <p class="price">30<span>€</span></p>
-                <p class="donation__catchline">Vous financez une journée de travail d'un spécialiste</p>
-              </div>
-              <div class="choice__info">
-                soit <span class="big white">13,6€</span> après réduction fiscale
-                <span class="infobox">
-                  <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
-                  <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
-                <span>
-              </div>
-              <div class="radio-container">
-               <%= radio_button_tag(:formule, "formule_3", false,  class: 'formule-input', :required => true) %>
-                <label for="formule_3" class="btn btn__choose btn__choose--donation" data-price="30">choisir</label>
-              </div>
-            </div>
-
-            <div class="donation__item">
-              <div class="donation__price">
-                <p class="price">45<span>€</span></p>
-                <p class="donation__catchline">Vous financez une journée de travail d'un spécialiste</p>
-              </div>
-              <div class="choice__info">
-                soit <span class="big white">13,6€</span> après réduction fiscale
-                <span class="infobox">
-                  <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
-                  <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
-                <span>
-              </div>
-              <div class="radio-container">
-                <%= radio_button_tag(:formule, "formule_4", false,  class: 'formule-input', :required => true) %>
-                <label for="formule_4" class="btn btn__choose btn__choose--donation" data-price="45">choisir</label>
-              </div>
-            </div>
-
-            <div class="donation__item">
-              <div class="donation__price">
-                <p class="price">60<span>€</span></p>
-                <p class="donation__catchline">Vous financez une journée de travail d'un spécialiste</p>
-              </div>
-              <div class="choice__info">
-                soit <span class="big white">13,6€</span> après réduction fiscale
-                <span class="infobox">
-                  <span class="infobox__text">Une <span class="white">réduction annuelle d'impôt</span> sur le revenu à hauteur de <span class="white">66%</span> de son montant</span>
-                  <%= embedded_svg "icons/infobox.svg", class: "icon-infobox" %>
-                <span>
-              </div>
-              <div class="radio-container">
-                <%= radio_button_tag(:formule, "formule_5", false,  class: 'formule-input', :required => true) %>
-                <label for="formule_5" class="btn btn__choose btn__choose--donation" data-price="60">choisir</label>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
@@ -339,13 +285,13 @@
 
         <div class="payment__section payment__card no-mobile" data-option="card">
           <p class="phone-tip">Payez par carte</p>
-          <input type="submit" class="btn btn__payment" value="Effectuer le paiement">
+          <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
         </div>
 
         <div class="payment__section payment__paypal no-mobile" data-option="paypal">
           <p>Vous aller être redirigé vers l'interface de paiement PayPal afin de finaliser votre paiement.</p>
           <div class="btn-container">
-            <input type="submit" class="btn btn__payment" value="Effectuer le paiement">
+            <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
           </div>
         </div>
 
@@ -353,7 +299,7 @@
           <!-- <p>Ce moyen de paiement n'est pas encore disponible.</p> -->
           <p>Vous aller être redirigé vers l'interface de paiement SlimPay afin de finaliser votre paiement.</p>
           <div class="btn-container">
-            <input type="submit" class="btn btn__payment" value="Effectuer le paiement">
+            <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
           </div>
         </div>
 
@@ -366,7 +312,7 @@
           </p>
           <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent.</p>
           <div class="btn-container">
-            <input type="submit" class="btn btn__payment" value="Effectuer le paiement">
+            <%= f.submit 'Effectuer le paiement', :class => 'btn btn__payment' %>
           </div>
         </div>
       </div>
