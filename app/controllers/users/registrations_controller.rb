@@ -68,52 +68,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def new
-    # Use Paypal
-    if params.has_key?(:paymentId)
-
-      @user = createUserPaypal(params) or return
-
-      if @user.save
-        CacheUser.where(email: @user.email).destroy_all
-      else
-        puts @user.errors.inspect
-      end
-
-    elsif CacheUser.find_by(payment_id: params[:token]) != nil
-
-      @user = createUserPaypal(params, true) or return
-
-      if @user.save
-        CacheUser.where(email: @user.email).destroy_all
-      else
-        puts @user.errors.inspect
-      end
-
-    # Use Slimpay
-    elsif cookies.signed.encrypted[:id] != nil
-
-      @user = createUserSlimpay(cookies.signed.encrypted[:id]) or return
-
-      if @user.save
-        cookies.delete :id
-        CacheUser.where(email: @user.email).destroy_all
-      else
-        puts @user.errors.inspect
-      end
-
-    elsif params.has_key?(:payment_key)
-      @user = createUserCheque(params[:payment_key]) or return
-
-      if @user.save
-        CacheUser.where(email: @user.email).destroy_all
-      else
-        puts @user.errors.inspect
-      end
-
-    end
-  end
-
   def payment
 
     if cookies.signed.encrypted[:user_id]

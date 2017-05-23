@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   devise_for :users, :path => 'users', :controllers => {:registrations => "registrations", confirmations: 'confirmations'}
   root to: "home#index"
 
-  get '/test', to: 'home#test'
   get '/erreur', to: 'cache_users#error'
   get '/inscription', to: 'cache_users#new'
   get '/annulation', to: 'cache_users#cancel'
@@ -21,7 +20,7 @@ Rails.application.routes.draw do
     get '/slimpay_validation', to: 'users/registrations#new_slimpay'
     get '/paypal_validation', to: 'users/registrations#new_paypal'
 
-    get '/validation', to: 'users/registrations#new'
+    # Execute/confirm payement and redirect to billing page
     get '/execute_payment', to: 'users/registrations#payment'
   end
 

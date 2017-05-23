@@ -22,7 +22,7 @@ class CacheUsersController < ApplicationController
     @user.password_confirmation = Encrypt.encryption(params.require(:cache_user).require(:password_confirmation))
 
 
-    # Link selected formule to cache user
+    # Link selected offer to cache user
     offer = Offer.find(params[:formule])
     @user.offer_id = offer.id
 
