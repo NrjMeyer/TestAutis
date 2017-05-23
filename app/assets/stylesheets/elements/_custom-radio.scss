@@ -76,6 +76,10 @@
       height: rem(10px);
     }
   }
+
+  &.custom-radio--don span {
+    font-size: rem(14px);
+  }
 }
 
 .custom-radio--single {

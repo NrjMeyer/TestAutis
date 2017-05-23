@@ -69,7 +69,7 @@
       <div class="intro__catchline">Adhérer pour donner plus de poids à notre association !</div>
       <div class="intro__content">Adhérer à <span>Vaincre l'autisme</span>, c'est très simple et vous permet de <span>vous impliquer dans la vie de notre association à votre niveau</span>, en fonction de la formule que vous choisissez ci-dessous.</div>
     </section>
-    
+
     <section class="choice js-section" id="choice">
       <% @offers.each do |offer| %>
       <div class="choice__item">
@@ -84,9 +84,7 @@
               <% end %>
             </div>
             <div class="price__right">
-<!--               <input type="radio" id="formule-1" name="formule" class="formule-input input-mobile" required>
-              <label class="btn btn__choose" for="formule-1" data-price="50">choisir cette formule</label>
- -->
+
               <%= radio_button_tag(:formule, offer.id, false,  class: 'formule-input input-mobile', :required => true) %>
               <% if offer.mensualisable == false %>
                 <%= label_tag('formule_'+offer.id.to_s, "choisir cette formule", {class: ['btn', 'btn__choose', 'no-monthly-offer'], :data => {:price => offer.amount}}) %>
@@ -121,7 +119,7 @@
               <% else %>
                 <%= label_tag('formule_'+offer.id.to_s, "choisir cette formule", {class: ['btn', 'btn__choose'], :data => {:price => offer.amount}}) %>
               <% end %>
-              
+
             </div>
           </div>
         </div>
@@ -257,13 +255,8 @@
               <% end %>
             </div>
 
-
           </div>
 
-<!--           <label class="custom-radio custom-radio--block"> -->
-<!--             <input type="checkbox" id="fiscal-mail" name="fiscal-mail"> -->
-<!--             <span>Recevoir par mail mon reçu fiscal</span> -->
-<!--           </label> -->
           <label class="custom-radio custom-radio--block">
             <%= f.check_box :newsletter, class: "newsletter", id: 'newsletter' %>
             <span>S'inscrire à la newsletter</span>
