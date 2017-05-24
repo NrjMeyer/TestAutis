@@ -8,6 +8,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
+  class UserLike
+    attr_accessor :name, :surname, :email
+    def initialize(name, surname, email)
+      @name     = name
+      @surname   = surname
+      @email = email
+    end
+  end
 
   def auto_response
     Cb.autoresponse(params[:DATA])
