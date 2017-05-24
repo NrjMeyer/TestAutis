@@ -82,9 +82,13 @@ class DonController < ApplicationController
         cookies.signed.encrypted[:don_id] = don.id
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
       elsif payment_option == "cheque"
-        
+
+        payment = ChequePayment.create(amount: amount, validated: false)
+        don.cheque_payment_id = payment.id
+        don.save
+
         cookies.signed.encrypted[:don_id] = don.id
-        redirect_to cheque_validation_path(payment_key: payment_key)
+        redirect_to cheque_validation_path
       elsif payment_option == "card"
         
         don.amount = amount.to_s + "00"

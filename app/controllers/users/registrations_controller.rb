@@ -138,7 +138,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @don = Don.find(cookies.signed.encrypted[:don_id])
       @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
 
-      @payment = valid_don_cheque(@don)
+      @payment = ChequePayment.find(@don.cheque_payment_id)
+      valid_don_cheque(@don)
       @payment_option = 'cheque'
       cookies.delete :type
       cookies.delete :don_id
@@ -540,17 +541,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def valid_don_cheque(don)
-
-    payment =  ChequePayment.create(
-      amount: total_payment_amount,
-      validated: false,
-    )
-
-    don.cheque_payment_id = payment.id
     don.validated = true
     don.save
-
-    return payment
   end
 
   def valid_don_cb(param, don)
