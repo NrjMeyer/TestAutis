@@ -1,37 +1,37 @@
 .is-donation {
   .btn {
     &__payment, &__contact, &__download {
-      background-color: $green;
+      background-color: $donation-color;
     }
   }
 
   .custom-radio {
     input:checked + span:before {
-      background: $green;
-      border: 1px solid $green;
+      background: $donation-color;
+      border: 1px solid $donation-color;
     }
   }
 
   .cards__input {
     span:before {
-      background: $green;
-      border: 1px solid $green;
+      background: $donation-color;
+      border: 1px solid $donation-color;
     }
   }
 
   .payment__option--selected {
-    background: $green;
+    background: $donation-color;
   }
 
   .price-table--highlighted {
-    background: $green;
+    background: $donation-color;
   }
 }
 
 .sidebar--donation .sidebar__item--current {
-  color: $green;
+  color: $donation-color;
 }
 
 .header--donation .menu__item--highlighted {
-  background: $green;
+  background: $pink;
 }

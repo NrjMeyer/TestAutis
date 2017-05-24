@@ -137,7 +137,7 @@
     &--highlighted {
       padding: rem(10px);
       color: $white;
-      background: $pink;
+      background: $donation-color;
 
       @include small {
         padding: rem(20px);
@@ -160,18 +160,6 @@
     }
   }
 }
-
-// .menu-mobile {
-//   display: none;
-//
-//   @include mobile {
-//     display: block;
-//   }
-//
-//   @include tablet {
-//     display: block;
-//   }
-// }
 
 .icon-download {
   width: 14px;

@@ -95,7 +95,7 @@
 
       &.active {
         color: #727272;
-        border: 1px solid $green;
+        border: 1px solid $donation-color;
       }
     }
   }
@@ -126,7 +126,7 @@
     border-top: 1px solid #F5F5F5;
     padding: 20px 18px 12px;
     text-align: center;
-    background-color: $green;
+    background-color: $donation-color;
 
     @include small {
       padding: 20px 10px 12px;
