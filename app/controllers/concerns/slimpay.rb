@@ -77,7 +77,7 @@ module Slimpay
                         honorificPrefix: "Mr",
                         familyName: "Doe",
                         givenName: "John",
-                        email: "change.me@slimpay.com",
+                        email: email,
                         telephone: "+33612345678"
                     },
                     standard: "SEPA"

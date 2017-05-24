@@ -12,8 +12,8 @@ paypal:
   server: 'https://api.sandbox.paypal.com/v1'
   url: 
     get_token: /oauth2/token
-  callback_url_failure: https://vaincrelautisme.herokuapp.com/annulation
-  callback_url_success: https://vaincrelautisme.herokuapp.com/paypal_validation
+  callback_url_failure: http://adhesion.vaincrelautisme.org/annulation
+  callback_url_success: http://adhesion.vaincrelautisme.org/paypal_validation
   key: 'QVIyZzROSVBzZHpRUi1pZDUxS19hVWdsbnI5bHZDcDludHU0b1VNMTA5eHVDTUVzNTktNklKd3ZXVEtiQm9Qa3VkTE4zTGFLRnpQLWJBMFE6RUF2RXA5OUhUWmlXMzhsMGFIRFRyUmNMSURTQVp3X2VZdlRVU25seXRUYkhHU214SVVvUEl6eU5qUkJhNmVVMFZORWRQUWpvM0hOQ0I4cVY'
 encrypt:
   key: 'EncryptDecryptGurudathBN'
