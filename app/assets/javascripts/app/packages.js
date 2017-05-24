@@ -8,6 +8,7 @@ var Packages = function (app, isSubscription) {
   var $donationInput = $('.donation-input');
   var $donationRadio = $('.donation-radio');
   var $donationLabel = $('.btn__choose--free');
+  var $freeDonInput  = $('.custom-donation-input');
   var $promoDonation = $('.free-input');
 
   var init = function () {
@@ -39,7 +40,7 @@ var Packages = function (app, isSubscription) {
     }
 
     $donationLabel.attr('data-price', inputValue);
-    $donationLabel.attr('value', inputValue);
+    $freeDonInput.attr('value', inputValue);
     $promoDonation.html(app.toFixed(inputValue * (66 / 100), 2) + '€');
   };
 
