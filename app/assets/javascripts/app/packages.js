@@ -39,6 +39,7 @@ var Packages = function (app, isSubscription) {
     }
 
     $donationLabel.attr('data-price', inputValue);
+    $donationLabel.attr('value', inputValue);
     $promoDonation.html(app.toFixed(inputValue * (66 / 100), 2) + '€');
   };
 
