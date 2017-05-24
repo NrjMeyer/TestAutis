@@ -1,0 +1,27 @@
+.actions {
+  @include display(flex);
+  @include justify-content(space-around);
+
+  .action {
+    max-width: 100px;
+    text-align: center;
+
+    &__percentage {
+      @include display(flex);
+      @include justify-content(center);
+      @include align-items(center);
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 20px;
+      color: $green;
+      border: 1px solid #DADADA;
+      border-radius: 50%;
+      font-size: rem(20px);
+    }
+
+    &__type {
+      font-size: rem(15px);
+      color: #ABABAB;
+    }
+  }
+}
