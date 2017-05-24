@@ -1,11 +1,16 @@
 RailsAdmin.config do |config|
 
-  config.authorize_with do
-    authenticate_or_request_with_http_basic('Login required') do |username, password|
-      username == Rails.application.secrets.user &&
-      password == Rails.application.secrets.password
-    end
-  end
+  # config.authorize_with do
+  #   authenticate_or_request_with_http_basic('Login required') do |username, password|
+  #     username == Rails.application.secrets.user &&
+  #     password == Rails.application.secrets.password
+  #   end
+  # end
+
+  # config.authorize_with do
+  #   redirect_to main_app.root_path unless current_user.is_admin?
+  # end
+
 
   ### Popular gems integration
 
@@ -16,7 +21,7 @@ RailsAdmin.config do |config|
   # config.current_user_method(&:current_user)
 
   ## == Cancan ==
-  # config.authorize_with :cancan
+  config.authorize_with :cancan
 
   ## == Pundit ==
   # config.authorize_with :pundit
