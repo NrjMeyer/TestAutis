@@ -23,6 +23,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
+    puts '---------------------'
+    puts cookies.signed.encrypted[:type]
+    puts '---------------------'
+
     if cookies.signed.encrypted[:type] == "don"
       @type_don = true
 
