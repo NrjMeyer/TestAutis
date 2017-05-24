@@ -31,7 +31,7 @@ $(document).on('turbolinks:load', function () {
   var packages = new Packages(app, isSubscription);
   var addMember = new FamilyMember(app);
   var hideMonthly = new HideMonthly(app);
-  var toggleCheque = new ToggleCheque();
+  var togglePayments = new TogglePayments();
 
   if (!isSubscription) {
     var showForm = new ShowForm(app);
