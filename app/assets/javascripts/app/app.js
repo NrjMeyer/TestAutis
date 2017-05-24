@@ -90,7 +90,7 @@ var App = function (isSubscription) {
     }
 
     // hide sections
-    //$('.js-hidden').addClass('hidden');
+    $('.js-hidden').addClass('hidden');
 
   };
 
