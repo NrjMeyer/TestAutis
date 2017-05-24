@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 20170523131438) do
     t.string   "donor_mail"
     t.string   "donor_surname"
     t.string   "donor_adress"
+    t.string   "donor_phone"
+    t.boolean  "fiscal_mail"
   end
 
   create_table "offer_dons", force: :cascade do |t|
