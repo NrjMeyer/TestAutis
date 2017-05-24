@@ -107,7 +107,7 @@ class DonController < ApplicationController
         redirect_to payment_data['links'][0]['href']
       elsif payment_option == "debit"
         token = Slimpay.get_token 
-        payment_data = Slimpay.recurringIbanPayment(token, amount, mail)
+        payment_data = Slimpay.recurringIbanPayment(token, amount, mail, true)
         payment_json = JSON.parse(payment_data)
         slimpay_payment = SlimpayPayment.create(
           payment_reference: payment_json['reference'],

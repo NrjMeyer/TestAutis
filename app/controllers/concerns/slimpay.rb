@@ -96,7 +96,13 @@ module Slimpay
       )
   end
 
-  def self.recurringIbanPayment(token, amount, email)
+  def self.recurringIbanPayment(token, amount, email, don = false)
+    if don == false
+      monthly_amount = amount / 12
+    else
+      monthly_amount = amount
+    end
+    
     HTTParty.post(Settings.slimpay.server + Settings.slimpay.url.create_order,
         headers: {
           'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -136,7 +142,7 @@ module Slimpay
           {
               type: "recurrentDirectDebit",
               recurrentDirectDebit: {
-                  amount: amount,
+                  amount: monthly_amount,
                   label: "This is my Recurrent Direct Debit",
                   frequency: "monthly",
                   maxSddNumber: 12,
