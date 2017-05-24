@@ -18,6 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def auto_response
     Cb.autoresponse(params[:DATA])
+    render :text => "coucou"
   end
 
   def new_cb
@@ -33,6 +34,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       cookies.delete :don_id
       ConfirmMailer.success_subscription(@user).deliver_now
       generate_pdf(@payment, "carte", true)
+      redirect_to cb_validation_path
       render "users/confirmations/confirm"
 
     elsif cookies.signed.encrypted[:type] == "adhesion"
