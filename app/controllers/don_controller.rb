@@ -89,7 +89,8 @@ class DonController < ApplicationController
         
         don.amount = amount.to_s + "00"
         don.save
-
+        
+        cookies.signed.encrypted[:amount] = total_payment_amount.to_s + "00"
         cookies.signed.encrypted[:don_id] = don.id
         redirect_to '/cb'
       end

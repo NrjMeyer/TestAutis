@@ -9,121 +9,89 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
 
-  class UserLike
-    attr_accessor :name, :surname, :email
-    def initialize(name, surname, email)
-      @name     = name
-      @surname   = surname
-      @email = email
-    end
-  end
-
   def auto_response
     Cb.autoresponse(params[:DATA])
   end
 
-  def init_userlike(don, payment_option)
-  end
-
   def new_cb
     result = Cb.response(params[:DATA])
-    if cookies.signed.encrypted[:type] == "don"
-      @type_don = true
-
-      @don = Don.find(cookies.signed.encrypted[:don_id])
-      @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
-
-      @payment = valid_don_cb(result, @don)
-      cookies.delete :type
-      cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
-      generate_pdf(@payment, "carte", true)
-      render "users/confirmations/confirm"
-
-    elsif cookies.signed.encrypted[:type] == "adhesion"
-      @type_don = false
-
-      @user = createUserCard(result, cookies.signed.encrypted[:id])
-      
-      if @user.save
-        CacheUser.where(email: @user.email).destroy_all
-        cookies.delete :amount
-        cookies.delete :id
-        ConfirmMailer.success_subscription(@user).deliver_now
-        generate_pdf(@payment, "paypal")
-        render 'users/registrations/new'
-      else
-        render 'cache_users/error'
-      end
+    @user = createUserCard(result, cookies.signed.encrypted[:id])
+    
+    if @user.save
+      CacheUser.where(email: @user.email).destroy_all
+      cookies.delete :amount
+      cookies.delete :id
+      render 'users/registrations/new'
+    else
+      render 'cache_users/error'
     end
   end
 
   def new_paypal
-    if cookies.signed.encrypted[:type] == "don"
-      @type_don = true
+    if CacheUser.find_by(payment_id: params[:token]) != nil
+      @user = createUserPaypal(params, true) or return
 
-      @don = Don.find(cookies.signed.encrypted[:don_id])
-      @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
-
-      if @don.recurring == false
-        @payment = valid_don_paypal(params, @don)
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
       else
-        @payment = valid_don_paypal(params, @don, true)
+        puts @user.errors.inspect
       end
+    else
+      @user = createUserPaypal(params) or return
 
-      cookies.delete :type
-      cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
-      generate_pdf(@payment, "paypal", true)
-      render "users/confirmations/confirm"
-
-    elsif cookies.signed.encrypted[:type] == "adhesion"
-      @type_don = false
-
-      if CacheUser.find_by(payment_id: params[:token]) != nil
-        @user = createUserPaypal(params, true) or return
-
-        if @user.save
-          CacheUser.where(email: @user.email).destroy_all
-        else
-          puts @user.errors.inspect
-        end
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
       else
-        @user = createUserPaypal(params) or return
-
-        if @user.save
-          CacheUser.where(email: @user.email).destroy_all
-        else
-          puts @user.errors.inspect
-        end
+        puts @user.errors.inspect
       end
     end
   end
 
   def new_slimpay
-    if cookies.signed.encrypted[:type] == "don"
-      @type_don = true
+    @user = createUserSlimpay(cookies.signed.encrypted[:id]) or return
 
-      @don = Don.find(cookies.signed.encrypted[:don_id])
-      @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
-      
-      if don.recurring == false
-        validePaymentSlimpay(@don.amount, @don.mail)
+    if @user.save
+      cookies.delete :id
+      CacheUser.where(email: @user.email).destroy_all
+    else
+      puts @user.errors.inspect
+    end
+  end
+
+  def new_cheque
+    @user = createUserCheque(params[:payment_key]) or return
+
+    if @user.save
+      CacheUser.where(email: @user.email).destroy_all
+    else
+      puts @user.errors.inspect
+    end
+  end
+
+  def new
+    # Use Paypal
+    if params.has_key?(:paymentId)
+
+      @user = createUserPaypal(params) or return
+
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
+      else
+        puts @user.errors.inspect
       end
 
-      @don.validated = true
-      @don.save
+    elsif CacheUser.find_by(payment_id: params[:token]) != nil
 
-      @payment = @don.slimpay_payment
+      @user = createUserPaypal(params, true) or return
 
-      cookies.delete :type
-      cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
-      generate_pdf(@payment, "paypal", true)
-      render "users/confirmations/confirm"
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
+      else
+        puts @user.errors.inspect
+      end
 
-    elsif cookies.signed.encrypted[:type] == "adhesion"
-      @type_don = false
+    # Use Slimpay
+    elsif cookies.signed.encrypted[:id] != nil
 
       @user = createUserSlimpay(cookies.signed.encrypted[:id]) or return
 
@@ -133,27 +101,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         puts @user.errors.inspect
       end
-    end
-  end
 
-  def new_cheque
-    if cookies.signed.encrypted[:type] == "don"
-      @type_don = true
-
-      @don = Don.find(cookies.signed.encrypted[:don_id])
-      @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
-
-      @payment = valid_don_cheque(@don)
-      @payment_option = 'cheque'
-      cookies.delete :type
-      cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
-      generate_pdf(@payment, "paypal", true)
-      render "users/confirmations/confirm"
-
-    elsif cookies.signed.encrypted[:type] == "adhesion"
-      @type_don = false
-
+    elsif params.has_key?(:payment_key)
       @user = createUserCheque(params[:payment_key]) or return
 
       if @user.save
@@ -161,6 +110,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         puts @user.errors.inspect
       end
+
     end
   end
 
@@ -189,6 +139,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           payment = validePaymentPaypal(@payment)
         end
 
+
         if payment['state'] == 'approved' || payment['state'] == 'Active'
           ConfirmMailer.success_subscription(@user).deliver_now
           generate_pdf(@payment, "paypal")
@@ -201,14 +152,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
         @payment = SlimpayPayment.where(payment_reference: @user.slimpay_payments.last.payment_reference).last
 
         if @user.monthly_payment == false
-          payment = JSON.parse(validePaymentSlimpay(@payment.amount, @user.email))
+          payment = JSON.parse(validePaymentSlimpay(@payment, @user))
         end
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "paypal")
         render 'users/confirmations/confirm'
 
       elsif @user.payment_option == 'cheque'
-        @payment_option = 'cheque'
 
         @payment = ChequePayment.where(user_id: @user.id).last
         ConfirmMailer.success_subscription(@user).deliver_now
@@ -224,17 +174,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def generate_pdf(payment, method, don = false)
+  def generate_pdf(payment, method)
     receipt_id = method + payment.id.to_s + "/" + Time.current.year.to_s
     amount = payment.reduction
     payment_method = method
-    if don == true
-      adress = payment.dons.last.donor_adress
-      name = payment.dons.last.donor_name + " " + payment.dons.last.donor_surname
-    else
-      adress = payment.user.address + " " + payment.user.address_extend + " " + payment.user.post_code.to_s + " " + payment.user.city
-      name = payment.user.name + " " + payment.user.surname
-    end
+    adress = payment.user.address + " " + payment.user.address_extend + " " + payment.user.post_code.to_s + " " + payment.user.city
+    name = payment.user.name + " " + payment.user.surname
     date = payment.created_at
 
     @pdf = WickedPdf.new.pdf_from_string(
@@ -255,7 +200,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def validePaymentSlimpay(amount, email)
+  def validePaymentSlimpay(payment, user)
     payment = HTTParty.post("https://api-sandbox.slimpay.net/payments/in",
       headers: {
         'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -267,10 +212,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
               reference: Settings.slimpay.creditor_reference
           },
           subscriber: {
-              reference: email
+              reference: user.email
           },
           reference: nil,
-          amount: amount,
+          amount: payment.amount,
           currency: 'EUR',
           scheme: 'SEPA.DIRECT_DEBIT.CORE',
           label: 'Débit pour votre adhésion vaincre l\'autisme',
@@ -327,7 +272,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @cache_user.dons
       @user.dons << @cache_user.dons
-      @user.dons.map{ |d| d.validated = true}
     end
 
     # Le montant du payement passé à l'api est sans virgule, on divise donc par 100
@@ -376,7 +320,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @cache_user.dons
       @user.dons << @cache_user.dons
-      @user.dons.map{ |d| d.validated = true}
     end
 
     @user.cheque_payments << @cache_user.cheque_payment
@@ -419,7 +362,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @cache_user.dons
       @user.dons << @cache_user.dons
-      @user.dons.map{ |d| d.validated = true}
     end
 
     @user.save
@@ -492,7 +434,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     if @cache_user.dons
       @user.dons << @cache_user.dons
-      @user.dons.map{ |d| d.validated = true}
     end
 
     @user.save
@@ -507,72 +448,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
 
     return @user
-  end
-
-  def valid_don_paypal(params, don, reccuring = false)
-
-    if reccuring == false
-
-      paypal_payment = PaypalPayment.create(
-        payment: params[:paymentId],
-        payer: params[:PayerID],
-        token: params[:token],
-        amount: don.amount,
-      )
-
-    else
-
-      paypal_payment = PaypalPayment.create(
-        token: params[:token],
-        amount: don.amount,
-      )
-
-    end
-
-    payment = validePaymentPaypal(paypal_payment, reccuring)
-
-    if payment['state'] == 'approved' || payment['state'] == 'Active'
-      don.validated = true
-      don.paypal_payment_id = paypal_payment.id
-      if don.save
-        return paypal_payment
-      end
-    elsif payment["name"] == "PAYMENT_ALREADY_DONE"
-      redirect_to root_path
-    else
-      redirect_to root_path
-    end
-  end
-
-  def valid_don_cheque(don)
-
-    payment =  ChequePayment.create(
-      amount: total_payment_amount,
-      validated: false,
-    )
-
-    don.cheque_payment_id = payment.id
-    don.validated = true
-    don.save
-
-    return payment
-  end
-
-  def valid_don_cb(param, don)
-
-    converted_amount = param[5].to_i / 100
-
-    payment = CardPayment.create(
-      amount: converted_amount,
-      payment_reference: param[6]
-    )
-
-    don.card_payment_id = payment.id
-    don.amount = converted_amount
-    don.validated = true
-    don.save
-
-    return payment
   end
 
   def user_already_exist(email)
