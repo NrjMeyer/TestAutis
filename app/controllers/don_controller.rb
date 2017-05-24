@@ -100,7 +100,7 @@ class DonController < ApplicationController
 
       if payment_option == "paypal"
         token = Paypal.get_token
-        payment_data = Paypal.reccurringPayment(token, amount, user)
+        payment_data = Paypal.reccurringPayment(token, amount, user, true)
         token = payment_data['links'][0]['href'].scan(/token=(.*)/)[0][0]
 
         cookies.signed.encrypted[:don_id] = don.id

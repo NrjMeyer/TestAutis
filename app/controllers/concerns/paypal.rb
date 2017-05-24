@@ -41,9 +41,13 @@ module Paypal
       }.to_json)
   end
 
-  def self.reccurringPayment(token, amount, user)
+  def self.reccurringPayment(token, amount, user, don = false)
 
-    monthly_amount = amount / 12
+    if don == false
+      monthly_amount = amount / 12
+    else
+      monthly_amount = amount
+    end
 
     name = "Adhésion vaincre l\'autisme"
     description = "Payement de votre adhésion vraincre l\'autisme sur 12 mois pour "+amount.to_s+"€"
