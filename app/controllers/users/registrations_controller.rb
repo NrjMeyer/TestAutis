@@ -82,16 +82,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         if @user.save
           CacheUser.where(email: @user.email).destroy_all
+          render 'users/registrations/new'
         else
           puts @user.errors.inspect
+          render 'cache_users/error'
         end
       else
         @user = createUserPaypal(params) or return
 
         if @user.save
           CacheUser.where(email: @user.email).destroy_all
+          render 'users/registrations/new'
         else
           puts @user.errors.inspect
+          render 'cache_users/error'
         end
       end
     end
@@ -127,8 +131,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if @user.save
         cookies.delete :id
         CacheUser.where(email: @user.email).destroy_all
+        render 'users/registrations/new'
       else
         puts @user.errors.inspect
+        render 'cache_users/error'
       end
     end
   end
@@ -156,8 +162,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       if @user.save
         CacheUser.where(email: @user.email).destroy_all
+        render 'users/registrations/new'
       else
         puts @user.errors.inspect
+        render 'cache_users/error'
       end
     end
   end
