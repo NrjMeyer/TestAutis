@@ -40,7 +40,7 @@ Role.create!(name: 'Parent d’enfant atteint d’autisme')
 Role.create!(name: 'Personne atteinte d’autisme')
 Role.create!(name: 'Professionnel de l’autisme')
 
-OfferDon.create!(amount: 15, story: "Vous financez  une journée de travail  d’un spécialiste")
+OfferDon.create!(amount: 15, story: "Vous financez une journée de travail d’un spécialiste")
 OfferDon.create!(amount: 30, story: "Vous contribuez au financement d'un kit scolaire")
 OfferDon.create!(amount: 50, story: "Vous contribuez au financement d'un kit scolaire")
 OfferDon.create!(amount: 80, story: "Vous contribuez au financement d'un kit scolaire")
