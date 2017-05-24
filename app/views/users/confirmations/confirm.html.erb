@@ -62,19 +62,19 @@
         <div class="form-block__top form-block__top--highpadding">Confirmation de paiement</div>
         <div class="form-block__bottom">
           <div class="form-block__container form-block__column">
-            <% if @user.payment_option == 'cheque' %>
+            <% if @payment_option != nil && @payment_option == 'cheque' %>
               <div class="payment__cheque">
-                <p class="content">Votre adhésion sera prise en compte dès réception de votre chèque et de votre récapitulatif à l'ordre de <span>VAINCRE L'AUTISME</span> et imprimé à l'adresse :</p>
+                <p class="content">Votre<% if @type_don == false %> adhésion <% else %> don <% end %>sera prise en compte dès réception de votre chèque et de votre récapitulatif à l'ordre de <span>VAINCRE L'AUTISME</span> et imprimé à l'adresse :</p>
                 <p class="adress">
                   <span>Service adhésion - Vaincre l'autisme</span>
                   <span>51 rue Servan</span>
                   <span>75011 Paris</span>
                 </p>
-            </div>
+              </div>
             <% else %>
-              <div class="payment-validation__content payment-validation__donation">Votre adhésion a bien été pris en compte <%= embedded_svg "icons/check.svg", class: "icon-check" %></div>
+              <div class="payment-validation__content payment-validation__donation">Votre<% if @type_don == false %> adhésion <% else %> don <% end %>a bien été pris en compte <%= embedded_svg "icons/check.svg", class: "icon-check" %></div>
             <% end %>
-            <p class="content">Pour toute question relative à votre adhésion, contactez notre service adhérent :</p>
+            <p class="content">Pour toute question relative à votre<% if @type_don == false %> adhésion<% else %> don<% end %>, contactez notre service adhérent :</p>
             <div class="btn-container">
               <button class="btn btn__contact"><a href="mailto:donateurs@vaincrelautisme.org">Contacter le service</a></button>
             </div>
@@ -93,63 +93,92 @@
         <% end %>
         <div class="form-block__bottom price-table">
           <div class="row__content row__subscription">
-            <% if @user.monthly_payment == false %>
-              <p class="content__listing">Votre adhésion</p>
-              <% if @user.dons.count > 0 %>
-                <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12 + @user.dons.last.amount) %>€</p>
+            <% if @type_don == false %>
+              <% if @user.monthly_payment == false %>
+                <p class="content__listing">Votre adhésion</p>
+                <% if @user.dons.count > 0 %>
+                  <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12 + @user.dons.last.amount) %>€</p>
+                <% else %>
+                  <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12) %>€</p>
+                <% end %>
               <% else %>
-                <p class="content__amount"><%= @payment.amount.to_i - (@user.side_user_number.to_i * 12) %>€</p>
+                <p class="content__listing">Votre adhésion </p>
+                <% if @user.dons.count > 0 %>
+                  <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i - (@user.dons.last.amount / 12 )%>€/mois</p>
+                <% else %>
+                  <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i %>€/mois</p>
+                <% end %>
               <% end %>
-            <% else %>
-              <p class="content__listing">Votre adhésion </p>
-              <% if @user.dons.count > 0 %>
-                <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i - (@user.dons.last.amount / 12 )%>€/mois</p>
+            <% elsif @type_don == true %>
+              <% if @don.recurring == false %>
+                <p class="content__listing">Votre don</p>
+                  <p class="content__amount"><%= @don.amount.to_i %>€</p>
               <% else %>
-                <p class="content__amount"><%= @payment.amount / 12 - @user.side_user_number.to_i %>€/mois</p>
+                <p class="content__listing">Votre don </p>
+                  <p class="content__amount"><%= @don.amount.to_i %>€/mois</p>
+                <% end %>
               <% end %>
             <% end %>
           </div>
-          <% if @user.side_user_number > 0 %>
-            <% if @user.monthly_payment == false %>
-              <div class="row__content row__family">
-                <p class="content__listing">Vos proches (<%= @user.side_user_number %>)</p>
-                <p class="content__amount"><%= @user.side_user_number.to_i * 12 %>€</p>
-              </div>
-            <% else %>
-              <div class="row__content row__family">
-                <p class="content__listing">Vos proches (<%= @user.side_user_number %>)</p>
-                <p class="content__amount"><%= @user.side_user_number.to_i %>€/mois</p>
-              </div>
+          <% if @type_don == false %>
+            <% if @user.side_user_number > 0 %>
+              <% if @user.monthly_payment == false %>
+                <div class="row__content row__family">
+                  <p class="content__listing">Vos proches (<%= @user.side_user_number %>)</p>
+                  <p class="content__amount"><%= @user.side_user_number.to_i * 12 %>€</p>
+                </div>
+              <% else %>
+                <div class="row__content row__family">
+                  <p class="content__listing">Vos proches (<%= @user.side_user_number %>)</p>
+                  <p class="content__amount"><%= @user.side_user_number.to_i %>€/mois</p>
+                </div>
+              <% end %>
             <% end %>
-          <% end %>
-          <% if @user.dons.count > 0 %>
-              <div class="row__content row__donation">
-                <p class="content__listing">Votre don</p>
-                <% if @user.monthly_payment == false %>
-                  <p class="content__amount"><%= @user.dons.last.amount %>€</p>
-                <% else %>
-                  <p class="content__amount"><%= @user.dons.last.amount / 12 %>€/mois</p>
-                <% end %>
-              </div>
+            <% if @user.dons.count > 0 %>
+                <div class="row__content row__donation">
+                  <p class="content__listing">Votre don</p>
+                  <% if @user.monthly_payment == false %>
+                    <p class="content__amount"><%= @user.dons.last.amount %>€</p>
+                  <% else %>
+                    <p class="content__amount"><%= @user.dons.last.amount / 12 %>€/mois</p>
+                  <% end %>
+                </div>
+            <% end %>
           <% end %>
         </div>
         <div class="price-table--grey">
           <div class="row__content row__total">
             <p class="content__listing">Total à payer</p>
-            <% if @user.monthly_payment == false %>
-              <p class="content__amount"><%= @payment.amount %>€</p>
-            <% else %>
-              <p class="content__amount"><%= @payment.amount.to_i / 12 %>€/mois</p>
+            <% if @type_don == false %>
+              <% if @user.monthly_payment == false %>
+                <p class="content__amount"><%= @payment.amount %>€</p>
+              <% else %>
+                <p class="content__amount"><%= @payment.amount.to_i / 12 %>€/mois</p>
+              <% end %>
+            <% elsif @type_don == true %>
+              <% if @don.recurring == false %>
+                <p class="content__amount"><%= @don.amount %>€</p>
+              <% else %>
+                <p class="content__amount"><%= @don.amount %>€/mois</p>
+              <% end %>
             <% end %>
           </div>
         </div>
         <div class="price-table--highlighted">
           <div class="row__content row__taxes">
             <p class="content__listing">Coût après réduction fiscale</p>
-            <% if @user.monthly_payment == false %>
-              <p class="content__amount"><%= (@payment.amount.to_i * 0.34).round(2) %>€</p>
-            <% else %>
-              <p class="content__amount"><%= ((@payment.amount.to_i * 0.34) / 12).round(2) %>€/mois</p>
+            <% if @type_don == false %>
+              <% if @user.monthly_payment == false %>
+                <p class="content__amount"><%= (@payment.amount.to_i * 0.34).round(2) %>€</p>
+              <% else %>
+                <p class="content__amount"><%= ((@payment.amount.to_i * 0.34) / 12).round(2) %>€/mois</p>
+              <% end %>
+            <% elsif @type_don == true %>
+              <% if @don.recurring == false %>
+                <p class="content__amount"><%= (@don.amount.to_i * 0.34).round(2) %>€</p>
+              <% else %>
+                <p class="content__amount"><%= (@don.amount.to_i * 0.34).round(2) %>€/mois</p>
+              <% end %>
             <% end %>
           </div>
         </div>
