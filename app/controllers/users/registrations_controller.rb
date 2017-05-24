@@ -23,10 +23,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
-    puts '---------------------'
-    puts cookies.signed.encrypted[:type]
-    puts '---------------------'
-
     if cookies.signed.encrypted[:type] == "don"
       @type_don = true
 
@@ -108,7 +104,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @don = Don.find(cookies.signed.encrypted[:don_id])
       @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
       
-      if don.recurring == false
+      if @don.recurring == false
         validePaymentSlimpay(@don.amount, @don.mail)
       end
 
