@@ -8,7 +8,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-
   class UserLike
     attr_accessor :name, :surname, :email
     def initialize(name, surname, email)
