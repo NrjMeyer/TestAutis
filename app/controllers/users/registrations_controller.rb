@@ -105,7 +105,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
       
       if @don.recurring == false
-        validePaymentSlimpay(@don.amount, @don.mail)
+        validePaymentSlimpay(@don.amount, @don.donor_mail)
       end
 
       @don.validated = true
