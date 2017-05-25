@@ -243,8 +243,10 @@ var App = function (isSubscription) {
   };
 
   var _checkFirstSection = function () {
-    if ($("input[name='monthly']:checked").val() && $("input[name='formule']:checked").val()) {
-      displaySection(1);
+    if ($("input[name='monthly']:checked").val()) {
+      if ($("input[name='formule']:checked").val() || $("input[name='formule_custom']:checked").val()) {
+        displaySection(1);
+      }
     }
   }
   var _checkThirdSection = function () {
