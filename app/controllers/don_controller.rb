@@ -39,10 +39,10 @@ class DonController < ApplicationController
       params[:don][:post_code], 
       params[:don][:city],
       params[:don][:address] +" "+ params[:don][:address_extend] +" "+ params[:don][:post_code] +" "+ params[:don][:city],
-      params[:don][:surname]
-      params[:don][:name]
-      params[:don][:email]
-      params[:don][:phone_number]
+      params[:don][:surname],
+      params[:don][:name],
+      params[:don][:email],
+      params[:don][:phone_number],
     )
 
     payment_option = params[:payment_option]
