@@ -30,6 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
 
       @payment = valid_don_cb(result, @don)
+      @rounds = MoneyDivision.all
       cookies.delete :type
       cookies.delete :don_id
       ConfirmMailer.success_subscription(@user).deliver_now
@@ -71,6 +72,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       cookies.delete :type
       cookies.delete :don_id
       ConfirmMailer.success_subscription(@user).deliver_now
+      @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
       render "users/confirmations/confirm"
 
@@ -120,6 +122,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       cookies.delete :type
       cookies.delete :don_id
       ConfirmMailer.success_subscription(@user).deliver_now
+      @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
       render "users/confirmations/confirm"
 
@@ -152,6 +155,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       cookies.delete :type
       cookies.delete :don_id
       ConfirmMailer.success_subscription(@user).deliver_now
+      @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
       render "users/confirmations/confirm"
 
