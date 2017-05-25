@@ -23,13 +23,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
-    puts result
-
-  end
-
-  def new_cb
-    result = Cb.response(params[:DATA])
-    puts session.inspect
+    puts '----------------------'
+    puts session[:type].inspect
+    puts '----------------------'
     if session[:type] == "don"
       @type_don = true
 

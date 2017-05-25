@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     # CB payment route
+    post '/cb_autoresponse', to: 'users/registrations#auto_response'
     post '/cb_validation', to: 'users/registrations#new_cb'
     get '/cb_validation', to: 'users/registrations#auto_response'
     get '/cheque_validation', to: 'users/registrations#new_cheque'
