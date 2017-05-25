@@ -4,13 +4,17 @@ class DonController < ApplicationController
   include Cb
 
   class UserLike
-    attr_accessor :address, :address_extend, :post_code, :city, :full_addresse
-    def initialize(address, address_extend, post_code, city, full_addresse)
+    attr_accessor :address, :address_extend, :post_code, :city, :full_addresse, :surname, :name, :email, :phone_number
+    def initialize(address, address_extend, post_code, city, full_addresse, surname, name, email, phone_number)
       @address     = address
       @address_extend   = address_extend
       @post_code = post_code
       @city = city
       @full_addresse = full_addresse
+      @surname = surname
+      @name = name
+      @email = email
+      @phone_number = phone_number
     end
   end
 
@@ -35,6 +39,10 @@ class DonController < ApplicationController
       params[:don][:post_code], 
       params[:don][:city],
       params[:don][:address] +" "+ params[:don][:address_extend] +" "+ params[:don][:post_code] +" "+ params[:don][:city],
+      params[:don][:surname]
+      params[:don][:name]
+      params[:don][:email]
+      params[:don][:phone_number]
     )
 
     payment_option = params[:payment_option]
@@ -63,13 +71,13 @@ class DonController < ApplicationController
       
       if payment_option == "paypal"
         token = Paypal.get_token
-        payment_data = Paypal.simplePayment(token, amount)
+        payment_data = Paypal.simplePayment(token, amount, "Don")
 
         cookies.signed.encrypted[:don_id] = don.id
         redirect_to payment_data['links'][1]['href']
       elsif payment_option == "debit"
         token = Slimpay.get_token
-        payment_data = Slimpay.simpleIbanPayment(token, amount, mail)
+        payment_data = Slimpay.simpleIbanPayment(token, amount, user)
         payment_json = JSON.parse(payment_data)
         slimpay_payment = SlimpayPayment.create(
           payment_reference: payment_json['reference'],
@@ -113,7 +121,7 @@ class DonController < ApplicationController
         redirect_to payment_data['links'][0]['href']
       elsif payment_option == "debit"
         token = Slimpay.get_token 
-        payment_data = Slimpay.recurringIbanPayment(token, amount, mail, true)
+        payment_data = Slimpay.recurringIbanPayment(token, amount, user, true)
         payment_json = JSON.parse(payment_data)
         slimpay_payment = SlimpayPayment.create(
           payment_reference: payment_json['reference'],

@@ -1,6 +1,7 @@
 module Slimpay
   extend ActiveSupport::Concern
-
+  require 'date'
+  
   private
 
   def self.get_token
@@ -46,7 +47,7 @@ module Slimpay
     )
   end
 
-  def self.simpleIbanPayment(token, amount, email)
+  def self.simpleIbanPayment(token, amount, user)
     HTTParty.post(Settings.slimpay.server + Settings.slimpay.url.create_order,
         headers: {
           'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -68,17 +69,17 @@ module Slimpay
                 mandate: {
                     signatory: {
                         billingAddress: {
-                            street1: "27 rue des fleurs",
-                            street2: "Bat 2",
-                            city: "Paris",
-                            postalCode: "75008",
+                            street1: user.address,
+                            street2: user.address_extend,
+                            city: user.city,
+                            postalCode: user.post_code,
                             country: "FR"
                         },
-                        honorificPrefix: "Mr",
-                        familyName: "Doe",
-                        givenName: "John",
-                        email: email,
-                        telephone: "+33612345678"
+                        honorificPrefix: "M",
+                        familyName: user.surname,
+                        givenName: user.name,
+                        email: user.email,
+                        telephone: user.phone_number
                     },
                     standard: "SEPA"
                 }
@@ -87,8 +88,8 @@ module Slimpay
                 type: "directDebit",
                 directDebit: {
                     amount: amount,
-                    paymentReference: "mypayment",
-                    label: "This is my Direct Debit"
+                    paymentReference: user.hash.to_s,
+                    label: "Virement à Vaincre l\'autisme"
                 }
             },
           ]
@@ -96,13 +97,17 @@ module Slimpay
       )
   end
 
-  def self.recurringIbanPayment(token, amount, email, don = false)
+  def self.recurringIbanPayment(token, amount, user, don = false)
     if don == false
       monthly_amount = amount / 12
+      description = "Payement de votre adhésion vraincre l\'autisme sur 12 mois pour "+amount.to_s+"€"
     else
       monthly_amount = amount
+      description = "Don récurrent à vaincre l\'autisme de "+amount.to_s+"€ sur 12 mois"
     end
     
+    t = DateTime.now + 7
+
     HTTParty.post(Settings.slimpay.server + Settings.slimpay.url.create_order,
         headers: {
           'Accept' => 'application/hal+json; profile="https://api.slimpay.net/alps/v1"',
@@ -115,7 +120,7 @@ module Slimpay
             reference: Settings.slimpay.creditor_reference
           },
           subscriber: {
-            reference: email
+            reference: user.email
           },
           items: [
             {
@@ -124,17 +129,17 @@ module Slimpay
               mandate: {
                   signatory: {
                       billingAddress: {
-                          street1: "27 rue des fleurs",
-                          street2: "Bat 2",
-                          city: "Paris",
-                          postalCode: "75008",
-                          country: "FR"
+                        street1: user.address,
+                        street2: user.address_extend,
+                        city: user.city,
+                        postalCode: user.post_code,
+                        country: "FR"
                       },
-                      honorificPrefix: "Mr",
-                      familyName: "Doe",
-                      givenName: "John",
-                      email: "email@qzfqer.fr",
-                      telephone: "+33612345678"
+                      honorificPrefix: "M",
+                      familyName: user.surname,
+                      givenName: user.name,
+                      email: user.email,
+                      telephone: user.phone_number
                   },
                   standard: "SEPA"
               }
@@ -143,11 +148,11 @@ module Slimpay
               type: "recurrentDirectDebit",
               recurrentDirectDebit: {
                   amount: monthly_amount,
-                  label: "This is my Recurrent Direct Debit",
+                  label: description,
                   frequency: "monthly",
                   maxSddNumber: 12,
                   activated: true,
-                  dateFrom: "2017-11-04T13:11:52.900+0000"
+                  dateFrom: t.to_s
               }
           },
           ]
