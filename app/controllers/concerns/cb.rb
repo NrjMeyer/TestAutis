@@ -21,12 +21,13 @@ module Cb
 
     cmd = pathfile + " " + param
 
+    test = system(cmd)
+    puts '----------------------'
+    puts test
+    puts '----------------------'
+
+
     stdin, stdout, stderr = Open3.popen3(cmd)
-
-    puts '----------------------'
-    puts stdout
-    puts '----------------------'
-
     result = stdout.read[4..-1]
     return result.tr('!','')
 
