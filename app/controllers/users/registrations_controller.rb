@@ -27,36 +27,36 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   end
 
-  # def new_cb
-  #   result = Cb.response(params[:DATA])
-  #   if cookies.signed.encrypted[:type] == "don"
-  #     @type_don = true
+  def new_cb
+    result = Cb.response(params[:DATA])
+    if session[:type] == "don"
+      @type_don = true
 
-  #     @don = Don.find(cookies.signed.encrypted[:don_id])
-  #     @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
+      @don = Don.find(session[:don_id])
+      @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
 
-  #     @payment = valid_don_cb(result, @don)
-  #     @rounds = MoneyDivision.all
-  #     ConfirmMailer.success_subscription(@user).deliver_now
-  #     generate_pdf(@payment, "carte", true)
-  #     redirect_to cb_validation_path
-  #     render "users/confirmations/confirm"
+      @payment = valid_don_cb(result, @don)
+      @rounds = MoneyDivision.all
+      ConfirmMailer.success_subscription(@user).deliver_now
+      generate_pdf(@payment, "carte", true)
+      redirect_to cb_validation_path
+      render "users/confirmations/confirm"
 
-  #   elsif cookies.signed.encrypted[:type] == "adhesion"
-  #     @type_don = false
+    elsif session[:type] == "adhesion"
+      @type_don = false
 
-  #     @user = createUserCard(result, cookies.signed.encrypted[:id])
+      @user = createUserCard(result, cookies.signed.encrypted[:id])
       
-  #     if @user.save
-  #       CacheUser.where(email: @user.email).destroy_all
-  #       ConfirmMailer.success_subscription(@user).deliver_now
-  #       generate_pdf(@payment, "paypal")
-  #       render 'users/registrations/new'
-  #     else
-  #       render 'cache_users/error'
-  #     end
-  #   end
-  # end
+      if @user.save
+        CacheUser.where(email: @user.email).destroy_all
+        ConfirmMailer.success_subscription(@user).deliver_now
+        generate_pdf(@payment, "paypal")
+        render 'users/registrations/new'
+      else
+        render 'cache_users/error'
+      end
+    end
+  end
 
   def new_paypal
     if cookies.signed.encrypted[:type] == "don"
