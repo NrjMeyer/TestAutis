@@ -123,6 +123,11 @@ class DonController < ApplicationController
         token = Slimpay.get_token 
         payment_data = Slimpay.recurringIbanPayment(token, amount, user, true)
         payment_json = JSON.parse(payment_data)
+
+        puts '----------------'
+        puts payment_json
+        puts '----------------'
+
         slimpay_payment = SlimpayPayment.create(
           payment_reference: payment_json['reference'],
           amount: amount

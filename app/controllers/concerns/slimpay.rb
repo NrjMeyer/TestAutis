@@ -1,7 +1,7 @@
 module Slimpay
   extend ActiveSupport::Concern
   require 'date'
-  
+
   private
 
   def self.get_token
@@ -75,7 +75,7 @@ module Slimpay
                             postalCode: user.post_code,
                             country: "FR"
                         },
-                        honorificPrefix: "M",
+                        honorificPrefix: "Mr",
                         familyName: user.surname,
                         givenName: user.name,
                         email: user.email,
@@ -107,6 +107,7 @@ module Slimpay
     end
     
     t = DateTime.now + 7
+    date = t.strftime('%Y-%m-%d')
 
     HTTParty.post(Settings.slimpay.server + Settings.slimpay.url.create_order,
         headers: {
@@ -135,11 +136,11 @@ module Slimpay
                         postalCode: user.post_code,
                         country: "FR"
                       },
-                      honorificPrefix: "M",
+                      honorificPrefix: "Mr",
                       familyName: user.surname,
                       givenName: user.name,
                       email: user.email,
-                      telephone: user.phone_number
+                      telephone: "+33"+user.phone_number[1..-1]
                   },
                   standard: "SEPA"
               }
@@ -152,7 +153,7 @@ module Slimpay
                   frequency: "monthly",
                   maxSddNumber: 12,
                   activated: true,
-                  dateFrom: t.to_s
+                  dateFrom: "#{date}T12:00:00.900+0000"
               }
           },
           ]
