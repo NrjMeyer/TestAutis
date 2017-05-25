@@ -60,7 +60,7 @@ module Slimpay
             reference: Settings.slimpay.creditor_reference
           },
           subscriber: {
-            reference: email
+            reference: user.email
           },
           items: [
             {
@@ -79,7 +79,7 @@ module Slimpay
                         familyName: user.surname,
                         givenName: user.name,
                         email: user.email,
-                        telephone: user.phone_number
+                        telephone: "+33"+user.phone_number[1..-1]
                     },
                     standard: "SEPA"
                 }

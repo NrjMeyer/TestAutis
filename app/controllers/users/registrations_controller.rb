@@ -31,8 +31,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       @payment = valid_don_cb(result, @don)
       @rounds = MoneyDivision.all
-      ConfirmMailer.success_subscription(@user).deliver_now
       generate_pdf(@payment, "carte", true)
+
+      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+
       render "users/confirmations/confirm"
 
     elsif session[:type] == "adhesion"
@@ -66,9 +68,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       cookies.delete :type
       cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
       @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
+
+      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+
       render "users/confirmations/confirm"
 
     elsif cookies.signed.encrypted[:type] == "adhesion"
@@ -116,9 +120,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       cookies.delete :type
       cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
       @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
+
+      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+
       render "users/confirmations/confirm"
 
     elsif cookies.signed.encrypted[:type] == "adhesion"
@@ -149,9 +155,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @payment_option = 'cheque'
       cookies.delete :type
       cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
       @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
+
+      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+
       render "users/confirmations/confirm"
 
     elsif cookies.signed.encrypted[:type] == "adhesion"
@@ -254,6 +262,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @filename ||= "#{Rails.root}/public/pdfs/#{payment.hash}.pdf"
     @save_path ||= Rails.root.join('public/pdfs', payment.hash.to_s + '.pdf')
     @access_path ||= "pdfs/#{payment.hash}.pdf"
+    @url_path ||= Settings.base.url+"/"+@access_path
 
     File.open(@save_path, 'wb') do |file|
       file << @pdf
