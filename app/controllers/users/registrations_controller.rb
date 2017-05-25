@@ -23,9 +23,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
-    puts '----------------------'
-    puts session[:type].inspect
-    puts '----------------------'
     if session[:type] == "don"
       @type_don = true
 
@@ -36,7 +33,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @rounds = MoneyDivision.all
       ConfirmMailer.success_subscription(@user).deliver_now
       generate_pdf(@payment, "carte", true)
-      redirect_to cb_validation_path
       render "users/confirmations/confirm"
 
     elsif session[:type] == "adhesion"
