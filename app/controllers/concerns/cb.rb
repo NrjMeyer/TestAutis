@@ -11,7 +11,7 @@ module Cb
     param = "#{param} merchant_country=fr"
     param = "#{param} amount=#{amount}" 
     param = "#{param} currency_code=978"
-    param = "#{param} data=#{amount}|#{type}|#{id}"
+    # param = "#{param} data=#{amount}|#{type}|#{id}"
     param = "#{param} pathfile='#{file}/cb_payment/param/pathfile'"
     param = "#{param} normal_return_url="+Settings.cb.callback_url_success
     param = "#{param} cancel_return_url="+Settings.cb.callback_url_failure
