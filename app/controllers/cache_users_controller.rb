@@ -140,6 +140,6 @@ class CacheUsersController < ApplicationController
   end
 
   def payment
-    render :text => Cb.request(cookies.signed.encrypted[:amount])
+    render :text => Cb.request(cookies.signed.encrypted[:amount], cookies.signed.encrypted[:type], cookies.signed.encrypted[:id])
   end
 end
