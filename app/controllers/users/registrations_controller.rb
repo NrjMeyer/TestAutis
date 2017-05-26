@@ -41,7 +41,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @type_don = false
 
       @user = createUserCard(result, cookies.signed.encrypted[:id])
-      
+
       if @user.save
         CacheUser.where(email: @user.email).destroy_all
         ConfirmMailer.success_subscription(@user).deliver_now
@@ -99,6 +99,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
           render 'cache_users/error'
         end
       end
+
+      render "users/confirmations/confirm"
     end
   end
 
@@ -108,7 +110,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       @don = Don.find(cookies.signed.encrypted[:don_id])
       @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
-      
+
       if @don.recurring == false
         validePaymentSlimpay(@don.amount, @don.donor_mail)
       end
