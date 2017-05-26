@@ -34,13 +34,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
       generate_pdf(@payment, "carte", true)
 
       ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
-
+      session[:type] = nil
       render "users/confirmations/confirm"
 
     elsif session[:type] == "adhesion"
       @type_don = false
 
       @user = createUserCard(result, cookies.signed.encrypted[:id])
+      session[:type] = nil
 
       if @user.save
         CacheUser.where(email: @user.email).destroy_all
@@ -50,7 +51,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       else
         render 'cache_users/error'
       end
+    else
+      redirect_to root_path
     end
+
   end
 
   def new_paypal
@@ -134,12 +138,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       if @user.save
         cookies.delete :id
+        cookies.delete :type
         CacheUser.where(email: @user.email).destroy_all
         render 'users/registrations/new'
       else
         puts @user.errors.inspect
+        cookies.delete :type
         render 'cache_users/error'
       end
+    else
+      redirect_to root_path
     end
   end
 
@@ -168,12 +176,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       if @user.save
         CacheUser.where(email: @user.email).destroy_all
+        cookies.delete :type
         render 'users/registrations/new'
       else
+        cookies.delete :type
         puts @user.errors.inspect
         render 'cache_users/error'
       end
+    else
+      redirect_to root_path
     end
+
   end
 
   def payment

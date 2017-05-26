@@ -190,14 +190,14 @@
         <div class="form-block">
           <div class="form-block__top form-block__top--mobile form-block__top--mobile--nomargin">Utilisation de vos dons en 2016</div>
           <div class="form-block__bottom">
-            <% @rounds.each do |round| %>
-              <div class="actions">
-                <div class="action">
-                  <div class="action__percentage"><%= round.part %>%</div>
-                  <span class="action__type"><%= round.use %></span>
-                </div>
-              </div>
-            <% end %>
+            <div class="actions">
+              <% @rounds.each do |round| %>
+                  <div class="action">
+                    <div class="action__percentage"><%= round.part %>%</div>
+                    <span class="action__type"><%= round.use %></span>
+                  </div>
+              <% end %>
+            </div>
           </div>
         </div>
       
