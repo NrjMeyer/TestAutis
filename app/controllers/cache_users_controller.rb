@@ -126,7 +126,8 @@ class CacheUsersController < ApplicationController
         cookies.signed.encrypted[:id] = payment_json['reference']
         redirect_to payment_json['_links']['https://api.slimpay.net/alps#user-approval']['href']
       elsif payment_option == 'card'
-        cookies.signed.encrypted[:id] = @user.id
+        session[:type] = "adhesion"
+        session[:id] = @user.id
         cookies.signed.encrypted[:amount] = total_payment_amount.to_s + "00"
         redirect_to '/cb'
       end
