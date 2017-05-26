@@ -44,3 +44,8 @@ OfferDon.create!(amount: 15, story: "Vous financez une journée de travail d’u
 OfferDon.create!(amount: 30, story: "Vous contribuez au financement d'un kit scolaire")
 OfferDon.create!(amount: 50, story: "Vous contribuez au financement d'un kit scolaire")
 OfferDon.create!(amount: 80, story: "Vous contribuez au financement d'un kit scolaire")
+
+MoneyDivision.create!(part: 23, use: "Traitement & Recherche")
+MoneyDivision.create!(part: 27, use: "Traitement & Recherche")
+MoneyDivision.create!(part: 25, use: "Traitement & Recherche")
+MoneyDivision.create!(part: 25, use: "Traitement & Recherche")

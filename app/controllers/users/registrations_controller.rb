@@ -23,29 +23,27 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new_cb
     result = Cb.response(params[:DATA])
-    if cookies.signed.encrypted[:type] == "don"
+    if session[:type] == "don"
       @type_don = true
 
-      @don = Don.find(cookies.signed.encrypted[:don_id])
+      @don = Don.find(session[:don_id])
       @user = UserLike.new(@don.donor_name, @don.donor_surname, @don.donor_mail)
 
       @payment = valid_don_cb(result, @don)
-      cookies.delete :type
-      cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
+      @rounds = MoneyDivision.all
       generate_pdf(@payment, "carte", true)
-      redirect_to cb_validation_path
+
+      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+
       render "users/confirmations/confirm"
 
-    elsif cookies.signed.encrypted[:type] == "adhesion"
+    elsif session[:type] == "adhesion"
       @type_don = false
 
       @user = createUserCard(result, cookies.signed.encrypted[:id])
 
       if @user.save
         CacheUser.where(email: @user.email).destroy_all
-        cookies.delete :amount
-        cookies.delete :id
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "paypal")
         render 'users/registrations/new'
@@ -70,8 +68,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       cookies.delete :type
       cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
+      @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
+
+      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+
       render "users/confirmations/confirm"
 
     elsif cookies.signed.encrypted[:type] == "adhesion"
@@ -121,8 +122,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       cookies.delete :type
       cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
+      @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
+
+      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+
       render "users/confirmations/confirm"
 
     elsif cookies.signed.encrypted[:type] == "adhesion"
@@ -153,8 +157,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       @payment_option = 'cheque'
       cookies.delete :type
       cookies.delete :don_id
-      ConfirmMailer.success_subscription(@user).deliver_now
+      @rounds = MoneyDivision.all
       generate_pdf(@payment, "paypal", true)
+
+      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+
       render "users/confirmations/confirm"
 
     elsif cookies.signed.encrypted[:type] == "adhesion"
@@ -257,6 +264,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @filename ||= "#{Rails.root}/public/pdfs/#{payment.hash}.pdf"
     @save_path ||= Rails.root.join('public/pdfs', payment.hash.to_s + '.pdf')
     @access_path ||= "pdfs/#{payment.hash}.pdf"
+    @url_path ||= Settings.base.url+"/"+@access_path
 
     File.open(@save_path, 'wb') do |file|
       file << @pdf

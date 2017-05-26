@@ -3,7 +3,7 @@ require 'open3'
 module Cb
   extend ActiveSupport::Concern
 
-  def self.request(amount)
+  def self.request(amount, type, id)
 
     file = File.join(Rails.root, 'bin')
 
@@ -22,7 +22,7 @@ module Cb
 
     stdin, stdout, stderr = Open3.popen3(cmd)
     result = stdout.read[4..-1]
-    return  result.tr('!','')
+    return result.tr('!','')
 
   end
 

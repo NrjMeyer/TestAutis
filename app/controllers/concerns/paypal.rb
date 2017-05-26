@@ -16,7 +16,7 @@ module Paypal
     )['access_token']
   end
 
-  def self.simplePayment(token, amount)
+  def self.simplePayment(token, amount, type)
     HTTParty.post('https://api.sandbox.paypal.com/v1/payments/payment',
       headers: {
         'Content-Type' => 'application/json',
@@ -36,7 +36,7 @@ module Paypal
             "total": amount.to_s,
             "currency": "EUR"
           },
-          "description": "Adhésion à vaincre l'autisme pour un montant de " + amount.to_s + "€."
+          "description": "#{type} à vaincre l'autisme pour un montant de " + amount.to_s + "€."
         }]
       }.to_json)
   end
@@ -45,12 +45,13 @@ module Paypal
 
     if don == false
       monthly_amount = amount / 12
+      name = "Adhésion vaincre l\'autisme"
+      description = "Payement de votre adhésion vraincre l\'autisme sur 12 mois pour "+amount.to_s+"€"
     else
       monthly_amount = amount
+      name = "Don à vaincre l\'autisme"
+      description = "Don récurrent à vaincre l\'autisme de "+amount.to_s+"€ sur 12 mois"
     end
-
-    name = "Adhésion vaincre l\'autisme"
-    description = "Payement de votre adhésion vraincre l\'autisme sur 12 mois pour "+amount.to_s+"€"
 
     response = HTTParty.post('https://api.sandbox.paypal.com/v1/payments/billing-plans/',
       headers: {

@@ -63,12 +63,12 @@ class CacheUsersController < ApplicationController
     if !monthly
       if payment_option == "paypal"
         token = Paypal.get_token
-        payment_data = Paypal.simplePayment(token, total_payment_amount)
+        payment_data = Paypal.simplePayment(token, total_payment_amount, "Don")
         @user.payment_id = payment_data['id']
         @user.payment_amount = total_payment_amount
       elsif payment_option == "debit"
         token = Slimpay.get_token
-        payment_data = Slimpay.simpleIbanPayment(token, total_payment_amount, @user.email)
+        payment_data = Slimpay.simpleIbanPayment(token, total_payment_amount, @user)
         payment_json = JSON.parse(payment_data)
         @user.payment_id = payment_json['reference']
         slimpay_payment = SlimpayPayment.create(
@@ -89,7 +89,7 @@ class CacheUsersController < ApplicationController
     else
       if payment_option == 'debit'
         token = Slimpay.get_token
-        payment_data = Slimpay.recurringIbanPayment(token, total_payment_amount, @user.email)
+        payment_data = Slimpay.recurringIbanPayment(token, total_payment_amount, @user)
         payment_json = JSON.parse(payment_data)
         slimpay_payment = SlimpayPayment.create(
           payment_reference: payment_json['reference'],
@@ -140,6 +140,6 @@ class CacheUsersController < ApplicationController
   end
 
   def payment
-    render :text => Cb.request(cookies.signed.encrypted[:amount])
+    render :text => Cb.request(cookies.signed.encrypted[:amount], cookies.signed.encrypted[:type], cookies.signed.encrypted[:id])
   end
 end
