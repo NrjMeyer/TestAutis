@@ -5,6 +5,7 @@ class ConfirmMailer < ApplicationMailer
     @pdf_url = path
     @pdf = pdf
     @don = don
+    @user = user
     if don == true
       mail(to: @user.email, subject: 'Un immense merci pour votre don !')
     else
