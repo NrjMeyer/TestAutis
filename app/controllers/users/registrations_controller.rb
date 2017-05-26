@@ -18,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def auto_response
     Cb.autoresponse(params[:DATA])
-    render :text => "coucou"
+    redirect_to root_path
   end
 
   def new_cb
