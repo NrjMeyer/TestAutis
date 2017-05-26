@@ -156,9 +156,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       cookies.delete :type
       cookies.delete :don_id
       @rounds = MoneyDivision.all
-      generate_pdf(@payment, "paypal", true)
 
-      ConfirmMailer.success_subscription(@user, @url_path, @don.fiscal_mail, true).deliver_now
+      ConfirmMailer.success_subscription(@user, nil, false, true).deliver_now
 
       render "users/confirmations/confirm"
 
@@ -225,7 +224,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         @payment = ChequePayment.where(user_id: @user.id).last
         ConfirmMailer.success_subscription(@user).deliver_now
-        generate_pdf(@payment, "cheque")
         render 'users/confirmations/confirm'
       elsif @user.payment_option == "card"
 

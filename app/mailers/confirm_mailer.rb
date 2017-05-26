@@ -1,7 +1,7 @@
 class ConfirmMailer < ApplicationMailer
   default from: 'dons-adhesions@vaincrelautisme.org'
 
-  def success_subscription(user, path, pdf = false, don = false)
+  def success_subscription(user, path = nil, pdf = false, don = false)
     @pdf_url = path
     @pdf = pdf
     @don = don
