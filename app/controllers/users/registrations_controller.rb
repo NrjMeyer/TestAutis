@@ -83,24 +83,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         if @user.save
           CacheUser.where(email: @user.email).destroy_all
-          render 'users/registrations/new'
+          render 'users/registrations/new' and return
         else
           puts @user.errors.inspect
-          render 'cache_users/error'
+          render 'cache_users/error' and return
         end
       else
         @user = createUserPaypal(params) or return
 
         if @user.save
           CacheUser.where(email: @user.email).destroy_all
-          render 'users/registrations/new'
+          render 'users/registrations/new' and return
         else
           puts @user.errors.inspect
-          render 'cache_users/error'
+          render 'cache_users/error' an
         end
       end
-
-      render "users/confirmations/confirm"
     end
   end
 
