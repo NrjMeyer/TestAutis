@@ -92,7 +92,7 @@
                 <%= label_tag('formule_'+offer.id.to_s, "choisir cette formule", {class: ['btn', 'btn__choose'], :data => {:price => offer.amount}}) %>
               <% end %>
 
-              <div class="btn btn__perks" data-perks="1">voir les avantages</div>
+              <div class="btn btn__perks" data-perks="<%= offer.id %>">voir les avantages</div>
             </div>
           </div>
           <div class="choice__info">
