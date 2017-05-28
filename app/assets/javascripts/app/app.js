@@ -80,6 +80,7 @@ var App = function (isSubscription) {
     _initEvents();
     _fixedElement();
     _initSelects();
+    _handleMonthlyOnBack();
 
     if (isSubscription) {
       _checkThirdSection();
@@ -114,6 +115,25 @@ var App = function (isSubscription) {
     $optionsInput.on('change', _showMonthlyPrice);
     $donationsOptions.on('change', _showMonthlyPrice);
     $donationInput.on('input', throttle(_updateDonationPrice, 250));
+
+  };
+
+  var _handleMonthlyOnBack = function () {
+
+    if ($optionsInput.is(':checked')) {
+      var checked = $("input[name='monthly']:checked");
+      
+      if (checked.hasClass('monthly')) {
+        if (isSubscription) {
+          $monthlySpans.addClass('active');
+        } else {
+          $monthlySpans.addClass('active');
+          $donationSpan.addClass('active');
+        }
+
+        monthlyPayment = true;
+      };
+    };
 
   };
 
@@ -248,7 +268,8 @@ var App = function (isSubscription) {
         displaySection(1);
       }
     }
-  }
+  };
+
   var _checkThirdSection = function () {
 
     $thirdSectionInputs.on('change input', throttle(function () {
