@@ -32,6 +32,7 @@ $(document).on('turbolinks:load', function () {
   var addMember = new FamilyMember(app);
   var hideMonthly = new HideMonthly(app);
   var togglePayments = new TogglePayments();
+  var displayOnBack = new DisplayOnBack(app, isSubscription);
 
   if (!isSubscription) {
     var showForm = new ShowForm(app);
