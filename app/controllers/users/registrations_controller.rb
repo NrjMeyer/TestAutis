@@ -40,7 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     elsif session[:type] == "adhesion"
       @type_don = false
 
-      @user = createUserCard(result, cookies.signed.encrypted[:id])
+      @user = createUserCard(result, session[:id])
       session[:type] = nil
 
       if @user.save
