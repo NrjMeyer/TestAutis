@@ -264,7 +264,7 @@ var App = function (isSubscription) {
 
   var _checkFirstSection = function () {
     if ($("input[name='monthly']:checked").val()) {
-      if ($("input[name='formule']:checked").val() || $("input[name='formule_custom']:checked").val()) {
+      if ($("input[name='formule']:checked").val()) {
         displaySection(1);
       }
     }
