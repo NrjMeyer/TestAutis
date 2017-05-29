@@ -328,11 +328,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def createUserCard(param, session_id)
     @cache_user = CacheUser.find(session_id)
 
-    if user_already_exist(@cache_user.email)
-      CacheUser.where(email: @cache_user.email).destroy_all
-      redirect_to erreur_path and return
-    end
-
     password = Encrypt.decryption(@cache_user.password)
     @user = User.create(
       email: @cache_user.email,
@@ -360,11 +355,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
     converted_amount = param[5].to_i / 100
 
     payment = CardPayment.create(user_id: @user.id, amount: converted_amount, payment_reference: param[6])
+
+    @user.save
+
     side_users = SideUser.where(cache_user_id: @cache_user.id)
 
     side_users.each do |side_user|
       side_user.user_id = @user.id
       side_user.save
+    end
+
+    if user_already_exist(@cache_user.email)
+      CacheUser.where(email: @cache_user.email).destroy_all
+      redirect_to erreur_path and return
     end
 
     return @user
