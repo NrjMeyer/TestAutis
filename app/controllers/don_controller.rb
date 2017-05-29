@@ -26,8 +26,8 @@ class DonController < ApplicationController
 
     cookies.signed.encrypted[:type] = "don"
 
-    if params[:formule_custom] != nil
-      amount = params[:formule_custom].to_i
+    if params[:formule] < 0
+      amount = params[:formule_custom].to_i.abs
     else
       amount = OfferDon.find(params[:formule]).amount
     end
