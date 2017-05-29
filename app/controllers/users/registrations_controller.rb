@@ -45,8 +45,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
       if @user.save
         CacheUser.where(email: @user.email).destroy_all
-        ConfirmMailer.success_subscription(@user).deliver_now
-        generate_pdf(@user.card_payments.last, "carte")
         render 'users/registrations/new'
       else
         render 'cache_users/error'
@@ -194,6 +192,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if cookies.signed.encrypted[:user_id]
       @user = User.find(cookies.signed.encrypted[:user_id])
       cookies.delete :user_id
+    elsif session[:id] != nil
+      @user = User.find(session[:id])
+      session[:id] = nil
     elsif current_user
       @user = current_user
     else
