@@ -200,8 +200,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       redirect_to root_path
     end
+    
 
     if @user
+      @type_don = false
 
       if @user.payment_option == 'paypal'
 
@@ -243,9 +245,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
 
         @payment = CardPayment.where(user_id: @user.id).last
-        puts '-----------------------------------------'
-        puts @payment.inspect
-        puts '-----------------------------------------'
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "carte")
         render 'users/confirmations/confirm'
