@@ -325,8 +325,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def createUserCard(param, cookie_id)
-    @cache_user = CacheUser.find_by(payment_id: cookie_id)
+  def createUserCard(param, session_id)
+    @cache_user = CacheUser.find(session_id)
 
     if user_already_exist(@cache_user.email)
       CacheUser.where(email: @cache_user.email).destroy_all
