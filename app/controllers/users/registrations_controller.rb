@@ -46,7 +46,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if @user.save
         CacheUser.where(email: @user.email).destroy_all
         ConfirmMailer.success_subscription(@user).deliver_now
-        generate_pdf(@payment, "paypal")
+        generate_pdf(@user.card_payments.last, "carte")
         render 'users/registrations/new'
       else
         render 'cache_users/error'
@@ -361,7 +361,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     payment = CardPayment.create(user_id: @user.id, amount: converted_amount, payment_reference: param[6])
 
-    @user.offer_id = payment.id
     @user.save
 
     side_users = SideUser.where(cache_user_id: @cache_user.id)
