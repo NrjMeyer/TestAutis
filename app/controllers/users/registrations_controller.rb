@@ -241,11 +241,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
         render 'users/confirmations/confirm'
       elsif @user.payment_option == "card"
 
-        puts '-----------------------------------------'
-        puts @user.inspect
-        puts '-----------------------------------------'
 
         @payment = CardPayment.where(user_id: @user.id).last
+        puts '-----------------------------------------'
+        puts @payment.inspect
+        puts '-----------------------------------------'
         ConfirmMailer.success_subscription(@user).deliver_now
         generate_pdf(@payment, "carte")
         render 'users/confirmations/confirm'
