@@ -328,6 +328,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def createUserCard(param, session_id)
     @cache_user = CacheUser.find(session_id)
 
+    if user_already_exist(@cache_user.email)
+      CacheUser.where(email: @cache_user.email).destroy_all
+      redirect_to erreur_path and return
+    end
+
     password = Encrypt.decryption(@cache_user.password)
     @user = User.create(
       email: @cache_user.email,
@@ -363,11 +368,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     side_users.each do |side_user|
       side_user.user_id = @user.id
       side_user.save
-    end
-
-    if user_already_exist(@cache_user.email)
-      CacheUser.where(email: @cache_user.email).destroy_all
-      redirect_to erreur_path and return
     end
 
     return @user
@@ -592,7 +592,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def user_already_exist(email)
     user = User.where(email: email).last
-    if user. != nil
+    if user != nil
       return true
     else
       return false
