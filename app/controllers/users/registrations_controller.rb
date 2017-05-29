@@ -360,9 +360,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     converted_amount = param[5].to_i / 100
 
     payment = CardPayment.create(user_id: @user.id, amount: converted_amount, payment_reference: param[6])
-
-    @user.save
-
     side_users = SideUser.where(cache_user_id: @cache_user.id)
 
     side_users.each do |side_user|
