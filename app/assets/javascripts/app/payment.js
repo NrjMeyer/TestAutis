@@ -30,8 +30,8 @@ var Payment = function () {
     var target = $(e.target),
         targetOption;
 
-    if (target.hasClass('label')) {
-      target = target.parent();
+    if (target.hasClass('label') || target.is('svg') || target.is('path')) {
+      target = target.closest('.payment__option');
     }
 
     if (!$paymentOptions.hasClass('payment__option--selected')) {

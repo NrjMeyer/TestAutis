@@ -91,7 +91,7 @@ var App = function (isSubscription) {
     }
 
     // hide sections
-    $('.js-hidden').addClass('hidden');
+    //$('.js-hidden').addClass('hidden');
 
   };
 
@@ -122,7 +122,7 @@ var App = function (isSubscription) {
 
     if ($optionsInput.is(':checked')) {
       var checked = $("input[name='monthly']:checked");
-      
+
       if (checked.hasClass('monthly')) {
         if (isSubscription) {
           $monthlySpans.addClass('active');
