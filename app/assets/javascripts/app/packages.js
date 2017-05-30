@@ -40,7 +40,7 @@ var Packages = function (app, isSubscription) {
     }
 
     $donationLabel.attr('data-price', inputValue);
-    $freeDonInput.attr('value', inputValue);
+    $freeDonInput.attr('value', '-' + inputValue);
     $promoDonation.html(app.toFixed(inputValue * (66 / 100), 2) + '€');
   };
 
