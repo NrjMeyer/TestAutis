@@ -7,10 +7,10 @@
         <ul class="menu">
 
           <li class="menu__item menu__item--border">
-            <a href="http://vaincrelautisme.org/sites/default/files/bulletin%202017.pdf" target="_blank">
+            <%= link_to root_url+"Coupon_Don_et_Prelevement_mensuel_2017.pdf", target: "_blank" do %>
               <%= embedded_svg "icons/download.svg", class: "icon-download" %>
               <span>Formulaire papier</span>
-            </a>
+            <% end %>
           </li>
 
           <li class="menu__item menu__item--border">
